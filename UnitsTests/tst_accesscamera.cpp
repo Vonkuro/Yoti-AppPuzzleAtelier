@@ -1,5 +1,5 @@
 #include <QtTest>
-
+//#include "../App/cameraLibrary.h"
 
 // add necessary includes here
 
@@ -40,7 +40,7 @@ void AccessCamera::cleanupTestCase()
 
 void AccessCamera::test_case1()
 {
-    //QVERIFY(true);
+//    QVERIFY(cameraLibrary::checkWebcamAvailable());
 }
 
 QTEST_APPLESS_MAIN(AccessCamera)
