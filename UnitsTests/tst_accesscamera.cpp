@@ -1,5 +1,6 @@
 #include <QtTest>
 
+
 // add necessary includes here
 
 class AccessCamera : public QObject
@@ -39,7 +40,7 @@ void AccessCamera::cleanupTestCase()
 
 void AccessCamera::test_case1()
 {
-    QVERIFY("HELLO TEST" == "HELLO TEST");
+    //QVERIFY(true);
 }
 
 QTEST_APPLESS_MAIN(AccessCamera)
