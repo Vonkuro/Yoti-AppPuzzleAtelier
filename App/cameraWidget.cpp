@@ -6,11 +6,13 @@ CameraWidget::CameraWidget(QWidget *parent) :
     ui(new Ui::CameraWidget)
 {
     ui->setupUi(this);
+
 }
 
 CameraWidget::~CameraWidget()
 {
     delete ui;
+    //delete webcam;
 }
 
 
@@ -26,8 +28,28 @@ void CameraWidget::test()
 {
     if (checkWebcamAvailable())
     {
-        QString message = "oui";
-        ui->messageTestLabel->setText(message);
+        webcamView();
+
     }
+
+}
+
+void CameraWidget::webcamView()
+{
+// init of attributs for view of the webcam
+    webcam = new QCamera;
+    webcamViewfinder = new QCameraViewfinder;
+    viewfinderSettings.setResolution(1280, 960);
+
+//Linking webcam to the widget
+    webcam->setViewfinderSettings(viewfinderSettings);
+    webcam->setViewfinder(webcamViewfinder);
+    webcamImageCapture = new QCameraImageCapture(webcam, this);
+
+//Starting the view
+    webcam->start();
+    ui->webcamLayout->addWidget(webcamViewfinder);
+    this->setLayout(ui->webcamLayout);
+
 
 }
