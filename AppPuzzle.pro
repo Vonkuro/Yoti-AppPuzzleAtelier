@@ -25,10 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainWidget.cpp
+        mainWidget.cpp \
+    UnitsTests/tst_accesscamera.cpp \
+    main.cpp \
+    mainWidget.cpp
 
 HEADERS += \
-        mainWidget.h
+        mainWidget.h \
+    mainWidget.h
 
 FORMS += \
         mainWidget.ui
+
+SUBDIRS += \
+    UnitsTests/UnitsTests.pro
