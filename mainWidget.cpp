@@ -12,3 +12,8 @@ MainWidget::~MainWidget()
 {
     delete ui;
 }
+
+bool MainWidget::testDeTest()
+{
+    return true;
+}

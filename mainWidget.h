@@ -13,6 +13,7 @@ class MainWidget : public QWidget
 
 public:
     explicit MainWidget(QWidget *parent = 0);
+    bool testDeTest();
     ~MainWidget();
 
 private:
