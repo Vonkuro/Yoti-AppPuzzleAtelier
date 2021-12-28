@@ -13,6 +13,8 @@ MasterWidget::~MasterWidget()
     delete ui;
 }
 
+
+//this function is there in order to test if the unit-test setup is correct
 bool MasterWidget::testDuTest()
 {
     return true;

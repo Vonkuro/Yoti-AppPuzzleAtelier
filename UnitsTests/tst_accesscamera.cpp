@@ -28,16 +28,19 @@ AccessCamera::~AccessCamera()
 
 }
 
+//set up the common arrange
 void AccessCamera::initTestCase()
 {
 
 }
 
+//clean up the common arrange
 void AccessCamera::cleanupTestCase()
 {
 
 }
 
+//first test, it will pass if the unit-test are correctly setup
 void AccessCamera::test_case1()
 {
 //    QVERIFY(cameraLibrary::checkWebcamAvailable());

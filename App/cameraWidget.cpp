@@ -39,7 +39,7 @@ void CameraWidget::webcamView()
 // init of attributs for view of the webcam
     webcam = new QCamera;
     webcamViewfinder = new QCameraViewfinder;
-    viewfinderSettings.setResolution(1280, 960);
+    viewfinderSettings.setResolution(1280, 960); //<- here for size of the viewFinder Widget created from webcamViewfinder
 
 //Linking webcam to the widget
     webcam->setViewfinderSettings(viewfinderSettings);

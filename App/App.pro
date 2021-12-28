@@ -7,12 +7,12 @@ TEMPLATE = app
 SOURCES += \
         main.cpp \
         masterWidget.cpp \
-    cameraWidget.cpp
+        cameraWidget.cpp
 
 HEADERS += \
         masterWidget.h \
-    cameraWidget.h
+        cameraWidget.h
 
 FORMS += \
         masterWidget.ui \
-    cameraWidget.ui
+        cameraWidget.ui

@@ -19,12 +19,13 @@ public:
 
 private:
     Ui::CameraWidget *ui;
-    //objects managers of webcam
+//objects managers of webcam
     QCamera* webcam;
     QCameraViewfinder* webcamViewfinder;
     QCameraImageCapture* webcamImageCapture;
     QCameraViewfinderSettings viewfinderSettings;
 
+//methods controll of webcam
     bool checkWebcamAvailable();
     void webcamView();
 
