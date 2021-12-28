@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include "widgets_global.h"
 #include "cameraWidget.h"
+#include "savePuzzleWidget.h"
 
 
 class MasterWidget : public QWidget
@@ -23,12 +24,14 @@ private:
     QStackedWidget* masterStackedWidget;
 // Widgets
     QWidget* blank;
+    SavePuzzleWidget* savePuzzleWidget;
     CameraWidget* cameraWidget;
 // methods
 
 
 public slots:
     void gotToWebcam();
+    void gotToSavePuzzle();
 
 };
 

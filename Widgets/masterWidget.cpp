@@ -12,9 +12,11 @@ MasterWidget::MasterWidget(QWidget *parent) :
 
 // loading Widgets
     blank = new QWidget;
+    savePuzzleWidget = new SavePuzzleWidget;
     cameraWidget = new CameraWidget;
 
     masterStackedWidget->addWidget(blank);
+    masterStackedWidget->addWidget(savePuzzleWidget);
     masterStackedWidget->addWidget(cameraWidget);
 }
 
@@ -38,9 +40,14 @@ void MasterWidget::gotToWebcam()
     masterStackedWidget->setCurrentWidget(cameraWidget);
 }
 
+void MasterWidget::gotToSavePuzzle()
+{
+    masterStackedWidget->setCurrentWidget(savePuzzleWidget);
+}
+
 void MasterWidget::test()
 {
     QPushButton* buttonTest = new QPushButton;
     masterLayout->addWidget(buttonTest);
-    connect(buttonTest, &QPushButton::clicked, this, &MasterWidget::gotToWebcam);
+    connect(buttonTest, &QPushButton::clicked, this, &MasterWidget::gotToSavePuzzle);
 }
