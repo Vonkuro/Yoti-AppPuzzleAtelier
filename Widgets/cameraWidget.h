@@ -3,10 +3,7 @@
 
 #include <QWidget>
 #include <QtMultimediaWidgets>
-
-namespace Ui {
-class CameraWidget;
-}
+#include "widgets_global.h"
 
 class CameraWidget : public QWidget
 {
@@ -18,7 +15,6 @@ public:
     void test();
 
 private:
-    Ui::CameraWidget *ui;
 //objects managers of webcam
     QCamera* webcam;
     QCameraViewfinder* webcamViewfinder;

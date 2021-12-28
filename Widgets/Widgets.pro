@@ -1,11 +1,17 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2021-12-27T10:44:24
+# Project created by QtCreator 2021-12-28T08:40:28
 #
 #-------------------------------------------------
 
-TARGET = AppPuzzle
-TEMPLATE = subdirs
+QT       += gui widgets multimedia multimediawidgets sql
+
+TARGET = Widgets
+TEMPLATE = lib
+
+
+
+DEFINES += WIDGETS_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -18,15 +24,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+SOURCES += \
+        scannerWidget.cpp \
+        masterWidget.cpp \
+        cameraWidget.cpp
 
-CONFIG += ordered
+HEADERS += \
+        scannerWidget.h \
+        widgets_global.h \
+        masterWidget.h \
+        cameraWidget.h
 
-SUBDIRS += \
-    Widgets \
-    App \
-    UnitsTests\
+FORMS +=
 
 
+unix {
+    target.path = /usr/lib
+    INSTALLS += target
+}
 
-UnitsTests.depends = Widgets
-App.depends = Widgets
+FORMS +=

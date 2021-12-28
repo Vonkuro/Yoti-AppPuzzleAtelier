@@ -1,17 +1,13 @@
 #include "cameraWidget.h"
-#include "ui_cameraWidget.h"
 
 CameraWidget::CameraWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::CameraWidget)
+    QWidget(parent)
 {
-    ui->setupUi(this);
 
 }
 
 CameraWidget::~CameraWidget()
 {
-    delete ui;
     //delete webcam;
 }
 
@@ -48,8 +44,6 @@ void CameraWidget::webcamView()
 
 //Starting the view
     webcam->start();
-    ui->webcamLayout->addWidget(webcamViewfinder);
-    this->setLayout(ui->webcamLayout);
 
 
 }

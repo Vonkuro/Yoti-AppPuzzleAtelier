@@ -6,13 +6,15 @@ TEMPLATE = app
 
 SOURCES += \
         main.cpp \
-        masterWidget.cpp \
-        cameraWidget.cpp
+
 
 HEADERS += \
-        masterWidget.h \
-        cameraWidget.h
 
-FORMS += \
-        masterWidget.ui \
-        cameraWidget.ui
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Widgets/release/ -lWidgets
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Widgets/debug/ -lWidgets
+else:unix: LIBS += -L$$OUT_PWD/../Widgets/ -lWidgets
+
+INCLUDEPATH += $$PWD/../Widgets
+DEPENDPATH += $$PWD/../Widgets

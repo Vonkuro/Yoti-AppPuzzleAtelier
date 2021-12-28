@@ -2,10 +2,9 @@
 #define MASTERWIDGET_H
 
 #include <QWidget>
+#include <QtWidgets>
+#include "widgets_global.h"
 
-namespace Ui {
-class MasterWidget;
-}
 
 class MasterWidget : public QWidget
 {
@@ -17,7 +16,8 @@ public:
     bool testDuTest();
 
 private:
-    Ui::MasterWidget *ui;
+    QHBoxLayout* masterLayout;
+    QStackedWidget* masterStackedWidget;
 };
 
 #endif // MASTERWIDGET_H

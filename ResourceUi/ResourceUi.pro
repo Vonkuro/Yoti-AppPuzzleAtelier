@@ -1,11 +1,15 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2021-12-27T10:44:24
+# Project created by QtCreator 2021-12-28T09:41:42
 #
 #-------------------------------------------------
 
-TARGET = AppPuzzle
-TEMPLATE = subdirs
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = ResourceUi
+TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -19,14 +23,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-CONFIG += ordered
+SOURCES += \
+        main.cpp \
+        mainwindow.cpp
 
-SUBDIRS += \
-    Widgets \
-    App \
-    UnitsTests\
+HEADERS += \
+        mainwindow.h
 
-
-
-UnitsTests.depends = Widgets
-App.depends = Widgets
+FORMS += \
+        mainwindow.ui
