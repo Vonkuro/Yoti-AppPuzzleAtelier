@@ -1,5 +1,6 @@
 #include <QtTest>
-
+#include <QApplication>
+#include "masterWidget.h"
 
 // add necessary includes here
 
@@ -14,7 +15,7 @@ public:
 private slots:
     void initTestCase();
     void cleanupTestCase();
-    void test_case1();
+    void test_case1(int argc, char *argv[]);
 
 };
 
@@ -28,19 +29,24 @@ AccessCamera::~AccessCamera()
 
 }
 
+//set up the common arrange
 void AccessCamera::initTestCase()
 {
 
 }
 
+//clean up the common arrange
 void AccessCamera::cleanupTestCase()
 {
 
 }
 
-void AccessCamera::test_case1()
+//first test, it will pass if the unit-test are correctly setup
+void AccessCamera::test_case1(int argc, char *argv[])
 {
-    //QVERIFY(true);
+    QApplication a(argc, argv);
+    MasterWidget* master = new MasterWidget;
+    QVERIFY(master->testDuTest());
 }
 
 QTEST_APPLESS_MAIN(AccessCamera)
