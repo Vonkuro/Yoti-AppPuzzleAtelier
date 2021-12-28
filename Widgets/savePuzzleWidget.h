@@ -11,13 +11,15 @@ class SavePuzzleWidget : public QWidget
     Q_OBJECT
 public:
     SavePuzzleWidget();
+    ~SavePuzzleWidget();
 
 private:
+    // View
     QVBoxLayout* widgetLayout;
     QFormLayout* formLayout;
 
     QLabel* barcodeLabel;
-    QLineEdit* barcodeSpinBox;
+    QLineEdit*  barcodeLineEdit;
 
     QLabel* descriptionLabel;
     QTextEdit* descriptionTextEdit;
@@ -26,8 +28,18 @@ private:
 
     void form();
 
+    // Validation
     bool descriptionValid(QString description);
     bool barcodeValid(QString barcode);
+
+    // database
+    EnvLocal dataWrapper;
+
+    // methods
+    long long int manageBarcode();
+
+private slots:
+    void save();
 
 };
 
