@@ -35,12 +35,9 @@ HEADERS += \
         masterWidget.h \
         cameraWidget.h
 
-FORMS +=
 
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
-
-FORMS +=

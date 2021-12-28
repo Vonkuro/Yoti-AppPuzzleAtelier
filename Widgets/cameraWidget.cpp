@@ -3,12 +3,15 @@
 CameraWidget::CameraWidget(QWidget *parent) :
     QWidget(parent)
 {
-
+    webcamView();
 }
 
 CameraWidget::~CameraWidget()
 {
-    //delete webcam;
+    delete webcam;
+    delete webcamViewfinder;
+    delete webcamImageCapture;
+    delete cameraLayout;
 }
 
 
@@ -43,7 +46,8 @@ void CameraWidget::webcamView()
     webcamImageCapture = new QCameraImageCapture(webcam, this);
 
 //Starting the view
+    cameraLayout = new QVBoxLayout;
+    cameraLayout->addWidget(webcamViewfinder);
     webcam->start();
-
-
+    this->setLayout(cameraLayout);
 }

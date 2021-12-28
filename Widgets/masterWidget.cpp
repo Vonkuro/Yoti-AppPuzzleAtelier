@@ -9,12 +9,21 @@ MasterWidget::MasterWidget(QWidget *parent) :
 
     masterLayout->addWidget(masterStackedWidget);
     setLayout(masterLayout);
+
+// loading Widgets
+    blank = new QWidget;
+    cameraWidget = new CameraWidget;
+
+    masterStackedWidget->addWidget(blank);
+    masterStackedWidget->addWidget(cameraWidget);
 }
 
 MasterWidget::~MasterWidget()
 {
+    delete blank;
     delete masterLayout;
     delete masterStackedWidget;
+    delete cameraWidget;
 }
 
 
@@ -22,4 +31,16 @@ MasterWidget::~MasterWidget()
 bool MasterWidget::testDuTest()
 {
     return true;
+}
+
+void MasterWidget::gotToWebcam()
+{
+    masterStackedWidget->setCurrentWidget(cameraWidget);
+}
+
+void MasterWidget::test()
+{
+    QPushButton* buttonTest = new QPushButton;
+    masterLayout->addWidget(buttonTest);
+    connect(buttonTest, &QPushButton::clicked, this, &MasterWidget::gotToWebcam);
 }

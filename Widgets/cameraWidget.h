@@ -2,6 +2,7 @@
 #define CAMERAWIDGET_H
 
 #include <QWidget>
+#include <QtWidgets>
 #include <QtMultimediaWidgets>
 #include "widgets_global.h"
 
@@ -15,6 +16,9 @@ public:
     void test();
 
 private:
+//object managers of view
+    QVBoxLayout* cameraLayout;
+
 //objects managers of webcam
     QCamera* webcam;
     QCameraViewfinder* webcamViewfinder;
