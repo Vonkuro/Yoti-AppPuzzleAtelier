@@ -5,12 +5,16 @@ CameraWidget::CameraWidget(int id, QWidget *parent) :
 {
     puzzleId = id;
     lastImageId = 0;
-    pathImageDirectory = "../Images/Puzzle-" + QString::number(puzzleId);
-    newDir(pathImageDirectory);
+    pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
+    newDir("../" + pathImageDirectory);
 
     if (checkWebcamAvailable())
     {
+        photoButton = new QPushButton;
         webcamView();
+        cameraLayout->addWidget(photoButton);
+        this->setLayout(cameraLayout);
+        connect(photoButton, &QPushButton::clicked, this, &CameraWidget::takePhoto);
     }
 }
 
@@ -34,6 +38,7 @@ bool CameraWidget::checkWebcamAvailable()
 void CameraWidget::test()
 {
 
+    takePhoto();
 }
 
 void CameraWidget::webcamView()
@@ -47,12 +52,13 @@ void CameraWidget::webcamView()
     webcam->setViewfinderSettings(viewfinderSettings);
     webcam->setViewfinder(webcamViewfinder);
     webcamImageCapture = new QCameraImageCapture(webcam, this);
+    webcam->setCaptureMode(QCamera::CaptureStillImage);
+
 
 //Starting the view
     cameraLayout = new QVBoxLayout;
     cameraLayout->addWidget(webcamViewfinder);
 
-    this->setLayout(cameraLayout);
 }
 
 void CameraWidget::start()
@@ -71,7 +77,17 @@ void CameraWidget::newDir(QString dirPath)
     QDir dir2;
     if(!dir.exists())
     {
-        qDebug() << "création du répertoire " << dirPath;
-        qDebug() << dir2.mkpath(dirPath);
+        dir2.mkpath(dirPath);
     }
 }
+
+void CameraWidget::takePhoto()
+{
+    ++lastImageId;
+    webcam->searchAndLock();
+    //
+    QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
+    webcamImageCapture->capture(imagePath);
+    webcam->unlock();
+}
+

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QtMultimediaWidgets>
+#include <unistd.h>
 #include "widgets_global.h"
 
 class CameraWidget : public QWidget
@@ -20,6 +21,7 @@ public:
 private:
 //object managers of view
     QVBoxLayout* cameraLayout;
+    QPushButton* photoButton;
 
 //objects managers of webcam
     QCamera* webcam;
@@ -36,6 +38,9 @@ private:
     void webcamView();
 // methods
     void newDir(QString dirPath);
+
+private slots:
+    void takePhoto();
 
 };
 
