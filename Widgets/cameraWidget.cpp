@@ -4,6 +4,10 @@ CameraWidget::CameraWidget(int id, QWidget *parent) :
     QWidget(parent)
 {
     puzzleId = id;
+    lastImageId = 0;
+    pathImageDirectory = "../Images/Puzzle-" + QString::number(puzzleId);
+    newDir(pathImageDirectory);
+
     if (checkWebcamAvailable())
     {
         webcamView();
@@ -59,4 +63,15 @@ void CameraWidget::start()
 void CameraWidget::stop()
 {
     webcam->stop();
+}
+
+void CameraWidget::newDir(QString dirPath)
+{
+    QDir dir(dirPath);
+    QDir dir2;
+    if(!dir.exists())
+    {
+        qDebug() << "création du répertoire " << dirPath;
+        qDebug() << dir2.mkpath(dirPath);
+    }
 }

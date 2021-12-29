@@ -29,9 +29,13 @@ private:
 
 // attributs
     int puzzleId;
+    int lastImageId;
+    QString pathImageDirectory;
 //methods controll of webcam
     bool checkWebcamAvailable();
     void webcamView();
+// methods
+    void newDir(QString dirPath);
 
 };
 
