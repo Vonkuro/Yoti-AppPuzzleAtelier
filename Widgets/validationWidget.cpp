@@ -16,7 +16,7 @@ ValidationWidget::ValidationWidget(QWidget *parent) : QWidget(parent)
 
     this->setLayout(widgetLayout);
 
-    imageLabel->setText("PlaceHolder");
+
     validButton->setText("Valide");
     cancelButton->setText("Invalide");
 

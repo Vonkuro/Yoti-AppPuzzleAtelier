@@ -13,11 +13,13 @@ MasterWidget::MasterWidget(QWidget *parent) :
 // loading Widgets
     blank = new QWidget;
     savePuzzleWidget = new SavePuzzleWidget;
+    cameraWidget = new CameraWidget();
     validationWidget = new ValidationWidget;
 
 
     masterStackedWidget->addWidget(blank);
     masterStackedWidget->addWidget(savePuzzleWidget);
+    masterStackedWidget->addWidget(cameraWidget);
     masterStackedWidget->addWidget(validationWidget);
 
 }
@@ -38,11 +40,12 @@ bool MasterWidget::testDuTest()
     return true;
 }
 
-void MasterWidget::startWebcam(int id)
+void MasterWidget::gotToWebcam(int id)
 {
-    cameraWidget = new CameraWidget(id);
-    masterStackedWidget->addWidget(cameraWidget);
-    gotToWebcam();
+    masterStackedWidget->setCurrentWidget(cameraWidget);
+
+    cameraWidget->prepare(id);
+    cameraWidget->start();
 }
 
 void MasterWidget::gotToWebcam()
@@ -57,8 +60,9 @@ void MasterWidget::gotToSavePuzzle()
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
 }
 
-void MasterWidget::gotToValidation()
+void MasterWidget::gotToValidation(int idPuzzle, int idImage)
 {
+    validationWidget->validateImageWebcam(idPuzzle, idImage);
     masterStackedWidget->setCurrentWidget(validationWidget);
 }
 
@@ -66,6 +70,9 @@ void MasterWidget::test()
 {
     QPushButton* buttonTest = new QPushButton;
     masterLayout->addWidget(buttonTest);
+
+    // these testing connect will be almost good to go for the full application
     connect(buttonTest, &QPushButton::clicked, this, &MasterWidget::gotToSavePuzzle);
-    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(startWebcam(int)));
+    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(gotToWebcam(int)));
+    connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(gotToValidation(int, int)));
 }

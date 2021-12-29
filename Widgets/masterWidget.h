@@ -32,10 +32,10 @@ private:
 
 
 public slots:
-    void startWebcam(int id);
+    void gotToWebcam(int id);
     void gotToWebcam();
     void gotToSavePuzzle();
-    void gotToValidation();
+    void gotToValidation(int idPuzzle, int idImage);
 
 };
 

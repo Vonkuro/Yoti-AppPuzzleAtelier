@@ -12,11 +12,15 @@ class CameraWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit CameraWidget(int id, QWidget *parent = 0);
+    explicit CameraWidget(QWidget *parent = 0);
     ~CameraWidget();
     void test();
+    void prepare(int id);
     void start();
     void stop();
+
+signals:
+    void photoTaken(int idPuzzle, int idImage);
 
 private:
 //object managers of view
@@ -38,9 +42,12 @@ private:
     void webcamView();
 // methods
     void newDir(QString dirPath);
+    void delay();
+
 
 private slots:
     void takePhoto();
+
 
 };
 
