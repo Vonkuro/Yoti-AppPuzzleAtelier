@@ -27,13 +27,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         scannerWidget.cpp \
         masterWidget.cpp \
-        cameraWidget.cpp
+        cameraWidget.cpp \
+    savePuzzleWidget.cpp \
+    envLocal.cpp
 
 HEADERS += \
         scannerWidget.h \
         widgets_global.h \
         masterWidget.h \
-        cameraWidget.h
+        cameraWidget.h \
+    savePuzzleWidget.h \
+    envLocal.h
 
 
 
