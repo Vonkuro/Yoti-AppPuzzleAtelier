@@ -25,7 +25,6 @@ private:
     QHBoxLayout* masterLayout;
     QStackedWidget* masterStackedWidget;
 // Widgets
-    QWidget* blank;
     HomepageWidget* homepageWidget;
     SavePuzzleWidget* savePuzzleWidget;
     CameraWidget* cameraWidget;

@@ -11,7 +11,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
     setLayout(masterLayout);
 
 // loading Widgets
-    blank = new QWidget;
     homepageWidget = new HomepageWidget;
     savePuzzleWidget = new SavePuzzleWidget;
     cameraWidget = new CameraWidget();
@@ -28,7 +27,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
 
 MasterWidget::~MasterWidget()
 {
-    delete blank;
     delete homepageWidget;
     delete masterLayout;
     delete masterStackedWidget;
@@ -71,8 +69,6 @@ void MasterWidget::gotToValidation(int idPuzzle, int idImage)
 
 void MasterWidget::test()
 {
-    QPushButton* buttonTest = new QPushButton;
-    masterLayout->addWidget(buttonTest);
 
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::gotToSavePuzzle);
