@@ -38,4 +38,5 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage)
     QString imagePath = qApp->applicationDirPath() + "/../" + "Images/Puzzle-" + QString::number(puzzleId);
     imagePath = imagePath + "/image-" + QString::number(imageId) + ".jpg";
     qDebug() << image.load(imagePath);
+    imageLabel->setPixmap(image);
 }
