@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include <QFile>
 
 class ValidationWidget : public QWidget
 {
@@ -13,8 +14,11 @@ public:
     void validateImageWebcam(int idPuzzle, int idImage);
 
 signals:
+    void newPhoto();
 
-public slots:
+private slots:
+    void valid();
+    void cancel();
 
 private:
     QHBoxLayout* widgetLayout;
@@ -28,6 +32,7 @@ private:
     int puzzleId;
     int imageId;
     QPixmap image;
+    QString imagePath;
 };
 
 #endif // VALIDATIONWIDGET_H

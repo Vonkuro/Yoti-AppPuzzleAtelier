@@ -75,4 +75,5 @@ void MasterWidget::test()
     connect(buttonTest, &QPushButton::clicked, this, &MasterWidget::gotToSavePuzzle);
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(gotToWebcam(int)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(gotToValidation(int, int)));
+    connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(gotToWebcam()));
 }

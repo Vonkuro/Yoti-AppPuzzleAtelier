@@ -16,9 +16,11 @@ ValidationWidget::ValidationWidget(QWidget *parent) : QWidget(parent)
 
     this->setLayout(widgetLayout);
 
+    connect(validButton, &QPushButton::clicked, this, &ValidationWidget::valid);
+    connect(cancelButton, &QPushButton::clicked, this, &ValidationWidget::cancel);
 
     validButton->setText("Valide");
-    cancelButton->setText("Invalide");
+    cancelButton->setText("Refuse");
 
 }
 
@@ -35,8 +37,20 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage)
 {
     puzzleId = idPuzzle;
     imageId = idImage;
-    QString imagePath = qApp->applicationDirPath() + "/../" + "Images/Puzzle-" + QString::number(puzzleId);
+    imagePath = qApp->applicationDirPath() + "/../" + "Images/Puzzle-" + QString::number(puzzleId);
     imagePath = imagePath + "/image-" + QString::number(imageId) + ".jpg";
-    qDebug() << image.load(imagePath);
+    image.load(imagePath);
     imageLabel->setPixmap(image);
+}
+
+void ValidationWidget::valid()
+{
+
+}
+
+void ValidationWidget::cancel()
+{
+    QFile imageFile(imagePath);
+    imageFile.remove();
+    emit newPhoto();
 }
