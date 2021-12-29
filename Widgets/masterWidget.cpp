@@ -13,10 +13,12 @@ MasterWidget::MasterWidget(QWidget *parent) :
 // loading Widgets
     blank = new QWidget;
     savePuzzleWidget = new SavePuzzleWidget;
+    validationWidget = new ValidationWidget;
 
 
     masterStackedWidget->addWidget(blank);
     masterStackedWidget->addWidget(savePuzzleWidget);
+    masterStackedWidget->addWidget(validationWidget);
 
 }
 
@@ -26,6 +28,7 @@ MasterWidget::~MasterWidget()
     delete masterLayout;
     delete masterStackedWidget;
     delete cameraWidget;
+    delete validationWidget;
 }
 
 
@@ -52,6 +55,11 @@ void MasterWidget::gotToWebcam()
 void MasterWidget::gotToSavePuzzle()
 {
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
+}
+
+void MasterWidget::gotToValidation()
+{
+    masterStackedWidget->setCurrentWidget(validationWidget);
 }
 
 void MasterWidget::test()
