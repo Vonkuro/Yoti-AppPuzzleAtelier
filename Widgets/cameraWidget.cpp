@@ -3,7 +3,10 @@
 CameraWidget::CameraWidget(QWidget *parent) :
     QWidget(parent)
 {
-    webcamView();
+    if (checkWebcamAvailable())
+    {
+        webcamView();
+    }
 }
 
 CameraWidget::~CameraWidget()
@@ -25,11 +28,6 @@ bool CameraWidget::checkWebcamAvailable()
 
 void CameraWidget::test()
 {
-    if (checkWebcamAvailable())
-    {
-        webcamView();
-
-    }
 
 }
 
@@ -48,6 +46,16 @@ void CameraWidget::webcamView()
 //Starting the view
     cameraLayout = new QVBoxLayout;
     cameraLayout->addWidget(webcamViewfinder);
-    webcam->start();
+
     this->setLayout(cameraLayout);
+}
+
+void CameraWidget::start()
+{
+    webcam->start();
+}
+
+void CameraWidget::stop()
+{
+    webcam->stop();
 }

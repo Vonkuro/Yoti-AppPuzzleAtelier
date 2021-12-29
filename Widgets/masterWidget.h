@@ -30,7 +30,7 @@ private:
 
 
 public slots:
-    void gotToWebcam();
+    void gotToWebcam(int id);
     void gotToSavePuzzle();
 
 };

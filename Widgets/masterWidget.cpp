@@ -35,9 +35,11 @@ bool MasterWidget::testDuTest()
     return true;
 }
 
-void MasterWidget::gotToWebcam()
+void MasterWidget::gotToWebcam(int id)
 {
     masterStackedWidget->setCurrentWidget(cameraWidget);
+
+    cameraWidget->start();
 }
 
 void MasterWidget::gotToSavePuzzle()
@@ -50,4 +52,5 @@ void MasterWidget::test()
     QPushButton* buttonTest = new QPushButton;
     masterLayout->addWidget(buttonTest);
     connect(buttonTest, &QPushButton::clicked, this, &MasterWidget::gotToSavePuzzle);
+    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(gotToWebcam(int)));
 }

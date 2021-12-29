@@ -14,6 +14,8 @@ public:
     explicit CameraWidget(QWidget *parent = 0);
     ~CameraWidget();
     void test();
+    void start();
+    void stop();
 
 private:
 //object managers of view
