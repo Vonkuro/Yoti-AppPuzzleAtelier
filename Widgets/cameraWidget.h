@@ -11,7 +11,7 @@ class CameraWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit CameraWidget(QWidget *parent = 0);
+    explicit CameraWidget(int id, QWidget *parent = 0);
     ~CameraWidget();
     void test();
     void start();
@@ -27,6 +27,8 @@ private:
     QCameraImageCapture* webcamImageCapture;
     QCameraViewfinderSettings viewfinderSettings;
 
+// attributs
+    int puzzleId;
 //methods controll of webcam
     bool checkWebcamAvailable();
     void webcamView();

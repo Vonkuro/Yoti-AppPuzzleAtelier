@@ -1,8 +1,9 @@
 #include "cameraWidget.h"
 
-CameraWidget::CameraWidget(QWidget *parent) :
+CameraWidget::CameraWidget(int id, QWidget *parent) :
     QWidget(parent)
 {
+    puzzleId = id;
     if (checkWebcamAvailable())
     {
         webcamView();
