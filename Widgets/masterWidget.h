@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "widgets_global.h"
+#include "homepageWidget.h"
 #include "cameraWidget.h"
 #include "savePuzzleWidget.h"
 #include "validationWidget.h"
@@ -24,7 +25,7 @@ private:
     QHBoxLayout* masterLayout;
     QStackedWidget* masterStackedWidget;
 // Widgets
-    QWidget* blank;
+    HomepageWidget* homepageWidget;
     SavePuzzleWidget* savePuzzleWidget;
     CameraWidget* cameraWidget;
     ValidationWidget* validationWidget;
