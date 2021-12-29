@@ -13,6 +13,9 @@ public:
     SavePuzzleWidget();
     ~SavePuzzleWidget();
 
+signals:
+    void puzzleSaved(int id);
+
 private:
     // View
     QVBoxLayout* widgetLayout;

@@ -1,9 +1,21 @@
 #include "cameraWidget.h"
 
-CameraWidget::CameraWidget(QWidget *parent) :
+CameraWidget::CameraWidget(int id, QWidget *parent) :
     QWidget(parent)
 {
-    webcamView();
+    puzzleId = id;
+    lastImageId = 0;
+    pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
+    newDir("../" + pathImageDirectory);
+
+    if (checkWebcamAvailable())
+    {
+        photoButton = new QPushButton;
+        webcamView();
+        cameraLayout->addWidget(photoButton);
+        this->setLayout(cameraLayout);
+        connect(photoButton, &QPushButton::clicked, this, &CameraWidget::takePhoto);
+    }
 }
 
 CameraWidget::~CameraWidget()
@@ -25,12 +37,8 @@ bool CameraWidget::checkWebcamAvailable()
 
 void CameraWidget::test()
 {
-    if (checkWebcamAvailable())
-    {
-        webcamView();
 
-    }
-
+    takePhoto();
 }
 
 void CameraWidget::webcamView()
@@ -44,10 +52,42 @@ void CameraWidget::webcamView()
     webcam->setViewfinderSettings(viewfinderSettings);
     webcam->setViewfinder(webcamViewfinder);
     webcamImageCapture = new QCameraImageCapture(webcam, this);
+    webcam->setCaptureMode(QCamera::CaptureStillImage);
+
 
 //Starting the view
     cameraLayout = new QVBoxLayout;
     cameraLayout->addWidget(webcamViewfinder);
-    webcam->start();
-    this->setLayout(cameraLayout);
+
 }
+
+void CameraWidget::start()
+{
+    webcam->start();
+}
+
+void CameraWidget::stop()
+{
+    webcam->stop();
+}
+
+void CameraWidget::newDir(QString dirPath)
+{
+    QDir dir(dirPath);
+    QDir dir2;
+    if(!dir.exists())
+    {
+        dir2.mkpath(dirPath);
+    }
+}
+
+void CameraWidget::takePhoto()
+{
+    ++lastImageId;
+    webcam->searchAndLock();
+    //
+    QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
+    webcamImageCapture->capture(imagePath);
+    webcam->unlock();
+}
+

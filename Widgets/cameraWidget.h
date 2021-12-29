@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QtMultimediaWidgets>
+#include <unistd.h>
 #include "widgets_global.h"
 
 class CameraWidget : public QWidget
@@ -11,13 +12,16 @@ class CameraWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit CameraWidget(QWidget *parent = 0);
+    explicit CameraWidget(int id, QWidget *parent = 0);
     ~CameraWidget();
     void test();
+    void start();
+    void stop();
 
 private:
 //object managers of view
     QVBoxLayout* cameraLayout;
+    QPushButton* photoButton;
 
 //objects managers of webcam
     QCamera* webcam;
@@ -25,9 +29,18 @@ private:
     QCameraImageCapture* webcamImageCapture;
     QCameraViewfinderSettings viewfinderSettings;
 
+// attributs
+    int puzzleId;
+    int lastImageId;
+    QString pathImageDirectory;
 //methods controll of webcam
     bool checkWebcamAvailable();
     void webcamView();
+// methods
+    void newDir(QString dirPath);
+
+private slots:
+    void takePhoto();
 
 };
 

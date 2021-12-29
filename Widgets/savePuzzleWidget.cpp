@@ -139,17 +139,24 @@ void SavePuzzleWidget::save()
         QSqlQuery newPuzzleSql;
         if (descriptionTextEdit->toPlainText().size() == 0)
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode) VALUES (?)");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode) VALUES (?);");
             newPuzzleSql.bindValue(0, barcode);
         } else
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description) VALUES (?, ?)");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description) VALUES (?, ?);");
             newPuzzleSql.bindValue(0, barcode);
             newPuzzleSql.bindValue(1, descriptionTextEdit->toPlainText() );
         }
         newPuzzleSql.exec();
 
+        newPuzzleSql.prepare("SELECT id FROM Puzzle ORDER BY id DESC LIMIT 1;");
+        newPuzzleSql.exec();
+        newPuzzleSql.next();
+        int id = newPuzzleSql.value("id").toInt();
+
         dataWrapper.database.close();
+
+        emit puzzleSaved(id);
     }
 }
 
