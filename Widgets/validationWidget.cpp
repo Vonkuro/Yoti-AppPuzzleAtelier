@@ -45,7 +45,17 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage)
 
 void ValidationWidget::valid()
 {
+    QMessageBox continueMessageBox;
+    continueMessageBox.setText("Allez-vous prendre une photographe supplémentaire ?");
+    continueMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
+    continueMessageBox.addButton(tr("Non"), QMessageBox::NoRole);
 
+    int returnMessageBox = continueMessageBox.exec();
+
+    if (returnMessageBox == 0)
+    {
+        emit newPhoto();
+    }
 }
 
 void ValidationWidget::cancel()
