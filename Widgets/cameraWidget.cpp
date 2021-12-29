@@ -1,12 +1,9 @@
 #include "cameraWidget.h"
 
-CameraWidget::CameraWidget(int id, QWidget *parent) :
+CameraWidget::CameraWidget(QWidget *parent) :
     QWidget(parent)
 {
-    puzzleId = id;
     lastImageId = 0;
-    pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
-    newDir("../" + pathImageDirectory);
 
     if (checkWebcamAvailable())
     {
@@ -66,6 +63,13 @@ void CameraWidget::start()
     webcam->start();
 }
 
+void CameraWidget::prepare(int id)
+{
+    puzzleId = id;
+    pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
+    newDir("../" + pathImageDirectory);
+}
+
 void CameraWidget::stop()
 {
     webcam->stop();
@@ -89,5 +93,20 @@ void CameraWidget::takePhoto()
     QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
     webcamImageCapture->capture(imagePath);
     webcam->unlock();
+
+    stop();
+
+    delay();
+
+    emit photoTaken(puzzleId, lastImageId);
 }
 
+void CameraWidget::delay()
+{
+    QTime dieTime = QTime::currentTime().addMSecs(500);
+
+    while(QTime::currentTime() < dieTime)
+    {
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }
+}
