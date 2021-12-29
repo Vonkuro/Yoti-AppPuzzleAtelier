@@ -22,8 +22,10 @@ SavePuzzleWidget::~SavePuzzleWidget()
     delete formLayout;
     delete barcodeLabel;
     delete barcodeLineEdit;
+    delete barcodeErrorLabel;
     delete descriptionLabel;
     delete descriptionTextEdit;
+    delete descriptionErrorLabel;
     delete validationButton;
 }
 
@@ -32,9 +34,11 @@ void SavePuzzleWidget::form()
 // init of View Objects
     formLayout = new QFormLayout;
     barcodeLabel = new QLabel;
-     barcodeLineEdit = new QLineEdit;
+    barcodeLineEdit = new QLineEdit;
+    barcodeErrorLabel = new QLabel;
     descriptionLabel = new QLabel;
     descriptionTextEdit = new QTextEdit;
+    descriptionErrorLabel = new QLabel;
 
 // linking View Objects
     formLayout->addRow(barcodeLabel, barcodeLineEdit);
@@ -42,42 +46,89 @@ void SavePuzzleWidget::form()
 
 // style of View Objects
     barcodeLabel->setText("Code Barre : ");
+    barcodeErrorLabel->setText("Un code bare doit contenir uniquement des chiffres.");
     descriptionLabel->setText("Une description rapide du Puzzle (optionnel) :");
+    descriptionErrorLabel->setText("La description est trop longue.");
 }
 
-bool SavePuzzleWidget::barcodeValid(QString barcode) // a tester
+bool SavePuzzleWidget::barcodeValid(QString barcodeText) // a tester
 {
+    QMessageBox choiceBarcodeMessageBox;
+    choiceBarcodeMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
+    choiceBarcodeMessageBox.addButton(tr("Non"), QMessageBox::NoRole);
+
     QRegExp notNumeric;
     notNumeric.setPattern("[^0-9 .]+");
-    if ( barcode.size() > 13 || barcode.size() < 1 || barcode.contains(notNumeric))
+    if ( barcodeText.contains(notNumeric))
     {
-        //informer utilisateur
+
+        formLayout->insertRow(1,barcodeErrorLabel);
         return false;
     }
-    return true;
+
+    if (barcodeText.size() == 0)
+    {
+        choiceBarcodeMessageBox.setText("Vous n'avez pas indiqué de code barre.");
+        choiceBarcodeMessageBox.setInformativeText("Le Puzzle en est-il dépourvu ?");
+
+        int returnMessageBox = choiceBarcodeMessageBox.exec();
+
+        if (returnMessageBox == 0)
+        {
+            barcodeLineEdit->setText("0000000000000");
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+    else if (barcodeText.size() != 13)
+    {
+
+        choiceBarcodeMessageBox.setText("Le code barre indiqué ne respecte pas le standard actuel à 13 chiffres.");
+        choiceBarcodeMessageBox.setInformativeText("S'agit-il d'un code barre avec un format ancien ou rare ?");
+
+        int returnMessageBox = choiceBarcodeMessageBox.exec();
+
+        if (returnMessageBox == 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    } else
+    {
+        return true;
+    }
+
 }
 
 bool SavePuzzleWidget::descriptionValid(QString description) // a tester
 {
     if (description.size() > 256)
     {
-        //informer utilisateur
+        formLayout->insertRow(50,descriptionErrorLabel);
         return false;
     }
     return true;
 }
 
-long long int SavePuzzleWidget::manageBarcode()
-{
-
-}
 
 void SavePuzzleWidget::save()
 {
-    if ( barcodeValid( barcodeLineEdit->text() ) || descriptionValid( descriptionTextEdit->toPlainText() ) )
+    QString barcodeText = barcodeLineEdit->text();
+    QRegExp whitespaceRegExp;
+    whitespaceRegExp.setPattern("\\s");
+    barcodeText = barcodeText.remove(whitespaceRegExp);
+
+    if ( barcodeValid( barcodeText ) && descriptionValid( descriptionTextEdit->toPlainText() ) )
     {
         // appel fonction pour gestion des codes barres
-        QString barcode = barcodeLineEdit->text();
+        barcodeText = barcodeLineEdit->text();
+        barcodeText = barcodeText.remove(whitespaceRegExp);
+
+        long long int barcode = barcodeText.toLongLong();
 
         if ( ! dataWrapper.database.open() )
         {
@@ -88,17 +139,17 @@ void SavePuzzleWidget::save()
         QSqlQuery newPuzzleSql;
         if (descriptionTextEdit->toPlainText().size() == 0)
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (bar_code) VALUES (?)");
-            newPuzzleSql.bindValue(0,barcode);
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode) VALUES (?)");
+            newPuzzleSql.bindValue(0, barcode);
         } else
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (bar_code, short_description) VALUES (?, ?)");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description) VALUES (?, ?)");
             newPuzzleSql.bindValue(0, barcode);
             newPuzzleSql.bindValue(1, descriptionTextEdit->toPlainText() );
         }
         newPuzzleSql.exec();
 
-
+        dataWrapper.database.close();
     }
 }
 

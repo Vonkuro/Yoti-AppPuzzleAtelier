@@ -20,9 +20,11 @@ private:
 
     QLabel* barcodeLabel;
     QLineEdit*  barcodeLineEdit;
+    QLabel* barcodeErrorLabel;
 
     QLabel* descriptionLabel;
     QTextEdit* descriptionTextEdit;
+    QLabel* descriptionErrorLabel;
 
     QPushButton* validationButton;
 
@@ -30,13 +32,12 @@ private:
 
     // Validation
     bool descriptionValid(QString description);
-    bool barcodeValid(QString barcode);
+    bool barcodeValid(QString barcodeText);
 
     // database
     EnvLocal dataWrapper;
 
     // methods
-    long long int manageBarcode();
 
 private slots:
     void save();
