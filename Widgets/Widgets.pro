@@ -30,7 +30,8 @@ SOURCES += \
         cameraWidget.cpp \
     savePuzzleWidget.cpp \
     envLocal.cpp \
-    validationWidget.cpp
+    validationWidget.cpp \
+    homepageWidget.cpp
 
 HEADERS += \
         scannerWidget.h \
@@ -39,7 +40,8 @@ HEADERS += \
         cameraWidget.h \
     savePuzzleWidget.h \
     envLocal.h \
-    validationWidget.h
+    validationWidget.h \
+    homepageWidget.h
 
 
 

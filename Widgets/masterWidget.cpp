@@ -12,12 +12,14 @@ MasterWidget::MasterWidget(QWidget *parent) :
 
 // loading Widgets
     blank = new QWidget;
+    homepageWidget = new HomepageWidget;
     savePuzzleWidget = new SavePuzzleWidget;
     cameraWidget = new CameraWidget();
     validationWidget = new ValidationWidget;
 
 
-    masterStackedWidget->addWidget(blank);
+    //masterStackedWidget->addWidget(blank);
+    masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
     masterStackedWidget->addWidget(cameraWidget);
     masterStackedWidget->addWidget(validationWidget);
@@ -27,6 +29,7 @@ MasterWidget::MasterWidget(QWidget *parent) :
 MasterWidget::~MasterWidget()
 {
     delete blank;
+    delete homepageWidget;
     delete masterLayout;
     delete masterStackedWidget;
     delete cameraWidget;
@@ -72,7 +75,7 @@ void MasterWidget::test()
     masterLayout->addWidget(buttonTest);
 
     // these testing connect will be almost good to go for the full application
-    connect(buttonTest, &QPushButton::clicked, this, &MasterWidget::gotToSavePuzzle);
+    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::gotToSavePuzzle);
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(gotToWebcam(int)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(gotToValidation(int, int)));
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(gotToWebcam()));
