@@ -16,7 +16,7 @@ public:
 signals:
     void newPhoto();
 
-private slots:
+public slots:
     void valid();
     void cancel();
 
@@ -27,7 +27,6 @@ private:
     QLabel* imageLabel;
     QPushButton* validButton;
     QPushButton* cancelButton;
-
 
     int puzzleId;
     int imageId;

@@ -10,6 +10,7 @@
 #include "validationWidget.h"
 
 
+
 class MasterWidget : public QWidget
 {
     Q_OBJECT
@@ -19,6 +20,8 @@ public:
     ~MasterWidget();
     bool testDuTest();
     void test();
+    enum pages {homepage, savePuzzle, camera, validation, noPage};
+    pages getLoadedPage();
 
 private:
 // objets manager of View and Widget
@@ -33,10 +36,11 @@ private:
 
 
 public slots:
-    void gotToWebcam(int id);
-    void gotToWebcam();
-    void gotToSavePuzzle();
-    void gotToValidation(int idPuzzle, int idImage);
+    void goToWebcam(int id);
+    void goToWebcam();
+    void goToSavePuzzle();
+    void goToValidation(int idPuzzle, int idImage);
+
 
 };
 

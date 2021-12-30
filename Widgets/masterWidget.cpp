@@ -16,8 +16,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
     cameraWidget = new CameraWidget();
     validationWidget = new ValidationWidget;
 
-
-    //masterStackedWidget->addWidget(blank);
     masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
     masterStackedWidget->addWidget(cameraWidget);
@@ -41,7 +39,7 @@ bool MasterWidget::testDuTest()
     return true;
 }
 
-void MasterWidget::gotToWebcam(int id)
+void MasterWidget::goToWebcam(int id)
 {
     masterStackedWidget->setCurrentWidget(cameraWidget);
 
@@ -49,30 +47,57 @@ void MasterWidget::gotToWebcam(int id)
     cameraWidget->start();
 }
 
-void MasterWidget::gotToWebcam()
+void MasterWidget::goToWebcam()
 {
     masterStackedWidget->setCurrentWidget(cameraWidget);
 
     cameraWidget->start();
 }
 
-void MasterWidget::gotToSavePuzzle()
+void MasterWidget::goToSavePuzzle()
 {
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
 }
 
-void MasterWidget::gotToValidation(int idPuzzle, int idImage)
+void MasterWidget::goToValidation(int idPuzzle, int idImage)
 {
     validationWidget->validateImageWebcam(idPuzzle, idImage);
     masterStackedWidget->setCurrentWidget(validationWidget);
+}
+
+MasterWidget::pages MasterWidget::getLoadedPage()
+{
+    QWidget* currentWidget = masterStackedWidget->currentWidget();
+
+    if (currentWidget == homepageWidget)
+    {
+        return homepage;
+    }
+    else if (currentWidget == savePuzzleWidget)
+    {
+        return savePuzzle;
+    }
+    else if (currentWidget == cameraWidget)
+    {
+        return camera;
+    }
+    else if (currentWidget == validationWidget)
+    {
+        return validation;
+    }
+    else
+    {
+        return noPage;
+    }
+
 }
 
 void MasterWidget::test()
 {
 
     // these testing connect will be almost good to go for the full application
-    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::gotToSavePuzzle);
-    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(gotToWebcam(int)));
-    connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(gotToValidation(int, int)));
-    connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(gotToWebcam()));
+    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
+    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToWebcam(int)));
+    connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
+    connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToWebcam()));
 }

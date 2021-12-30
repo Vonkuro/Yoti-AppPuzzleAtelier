@@ -32,12 +32,6 @@ bool CameraWidget::checkWebcamAvailable()
         return false;
 }
 
-void CameraWidget::test()
-{
-
-    takePhoto();
-}
-
 void CameraWidget::webcamView()
 {
 // init of attributs for view of the webcam

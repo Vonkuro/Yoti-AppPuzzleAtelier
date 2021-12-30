@@ -1,29 +1,12 @@
-#include <QtTest>
-#include <QApplication>
-#include "masterWidget.h"
+#include "tst_accesscamera.h"
 
-// add necessary includes here
-
-class AccessCamera : public QObject
-{
-    Q_OBJECT
-
-public:
-    AccessCamera();
-    ~AccessCamera();
-
-private slots:
-    void initTestCase();
-    void cleanupTestCase();
-    void test_case1(int argc, char *argv[]);
-
-};
-
+// don't change anything in the constructor or it will crash
 AccessCamera::AccessCamera()
 {
 
 }
 
+// don't change anything in the destructor or it will crash
 AccessCamera::~AccessCamera()
 {
 
@@ -32,23 +15,27 @@ AccessCamera::~AccessCamera()
 //set up the common arrange
 void AccessCamera::initTestCase()
 {
-
+    camera = new CameraWidget;
 }
 
-//clean up the common arrange
-void AccessCamera::cleanupTestCase()
-{
-
-}
 
 //first test, it will pass if the unit-test are correctly setup
-void AccessCamera::test_case1(int argc, char *argv[])
+void AccessCamera::prepareTest()
 {
-    QApplication a(argc, argv);
-    MasterWidget* master = new MasterWidget;
-    QVERIFY(master->testDuTest());
+    QString path = "../Images/Puzzle--3";
+
+    camera->prepare(-3);
+
+    QDir directory(path);
+    bool exist = directory.exists();
+    QVERIFY(exist);
+
+    if (exist)
+    {
+        directory.remove(path);
+    }
+
 }
 
-QTEST_APPLESS_MAIN(AccessCamera)
 
-#include "tst_accesscamera.moc"
+
