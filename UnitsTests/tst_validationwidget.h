@@ -15,8 +15,7 @@ private slots:
     void initTestCase();
 
 private:
-    ValidationWidget* validationWidget;
-    QSignalSpy totallySpies;
+
 
 };
 

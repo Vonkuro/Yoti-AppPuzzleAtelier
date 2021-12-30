@@ -42,6 +42,7 @@ private:
 // methods
     void newDir(QString dirPath);
     void delay();
+    void viewStyle();
 
 
 private slots:

@@ -12,7 +12,17 @@ CameraWidget::CameraWidget(QWidget *parent) :
         cameraLayout->addWidget(photoButton);
         this->setLayout(cameraLayout);
         connect(photoButton, &QPushButton::clicked, this, &CameraWidget::takePhoto);
+        viewStyle();
     }
+}
+
+void CameraWidget::viewStyle()
+{
+    photoButton->setText("Prendre une Photo");
+    this->setMinimumHeight(1200);
+    this->setMinimumWidth(1200);
+    webcamViewfinder->setMaximumHeight(887);
+    cameraLayout->setSizeConstraint(QLayout::SetMinimumSize);
 }
 
 CameraWidget::~CameraWidget()
@@ -49,7 +59,6 @@ void CameraWidget::webcamView()
 //Starting the view
     cameraLayout = new QVBoxLayout;
     cameraLayout->addWidget(webcamViewfinder);
-
 }
 
 void CameraWidget::start()
