@@ -14,7 +14,6 @@ class CameraWidget : public QWidget
 public:
     explicit CameraWidget(QWidget *parent = 0);
     ~CameraWidget();
-    void test();
     void prepare(int id);
     void start();
     void stop();

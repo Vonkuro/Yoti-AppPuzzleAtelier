@@ -28,7 +28,6 @@ private:
     QPushButton* validButton;
     QPushButton* cancelButton;
 
-
     int puzzleId;
     int imageId;
     QPixmap image;
