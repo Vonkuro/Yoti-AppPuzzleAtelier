@@ -106,7 +106,7 @@ void CameraWidget::takePhoto()
 
 void CameraWidget::delay()
 {
-    QTime dieTime = QTime::currentTime().addMSecs(500);
+    QTime dieTime = QTime::currentTime().addMSecs(1000);
 
     while(QTime::currentTime() < dieTime)
     {

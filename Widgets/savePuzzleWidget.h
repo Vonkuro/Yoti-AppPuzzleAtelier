@@ -32,6 +32,7 @@ private:
     QPushButton* validationButton;
 
     void form();
+    void viewStyle();
 
     // Validation
     bool descriptionValid(QString description);

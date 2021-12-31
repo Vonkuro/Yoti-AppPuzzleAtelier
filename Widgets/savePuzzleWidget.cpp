@@ -8,10 +8,10 @@ SavePuzzleWidget::SavePuzzleWidget()
     form();
 // linking View Objects
     widgetLayout->addLayout(formLayout);
-    widgetLayout->addWidget(validationButton);
+    formLayout->addWidget(validationButton);
     this->setLayout(widgetLayout);
 // style of View Objects
-    validationButton->setText("Enregistrer le Puzzle");
+    viewStyle();
 // connect to slots
     connect(validationButton, &QPushButton::clicked, this, &SavePuzzleWidget::save);
 }
@@ -51,6 +51,12 @@ void SavePuzzleWidget::form()
     descriptionErrorLabel->setText("La description est trop longue.");
 }
 
+ void SavePuzzleWidget::viewStyle()
+ {
+
+     validationButton->setText("Enregistrer le Puzzle");
+     validationButton->setEnabled(true);
+ }
 bool SavePuzzleWidget::barcodeValid(QString barcodeText) // a tester
 {
     QMessageBox choiceBarcodeMessageBox;

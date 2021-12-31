@@ -94,7 +94,6 @@ MasterWidget::pages MasterWidget::getLoadedPage()
 
 void MasterWidget::test()
 {
-
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToWebcam(int)));
