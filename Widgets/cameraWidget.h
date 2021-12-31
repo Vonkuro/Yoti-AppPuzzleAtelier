@@ -27,24 +27,24 @@ private slots:
     void takePhoto();
 
 private:
-// object managers of view
+// Object managers of view
     QVBoxLayout* cameraLayout;
     QPushButton* photoButton;
 
-// objects managers of webcam
+// Objects managers of webcam
     QCamera* webcam;
     QCameraViewfinder* webcamViewfinder;
     QCameraImageCapture* webcamImageCapture;
     QCameraViewfinderSettings viewfinderSettings;
 
-// attributs
+// Attributs
     int puzzleId;
     int lastImageId;
     QString pathImageDirectory;
-// methods to control and config the webcam
+// Methods to control and config the webcam
     bool checkWebcamAvailable();
     void webcamView();
-// methods
+// Methods
     void newDir(QString dirPath);
     void delay();
     void viewStyle();

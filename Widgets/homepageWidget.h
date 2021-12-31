@@ -19,7 +19,7 @@ private slots:
     void startButtonClicked();
 
 private:
-// objects managers of the View
+// Objects managers of the View
     QVBoxLayout* widgetLayout;
     QPushButton* startButton;
 

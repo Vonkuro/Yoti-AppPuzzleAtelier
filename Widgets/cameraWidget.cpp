@@ -3,7 +3,7 @@
 CameraWidget::CameraWidget(QWidget *parent) :
     QWidget(parent)
 {
-// init of attribut at application start
+// Init of attribut at application start
     lastImageId = 0;
 // Prepare the view
     if (checkWebcamAvailable())
@@ -17,7 +17,7 @@ CameraWidget::CameraWidget(QWidget *parent) :
     }
 }
 
-// manage details of the view
+// %anage details of the view
 void CameraWidget::viewStyle()
 {
     photoButton->setText("Prendre une Photo");
@@ -27,7 +27,7 @@ void CameraWidget::viewStyle()
     cameraLayout->setSizeConstraint(QLayout::SetMinimumSize);
 }
 
-// the end of the line for the pointers
+// The end of the line for the pointers
 CameraWidget::~CameraWidget()
 {
     delete webcam;
@@ -37,7 +37,7 @@ CameraWidget::~CameraWidget()
     delete photoButton;
 }
 
-// check if there are Webcam (Future : choose the specific webcam)
+// Check if there are Webcam (Future : choose the specific webcam)
 bool CameraWidget::checkWebcamAvailable()
 {
     if (QCameraInfo::availableCameras().count() > 0)
@@ -46,10 +46,10 @@ bool CameraWidget::checkWebcamAvailable()
         return false;
 }
 
-// prepare the webcam and the view of it's video feed
+// Prepare the webcam and the view of it's video feed
 void CameraWidget::webcamView()
 {
-// init of attributs for view of the webcam
+// Init of attributs for view of the webcam
     webcam = new QCamera;
     webcamViewfinder = new QCameraViewfinder;
     viewfinderSettings.setResolution(1280, 960); //<- here for size of the viewFinder Widget created from webcamViewfinder
@@ -77,7 +77,7 @@ void CameraWidget::stop()
     webcam->stop();
 }
 
-// prepare the directory to store the images
+// Prepare the directory to store the images
 void CameraWidget::prepare(int id)
 {
     puzzleId = id;
@@ -85,7 +85,7 @@ void CameraWidget::prepare(int id)
     newDir("../" + pathImageDirectory);
 }
 
-// create a directory if it doesn't exit
+// Create a directory if it doesn't exit
 void CameraWidget::newDir(QString dirPath)
 {
     QDir dir(dirPath);
@@ -113,7 +113,7 @@ void CameraWidget::takePhoto()
     emit photoTaken(puzzleId, lastImageId);
 }
 
-// delay the widget loop for 1 second
+// Delay the widget loop for 1 second
 void CameraWidget::delay()
 {
     QTime dieTime = QTime::currentTime().addMSecs(1000);
