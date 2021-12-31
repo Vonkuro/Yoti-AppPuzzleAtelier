@@ -2,6 +2,7 @@
 
 ValidationWidget::ValidationWidget(QWidget *parent) : QWidget(parent)
 {
+    // Init of the View objects
     widgetLayout = new QHBoxLayout;
     choiceLayout = new QVBoxLayout;
 
@@ -9,6 +10,7 @@ ValidationWidget::ValidationWidget(QWidget *parent) : QWidget(parent)
     validButton = new QPushButton;
     cancelButton = new QPushButton;
 
+    // Linking the objects to the layout
     widgetLayout->addWidget(imageLabel);
     widgetLayout->addLayout(choiceLayout);
     choiceLayout->addWidget(validButton);
@@ -16,14 +18,17 @@ ValidationWidget::ValidationWidget(QWidget *parent) : QWidget(parent)
 
     this->setLayout(widgetLayout);
 
+    // Connect the buttons to the slots
     connect(validButton, &QPushButton::clicked, this, &ValidationWidget::valid);
     connect(cancelButton, &QPushButton::clicked, this, &ValidationWidget::cancel);
 
+    // Style my widget !
     validButton->setText("Valide");
     cancelButton->setText("Refuse");
 
 }
 
+// The end of the line for the pointers
 ValidationWidget::~ValidationWidget()
 {
     delete widgetLayout;
@@ -33,6 +38,7 @@ ValidationWidget::~ValidationWidget()
     delete cancelButton;
 }
 
+// Load the correct image to valide into the image Label
 void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage)
 {
     puzzleId = idPuzzle;
@@ -43,6 +49,7 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage)
     imageLabel->setPixmap(image);
 }
 
+// Ask if an other photo is needed and emit the signal if the user confirm it
 void ValidationWidget::valid()
 {
     QMessageBox continueMessageBox;
@@ -58,6 +65,7 @@ void ValidationWidget::valid()
     }
 }
 
+// delete the photo and emit the signal for a new photo
 void ValidationWidget::cancel()
 {
     QFile imageFile(imagePath);
