@@ -14,19 +14,24 @@ class CameraWidget : public QWidget
 public:
     explicit CameraWidget(QWidget *parent = 0);
     ~CameraWidget();
+// Tools for the Master Widget to Manage the Webcam
     void prepare(int id);
     void start();
     void stop();
 
+// Taking the photo
 signals:
     void photoTaken(int idPuzzle, int idImage);
 
+private slots:
+    void takePhoto();
+
 private:
-//object managers of view
+// object managers of view
     QVBoxLayout* cameraLayout;
     QPushButton* photoButton;
 
-//objects managers of webcam
+// objects managers of webcam
     QCamera* webcam;
     QCameraViewfinder* webcamViewfinder;
     QCameraImageCapture* webcamImageCapture;
@@ -36,18 +41,13 @@ private:
     int puzzleId;
     int lastImageId;
     QString pathImageDirectory;
-//methods controll of webcam
+// methods to control and config the webcam
     bool checkWebcamAvailable();
     void webcamView();
 // methods
     void newDir(QString dirPath);
     void delay();
     void viewStyle();
-
-
-private slots:
-    void takePhoto();
-
 
 };
 
