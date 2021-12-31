@@ -18,6 +18,7 @@ class MasterWidget : public QWidget
 public:
     explicit MasterWidget(QWidget *parent = 0);
     ~MasterWidget();
+// methods for testing purposes
     bool testDuTest();
     void test();
     enum pages {homepage, savePuzzle, camera, validation, noPage};
@@ -36,6 +37,7 @@ private:
 
 
 public slots:
+// slots managers of whitch widget is on screen
     void goToWebcam(int id);
     void goToWebcam();
     void goToSavePuzzle();
