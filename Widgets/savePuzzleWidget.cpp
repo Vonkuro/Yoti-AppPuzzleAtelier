@@ -2,20 +2,21 @@
 
 SavePuzzleWidget::SavePuzzleWidget()
 {
-// init of View Objects
+// Init of View Objects
     widgetLayout = new QVBoxLayout;
     validationButton = new QPushButton;
     form();
-// linking View Objects
+// Linking View Objects
     widgetLayout->addLayout(formLayout);
     formLayout->addWidget(validationButton);
     this->setLayout(widgetLayout);
-// style of View Objects
+// Style of View Objects
     viewStyle();
-// connect to slots
+// Connect to slots
     connect(validationButton, &QPushButton::clicked, this, &SavePuzzleWidget::save);
 }
 
+// The end of the line for the pointers
 SavePuzzleWidget::~SavePuzzleWidget()
 {
     delete widgetLayout;
@@ -29,9 +30,10 @@ SavePuzzleWidget::~SavePuzzleWidget()
     delete validationButton;
 }
 
+// Prepare the form
 void SavePuzzleWidget::form()
 {
-// init of View Objects
+// Init of View Objects
     formLayout = new QFormLayout;
     barcodeLabel = new QLabel;
     barcodeLineEdit = new QLineEdit;
@@ -40,24 +42,34 @@ void SavePuzzleWidget::form()
     descriptionTextEdit = new QTextEdit;
     descriptionErrorLabel = new QLabel;
 
-// linking View Objects
+// Linking View Objects
     formLayout->addRow(barcodeLabel, barcodeLineEdit);
     formLayout->addRow(descriptionLabel, descriptionTextEdit);
 
-// style of View Objects
+// Style of View Objects
     barcodeLabel->setText("Code Barre : ");
     barcodeErrorLabel->setText("Un code bare doit contenir uniquement des chiffres.");
     descriptionLabel->setText("Une description rapide du Puzzle (optionnel) :");
     descriptionErrorLabel->setText("La description est trop longue.");
 }
 
+// Manage the details of the View
  void SavePuzzleWidget::viewStyle()
  {
 
      validationButton->setText("Enregistrer le Puzzle");
      validationButton->setEnabled(true);
  }
-bool SavePuzzleWidget::barcodeValid(QString barcodeText) // a tester
+
+// Verify if a barcode is valid
+// There is four cases :
+// 1/ There are 13 numbers, the barcode is valid
+// 2/ There are character that aren't numbers, the barcode is not valid
+// 3/ The barcode is empty, the bare is replace by "0000000000000" if the user
+//    confirm the lack of barcode
+// 4/ There are only numbers but not 13 of them, the barcode is valid if
+//    the user confirm it is.
+bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
 {
     QMessageBox choiceBarcodeMessageBox;
     choiceBarcodeMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
@@ -110,7 +122,8 @@ bool SavePuzzleWidget::barcodeValid(QString barcodeText) // a tester
 
 }
 
-bool SavePuzzleWidget::descriptionValid(QString description) // a tester
+// Vérify if the short description is valid
+bool SavePuzzleWidget::descriptionValid(QString description) // need unit-tests
 {
     if (description.size() > 256)
     {
@@ -120,7 +133,8 @@ bool SavePuzzleWidget::descriptionValid(QString description) // a tester
     return true;
 }
 
-
+// Save the puzzle to the database and emit a signal
+// The signal is for the master widget to display the camera
 void SavePuzzleWidget::save()
 {
     QString barcodeText = barcodeLineEdit->text();
@@ -130,7 +144,6 @@ void SavePuzzleWidget::save()
 
     if ( barcodeValid( barcodeText ) && descriptionValid( descriptionTextEdit->toPlainText() ) )
     {
-        // appel fonction pour gestion des codes barres
         barcodeText = barcodeLineEdit->text();
         barcodeText = barcodeText.remove(whitespaceRegExp);
 
@@ -138,7 +151,7 @@ void SavePuzzleWidget::save()
 
         if ( ! dataWrapper.database.open() )
         {
-            // gestion de problème à étendre
+            // Could extend into a better error handling
             QMessageBox::information(this, "Erreur", "La base de données n'est pas correctement installée.");
             QCoreApplication::quit();
         }

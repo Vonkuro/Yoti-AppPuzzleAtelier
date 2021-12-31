@@ -2,7 +2,7 @@
 
 EnvLocal::EnvLocal()
 {
-// init of attributs
+// Init of attributs
     dataDriver = "QMYSQL";
     dataName = "dataPuzzle";
     dataUser = "yoti";
@@ -10,7 +10,7 @@ EnvLocal::EnvLocal()
     dataHost = "localhost";
     dataPort = 3306;
 
-// init of database
+// Init of database
     database = QSqlDatabase::addDatabase(dataDriver);
     database.setDatabaseName(dataName);
     database.setUserName(dataUser);

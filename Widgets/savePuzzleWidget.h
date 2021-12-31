@@ -13,11 +13,15 @@ public:
     SavePuzzleWidget();
     ~SavePuzzleWidget();
 
+// Saving the Puzzle
 signals:
     void puzzleSaved(int id);
 
+private slots:
+    void save();
+
 private:
-    // View
+// Objects managers of the View
     QVBoxLayout* widgetLayout;
     QFormLayout* formLayout;
 
@@ -31,20 +35,19 @@ private:
 
     QPushButton* validationButton;
 
+// Methods managers of the View
     void form();
     void viewStyle();
 
-    // Validation
+// Validation
     bool descriptionValid(QString description);
     bool barcodeValid(QString barcodeText);
 
-    // database
+// Database
     EnvLocal dataWrapper;
 
-    // methods
+// Methods back
 
-private slots:
-    void save();
 
 };
 

@@ -3,14 +3,14 @@
 MasterWidget::MasterWidget(QWidget *parent) :
     QWidget(parent)
 {
-// setup minimal view
+// Setup minimal view
     masterLayout = new QHBoxLayout;
     masterStackedWidget = new QStackedWidget;
 
     masterLayout->addWidget(masterStackedWidget);
     setLayout(masterLayout);
 
-// loading Widgets
+// Loading Widgets
     homepageWidget = new HomepageWidget;
     savePuzzleWidget = new SavePuzzleWidget;
     cameraWidget = new CameraWidget();
@@ -23,22 +23,26 @@ MasterWidget::MasterWidget(QWidget *parent) :
 
 }
 
+// The end of the line for the pointers
 MasterWidget::~MasterWidget()
 {
-    delete homepageWidget;
     delete masterLayout;
     delete masterStackedWidget;
+    delete homepageWidget;
+    delete savePuzzleWidget;
     delete cameraWidget;
     delete validationWidget;
 }
 
 
-//this function is there in order to test if the unit-test setup is correct
+// This function is there in order to test if the unit-test setup is correct
 bool MasterWidget::testDuTest()
 {
     return true;
 }
 
+// Display the camera widget and give it the id of the puzzle
+// Should always be the one used after saving the puzzle to the database
 void MasterWidget::goToWebcam(int id)
 {
     masterStackedWidget->setCurrentWidget(cameraWidget);
@@ -47,6 +51,8 @@ void MasterWidget::goToWebcam(int id)
     cameraWidget->start();
 }
 
+// Display the camera widget
+// Should be the one used after the validation of a photo
 void MasterWidget::goToWebcam()
 {
     masterStackedWidget->setCurrentWidget(cameraWidget);
@@ -54,17 +60,20 @@ void MasterWidget::goToWebcam()
     cameraWidget->start();
 }
 
+// Display the save puzzle widget
 void MasterWidget::goToSavePuzzle()
 {
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
 }
 
+// Display the validation widget
 void MasterWidget::goToValidation(int idPuzzle, int idImage)
 {
     validationWidget->validateImageWebcam(idPuzzle, idImage);
     masterStackedWidget->setCurrentWidget(validationWidget);
 }
 
+// Return a page keyword that describe the widget displayed on screen
 MasterWidget::pages MasterWidget::getLoadedPage()
 {
     QWidget* currentWidget = masterStackedWidget->currentWidget();
@@ -92,6 +101,9 @@ MasterWidget::pages MasterWidget::getLoadedPage()
 
 }
 
+// Connects the widget "end" signal the changing display slots
+// It is used for testing until I made all the widget and I write an equivalent
+// for the constructor
 void MasterWidget::test()
 {
     // these testing connect will be almost good to go for the full application

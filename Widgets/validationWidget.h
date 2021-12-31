@@ -11,8 +11,10 @@ class ValidationWidget : public QWidget
 public:
     explicit ValidationWidget(QWidget *parent = nullptr);
     ~ValidationWidget();
+// Tool for the master widget to manage the validation widget
     void validateImageWebcam(int idPuzzle, int idImage);
 
+// Handle the validation process
 signals:
     void newPhoto();
 
@@ -21,6 +23,7 @@ public slots:
     void cancel();
 
 private:
+// Objects managers of View
     QHBoxLayout* widgetLayout;
     QVBoxLayout* choiceLayout;
 
@@ -28,6 +31,7 @@ private:
     QPushButton* validButton;
     QPushButton* cancelButton;
 
+// Attributs
     int puzzleId;
     int imageId;
     QPixmap image;

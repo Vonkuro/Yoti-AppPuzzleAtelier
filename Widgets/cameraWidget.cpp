@@ -3,8 +3,9 @@
 CameraWidget::CameraWidget(QWidget *parent) :
     QWidget(parent)
 {
+// Init of attribut at application start
     lastImageId = 0;
-
+// Prepare the view
     if (checkWebcamAvailable())
     {
         photoButton = new QPushButton;
@@ -16,6 +17,7 @@ CameraWidget::CameraWidget(QWidget *parent) :
     }
 }
 
+// %anage details of the view
 void CameraWidget::viewStyle()
 {
     photoButton->setText("Prendre une Photo");
@@ -25,15 +27,17 @@ void CameraWidget::viewStyle()
     cameraLayout->setSizeConstraint(QLayout::SetMinimumSize);
 }
 
+// The end of the line for the pointers
 CameraWidget::~CameraWidget()
 {
     delete webcam;
     delete webcamViewfinder;
     delete webcamImageCapture;
     delete cameraLayout;
+    delete photoButton;
 }
 
-
+// Check if there are Webcam (Future : choose the specific webcam)
 bool CameraWidget::checkWebcamAvailable()
 {
     if (QCameraInfo::availableCameras().count() > 0)
@@ -42,9 +46,10 @@ bool CameraWidget::checkWebcamAvailable()
         return false;
 }
 
+// Prepare the webcam and the view of it's video feed
 void CameraWidget::webcamView()
 {
-// init of attributs for view of the webcam
+// Init of attributs for view of the webcam
     webcam = new QCamera;
     webcamViewfinder = new QCameraViewfinder;
     viewfinderSettings.setResolution(1280, 960); //<- here for size of the viewFinder Widget created from webcamViewfinder
@@ -61,16 +66,10 @@ void CameraWidget::webcamView()
     cameraLayout->addWidget(webcamViewfinder);
 }
 
+// Give the Master Widget the ability to start and stop the webcam
 void CameraWidget::start()
 {
     webcam->start();
-}
-
-void CameraWidget::prepare(int id)
-{
-    puzzleId = id;
-    pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
-    newDir("../" + pathImageDirectory);
 }
 
 void CameraWidget::stop()
@@ -78,6 +77,15 @@ void CameraWidget::stop()
     webcam->stop();
 }
 
+// Prepare the directory to store the images
+void CameraWidget::prepare(int id)
+{
+    puzzleId = id;
+    pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
+    newDir("../" + pathImageDirectory);
+}
+
+// Create a directory if it doesn't exit
 void CameraWidget::newDir(QString dirPath)
 {
     QDir dir(dirPath);
@@ -88,6 +96,7 @@ void CameraWidget::newDir(QString dirPath)
     }
 }
 
+// Take the photo
 void CameraWidget::takePhoto()
 {
     ++lastImageId;
@@ -104,6 +113,7 @@ void CameraWidget::takePhoto()
     emit photoTaken(puzzleId, lastImageId);
 }
 
+// Delay the widget loop for 1 second
 void CameraWidget::delay()
 {
     QTime dieTime = QTime::currentTime().addMSecs(1000);

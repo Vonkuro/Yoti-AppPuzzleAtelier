@@ -18,13 +18,14 @@ class MasterWidget : public QWidget
 public:
     explicit MasterWidget(QWidget *parent = 0);
     ~MasterWidget();
+// Methods for testing purposes
     bool testDuTest();
     void test();
     enum pages {homepage, savePuzzle, camera, validation, noPage};
     pages getLoadedPage();
 
 private:
-// objets manager of View and Widget
+// Objets manager of View and Widget
     QHBoxLayout* masterLayout;
     QStackedWidget* masterStackedWidget;
 // Widgets
@@ -32,10 +33,11 @@ private:
     SavePuzzleWidget* savePuzzleWidget;
     CameraWidget* cameraWidget;
     ValidationWidget* validationWidget;
-// methods
+// Methods
 
 
 public slots:
+// Slots managers of whitch widget is on screen
     void goToWebcam(int id);
     void goToWebcam();
     void goToSavePuzzle();

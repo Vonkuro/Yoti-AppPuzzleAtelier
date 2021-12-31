@@ -5,6 +5,8 @@
 
 class EnvLocal
 {
+// This class is there to set up the database and not expose the realese version to the world
+// If you are an open source visitor, here is my dev/debug database
 public:
     EnvLocal();
     QSqlDatabase database;
