@@ -10,16 +10,20 @@ class HomepageWidget : public QWidget
 public:
     explicit HomepageWidget(QWidget *parent = nullptr);
     ~HomepageWidget();
+
+// Starting the Application
 signals:
     void startApp();
-public slots:
-
-private:
-    QVBoxLayout* widgetLayout;
-    QPushButton* startButton;
 
 private slots:
     void startButtonClicked();
+
+private:
+// objects managers of the View
+    QVBoxLayout* widgetLayout;
+    QPushButton* startButton;
+
+
 };
 
 #endif // HOMEPAGEWIDGET_H
