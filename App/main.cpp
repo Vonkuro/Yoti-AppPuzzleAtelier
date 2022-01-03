@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     //w.test();
 
     ScannerWidget s;
-    s.prepareScanner();
+    s.init_v2();
 
     return a.exec();
 }

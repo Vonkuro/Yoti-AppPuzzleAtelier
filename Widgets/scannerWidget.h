@@ -6,6 +6,7 @@
 #include "widgets_global.h"
 #include "sane/sane.h"
 #include "sane/saneopts.h"
+#include "hello_sane.h"
 
 class ScannerWidget: public QWidget
 {
@@ -13,6 +14,7 @@ class ScannerWidget: public QWidget
 public:
     ScannerWidget();
     void prepareScanner();
+    void init_v2();
 private:
 // view object manager
 

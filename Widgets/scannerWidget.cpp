@@ -27,3 +27,8 @@ void ScannerWidget::prepareScanner()
         }
     }
 }
+
+void ScannerWidget::init_v2()
+{
+    init();
+}

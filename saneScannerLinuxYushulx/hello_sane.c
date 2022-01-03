@@ -436,7 +436,7 @@ void close_device(SANE_Handle sane_handle)
 }
 
 // Release SANE resources
-void exit()
+void exit_v2()
 {
     sane_exit();
 }

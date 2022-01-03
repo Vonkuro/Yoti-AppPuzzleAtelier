@@ -28,7 +28,7 @@ void cancle_scan(SANE_Handle sane_handle);
 // Close SANE device
 void close_device(SANE_Handle sane_handle);
 // Release SANE resources
-void exit();
+void exit_v2();
 
 #ifdef __cplusplus
 }
