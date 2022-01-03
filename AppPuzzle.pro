@@ -25,6 +25,7 @@ SUBDIRS += \
     Widgets \
     App \
     UnitsTests\
+    saneScannerLinuxYushulx
 
 
 
