@@ -14,11 +14,13 @@ MasterWidget::MasterWidget(QWidget *parent) :
     homepageWidget = new HomepageWidget;
     savePuzzleWidget = new SavePuzzleWidget;
     cameraWidget = new CameraWidget();
+    scannerWidget = new ScannerWidget;
     validationWidget = new ValidationWidget;
 
     masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
     masterStackedWidget->addWidget(cameraWidget);
+    masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
 
 }
@@ -31,6 +33,7 @@ MasterWidget::~MasterWidget()
     delete homepageWidget;
     delete savePuzzleWidget;
     delete cameraWidget;
+    delete scannerWidget;
     delete validationWidget;
 }
 
@@ -73,6 +76,12 @@ void MasterWidget::goToValidation(int idPuzzle, int idImage)
     masterStackedWidget->setCurrentWidget(validationWidget);
 }
 
+void MasterWidget::goToScanner()
+{
+    scannerWidget->prepare();
+    masterStackedWidget->setCurrentWidget(scannerWidget);
+}
+
 // Return a page keyword that describe the widget displayed on screen
 MasterWidget::pages MasterWidget::getLoadedPage()
 {
@@ -107,7 +116,7 @@ MasterWidget::pages MasterWidget::getLoadedPage()
 void MasterWidget::test()
 {
     // these testing connect will be almost good to go for the full application
-    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
+    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToScanner);
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToWebcam(int)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToWebcam()));

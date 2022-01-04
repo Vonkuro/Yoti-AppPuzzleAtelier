@@ -3,12 +3,28 @@
 
 ScannerWidget::ScannerWidget()
 {
+    widgetLayout = new QVBoxLayout;
+    scanButton = new QPushButton;
 
+    widgetLayout->addWidget(scanButton);
+
+    this->setLayout(widgetLayout);
+
+    connect(scanButton, &QPushButton::clicked, this, &ScannerWidget::scanPuzzle);
 }
 
-
-void ScannerWidget::prepareScanner()
+ScannerWidget::~ScannerWidget()
 {
-    init();
+    delete widgetLayout;
+    delete scanButton;
 }
 
+void ScannerWidget::prepare()
+{
+    prepareScanner();
+}
+
+void ScannerWidget::scanPuzzle()
+{
+    scanningStart("../Images/ScanTest/test");
+}

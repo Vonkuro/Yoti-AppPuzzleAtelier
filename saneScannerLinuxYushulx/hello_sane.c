@@ -22,28 +22,29 @@ static int progress = 0;
 static SANE_Byte *buffer;
 static size_t buffer_size;
 
-static SANE_Int version = 1;
+static SANE_Int version = 0;
 static SANE_Status goodToGo = SANE_STATUS_GOOD;
 // verify if the folowing realy need to be static
-static const SANE_Device ** deviceList = NULL;
-static SANE_Handle* scannerHandler = NULL;
+
+static SANE_Handle scannerHandler = NULL;
 
 // Methods for the scanner widget
 int prepareScanner()
 {
     init();
-    SANE_Device* scanner = *deviceList; // maybe static needed
-    if ( get_devices(&deviceList) == goodToGo &&
-         open_device(scanner, scannerHandler) == goodToGo )
+    const SANE_Device ** deviceList = NULL;
+    if ( get_devices(&deviceList) == goodToGo )
     {
-        // equivalent of c++ true
-        return 1;
+
+        SANE_Device* scanner = deviceList[0] ; // maybe static needed
+        if ( open_device(scanner, &scannerHandler) == goodToGo )
+        {
+            // equivalent of c++ true
+            return 1;
+        }
     }
-    else
-    {
-        // equivalent of c++ false
-        return 0;
-    }
+    // equivalent of c++ false
+    return 0;
 }
 
 int scanningStart(const char *fileName)
@@ -440,7 +441,7 @@ SANE_Status get_devices(const SANE_Device ***device_list)
 {
     //printf("Get all devices...\n");
 	SANE_Status sane_status = 0;
-	if (sane_status = sane_get_devices (device_list, SANE_FALSE))
+    if (sane_status = sane_get_devices (device_list, SANE_TRUE))
 	{
         //printf("sane_get_devices status: %s\n", sane_strstatus(sane_status));
 	}	
@@ -451,10 +452,10 @@ SANE_Status get_devices(const SANE_Device ***device_list)
 SANE_Status open_device(SANE_Device *device, SANE_Handle *sane_handle)
 {
     SANE_Status sane_status = 0;
-    printf("Name: %s, vendor: %s, model: %s, type: %s\n", device->name, device->model, device->vendor, device->type);
+    //printf("Name: %s, vendor: %s, model: %s, type: %s\n", device->name, device->model, device->vendor, device->type);
     if (sane_status = sane_open(device->name, sane_handle))
     {
-        printf("sane_open status: %s\n", sane_strstatus(sane_status));
+        //printf("sane_open status: %s\n", sane_strstatus(sane_status));
     }
 
     return sane_status;
