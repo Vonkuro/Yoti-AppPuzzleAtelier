@@ -4,8 +4,9 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QDebug>
+#include <stdlib.h>
+#include <string.h>
 #include "widgets_global.h"
-#include "hello_sane.h"
 
 class ScannerWidget: public QWidget
 {

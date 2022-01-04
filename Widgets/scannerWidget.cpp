@@ -21,24 +21,22 @@ ScannerWidget::~ScannerWidget()
 
 void ScannerWidget::prepare(int id)
 {
-    prepareScanner();
     lastImageId = 0;
     puzzleId = id;
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
+
 }
 
 void ScannerWidget::scanPuzzle()
 {
     lastImageId += 1;
-    QString imagePathQString = "../" + pathImageDirectory + "/Image-" + QString::number(lastImageId);
+    QString imagePathQString = "../" + pathImageDirectory + "/Image-" + QString::number(lastImageId) + ".jpg";
 
-    std::string imagePathString = imagePathQString.toStdString();
-    const char* imagePath = imagePathString.c_str();
-
-    scanningStart(imagePath);
-    freeScanner();
-
+    QString commandQString = "scanimage --mode Color --format=jpeg > " + imagePathQString;
+    std::string commandString = commandQString.toStdString();
+    const char* command = commandString.c_str();
+    system(command);
 }
 
 // Create a directory if it doesn't exit

@@ -33,7 +33,8 @@ SOURCES += \
     savePuzzleWidget.cpp \
     envLocal.cpp \
     validationWidget.cpp \
-    homepageWidget.cpp
+    homepageWidget.cpp \
+    notes.cpp
 
 HEADERS += \
         scannerWidget.h \
@@ -52,9 +53,3 @@ unix {
     INSTALLS += target
 }
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../saneScannerLinuxYushulx/release/ -lsaneScannerLinuxYushulx
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../saneScannerLinuxYushulx/debug/ -lsaneScannerLinuxYushulx
-else:unix: LIBS += -L$$OUT_PWD/../saneScannerLinuxYushulx/ -lsaneScannerLinuxYushulx
-
-INCLUDEPATH += $$PWD/../saneScannerLinuxYushulx
-DEPENDPATH += $$PWD/../saneScannerLinuxYushulx
