@@ -43,7 +43,7 @@ public slots:
     void goToWebcam();
     void goToSavePuzzle();
     void goToValidation(int idPuzzle, int idImage);
-    void goToScanner();
+    void goToScanner(int id);
 
 
 };

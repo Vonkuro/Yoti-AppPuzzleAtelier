@@ -76,9 +76,9 @@ void MasterWidget::goToValidation(int idPuzzle, int idImage)
     masterStackedWidget->setCurrentWidget(validationWidget);
 }
 
-void MasterWidget::goToScanner()
+void MasterWidget::goToScanner(int id)
 {
-    scannerWidget->prepare();
+    scannerWidget->prepare(id);
     masterStackedWidget->setCurrentWidget(scannerWidget);
 }
 
@@ -116,8 +116,8 @@ MasterWidget::pages MasterWidget::getLoadedPage()
 void MasterWidget::test()
 {
     // these testing connect will be almost good to go for the full application
-    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToScanner);
-    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToWebcam(int)));
+    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
+    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToScanner(int)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToWebcam()));
 }

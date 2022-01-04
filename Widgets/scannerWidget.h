@@ -14,7 +14,7 @@ public:
     ScannerWidget();
     ~ScannerWidget();
 // Tools for the master widget
-    void prepare();
+    void prepare(int id);
 private:
 // view object manager
     QVBoxLayout* widgetLayout;
@@ -23,7 +23,12 @@ private:
 // Methods managing the scanner
     void scanPuzzle();
 
-
+// Attributs
+    int puzzleId;
+    int lastImageId;
+    QString pathImageDirectory;
+// Methods
+    void newDir(QString dirPath);
 };
 
 #endif // SCANNERWIDGET_H
