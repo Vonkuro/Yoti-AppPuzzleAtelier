@@ -15,6 +15,12 @@ extern "C" {
 
 #include "sanescannerlinuxyushulx_global.h"
 
+// Interface for the scanner widget
+int prepareScanner();
+int scanningStart(const char *fileName);
+void scanningStop();
+void freeScanner();
+
 // Initialize SANE
 void init();
 // Get all devices
@@ -29,6 +35,7 @@ void cancle_scan(SANE_Handle sane_handle);
 void close_device(SANE_Handle sane_handle);
 // Release SANE resources
 void exit_v2();
+
 
 #ifdef __cplusplus
 }

@@ -14,20 +14,18 @@ class ScannerWidget: public QWidget
 public:
     ScannerWidget();
     void prepareScanner();
-    void init_v2();
 private:
 // view object manager
 
 // Attributs managing the scanner
     SANE_Int version;
-    const SANE_Device ** device_list;
+    SANE_Status goodToGo;
+    const SANE_Device ** deviceList;
     const SANE_Device* device;
     SANE_Handle* scannerHandler;
 // Methods managing the scanner
 
-    static void auth_callback (SANE_String_Const resource,
-                               SANE_Char * username, SANE_Char * password)
-    {}
+
 };
 
 #endif // SCANNERWIDGET_H
