@@ -30,12 +30,15 @@ void ScannerWidget::prepare(int id)
 
 void ScannerWidget::scanPuzzle()
 {
-    QString imagePathQString = "../" + pathImageDirectory + "/Image-" + lastImageId;
+    lastImageId += 1;
+    QString imagePathQString = "../" + pathImageDirectory + "/Image-" + QString::number(lastImageId);
 
     std::string imagePathString = imagePathQString.toStdString();
     const char* imagePath = imagePathString.c_str();
 
     scanningStart(imagePath);
+    freeScanner();
+
 }
 
 // Create a directory if it doesn't exit
