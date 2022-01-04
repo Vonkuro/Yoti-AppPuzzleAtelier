@@ -1,3 +1,11 @@
+#ifndef PATH_MAX
+#define PATH_MAX 1024
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -6,14 +14,6 @@
 #include "sane/saneopts.h"
 
 #include "sanescannerlinuxyushulx_global.h"
-
-#ifndef PATH_MAX
-#define PATH_MAX 1024
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 // Initialize SANE
 void init();

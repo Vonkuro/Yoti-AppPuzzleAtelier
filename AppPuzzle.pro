@@ -22,12 +22,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += ordered
 
 SUBDIRS += \
+    saneScannerLinuxYushulx \
     Widgets \
     App \
-    UnitsTests\
-    saneScannerLinuxYushulx
+    UnitsTests
 
 
-
+Widgets.depends = saneScannerLinuxYushulx
 UnitsTests.depends = Widgets
 App.depends = Widgets
+
