@@ -110,6 +110,23 @@ MasterWidget::pages MasterWidget::getLoadedPage()
 
 }
 
+void MasterWidget::choiceImageAcquisition(int id)
+{
+    QMessageBox choiceImage;
+    choiceImage.addButton("Webcam", QMessageBox::YesRole);
+    choiceImage.addButton("Imprimante", QMessageBox::NoRole);
+    choiceImage.setText("Quel périphérique allez-vous utiliser pour prendre des photographies du Puzzle ?");
+    int choice = choiceImage.exec();
+    if(choice == 0) // choice is webcam
+    {
+        goToWebcam(id);
+    }
+    else // choice is scanner
+    {
+        goToScanner(id);
+    }
+}
+
 // Connects the widget "end" signal the changing display slots
 // It is used for testing until I made all the widget and I write an equivalent
 // for the constructor
@@ -117,7 +134,7 @@ void MasterWidget::test()
 {
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
-    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToScanner(int)));
+    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(choiceImageAcquisition(int)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToWebcam()));
 }

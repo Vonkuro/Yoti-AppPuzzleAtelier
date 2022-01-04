@@ -38,12 +38,14 @@ private:
 
 
 public slots:
-// Slots managers of whitch widget is on screen
+// Slots managers of which widget is on screen
+    void choiceImageAcquisition(int id);
     void goToWebcam(int id);
     void goToWebcam();
+    void goToScanner(int id);
     void goToSavePuzzle();
     void goToValidation(int idPuzzle, int idImage);
-    void goToScanner(int id);
+
 
 
 };
