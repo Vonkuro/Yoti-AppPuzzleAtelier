@@ -24,9 +24,8 @@ CONFIG += ordered
 SUBDIRS += \
     Widgets \
     App \
-    UnitsTests\
-
-
+    UnitsTests
 
 UnitsTests.depends = Widgets
 App.depends = Widgets
+

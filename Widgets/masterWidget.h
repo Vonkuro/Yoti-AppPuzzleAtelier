@@ -8,7 +8,7 @@
 #include "cameraWidget.h"
 #include "savePuzzleWidget.h"
 #include "validationWidget.h"
-
+#include "scannerWidget.h"
 
 
 class MasterWidget : public QWidget
@@ -33,6 +33,7 @@ private:
     SavePuzzleWidget* savePuzzleWidget;
     CameraWidget* cameraWidget;
     ValidationWidget* validationWidget;
+    ScannerWidget* scannerWidget;
 // Methods
 
 
@@ -42,6 +43,7 @@ public slots:
     void goToWebcam();
     void goToSavePuzzle();
     void goToValidation(int idPuzzle, int idImage);
+    void goToScanner(int id);
 
 
 };

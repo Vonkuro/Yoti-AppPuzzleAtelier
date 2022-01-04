@@ -17,7 +17,7 @@ CameraWidget::CameraWidget(QWidget *parent) :
     }
 }
 
-// %anage details of the view
+// Manage details of the view
 void CameraWidget::viewStyle()
 {
     photoButton->setText("Prendre une Photo");
