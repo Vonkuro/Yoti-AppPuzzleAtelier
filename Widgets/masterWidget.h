@@ -32,8 +32,11 @@ private:
     HomepageWidget* homepageWidget;
     SavePuzzleWidget* savePuzzleWidget;
     CameraWidget* cameraWidget;
-    ValidationWidget* validationWidget;
     ScannerWidget* scannerWidget;
+    ValidationWidget* validationWidget;
+// Attributs
+    enum photoDevice {Webcam, Scanner};
+    photoDevice chosenDevice;
 // Methods
 
 
@@ -43,7 +46,9 @@ public slots:
     void goToWebcam(int id);
     void goToWebcam();
     void goToScanner(int id);
+    void goToScanner();
     void goToSavePuzzle();
+    void goToPhotoDevice();
     void goToValidation(int idPuzzle, int idImage);
 
 

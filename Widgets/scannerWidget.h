@@ -16,6 +16,11 @@ public:
     ~ScannerWidget();
 // Tools for the master widget
     void prepare(int id);
+
+// Taking the photo
+signals:
+    void photoTaken(int idPuzzle, int idImage);
+
 private:
 // view object manager
     QVBoxLayout* widgetLayout;
@@ -30,6 +35,7 @@ private:
     QString pathImageDirectory;
 // Methods
     void newDir(QString dirPath);
+    void delay();
 };
 
 #endif // SCANNERWIDGET_H
