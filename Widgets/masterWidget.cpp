@@ -63,10 +63,34 @@ void MasterWidget::goToWebcam()
     cameraWidget->start();
 }
 
+void MasterWidget::goToScanner(int id)
+{
+    scannerWidget->prepare(id);
+    masterStackedWidget->setCurrentWidget(scannerWidget);
+}
+
+void MasterWidget::goToScanner()
+{
+    masterStackedWidget->setCurrentWidget(scannerWidget);
+}
+
 // Display the save puzzle widget
 void MasterWidget::goToSavePuzzle()
 {
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
+}
+
+
+void MasterWidget::goToPhotoDevice()
+{
+    if (chosenDevice == Webcam)
+    {
+        goToWebcam();
+    }
+    else if (chosenDevice == Scanner)
+    {
+        goToScanner();
+    }
 }
 
 // Display the validation widget
@@ -74,12 +98,6 @@ void MasterWidget::goToValidation(int idPuzzle, int idImage)
 {
     validationWidget->validateImageWebcam(idPuzzle, idImage);
     masterStackedWidget->setCurrentWidget(validationWidget);
-}
-
-void MasterWidget::goToScanner(int id)
-{
-    scannerWidget->prepare(id);
-    masterStackedWidget->setCurrentWidget(scannerWidget);
 }
 
 // Return a page keyword that describe the widget displayed on screen
@@ -110,6 +128,25 @@ MasterWidget::pages MasterWidget::getLoadedPage()
 
 }
 
+void MasterWidget::choiceImageAcquisition(int id)
+{
+    QMessageBox choiceImage;
+    choiceImage.addButton("Webcam", QMessageBox::YesRole);
+    choiceImage.addButton("Imprimante", QMessageBox::NoRole);
+    choiceImage.setText("Quel périphérique allez-vous utiliser pour prendre des photographies du Puzzle ?");
+    int choice = choiceImage.exec();
+    if(choice == 0) // choice is webcam
+    {
+        chosenDevice = Webcam;
+        goToWebcam(id);
+    }
+    else // choice is scanner
+    {
+        chosenDevice = Scanner;
+        goToScanner(id);
+    }
+}
+
 // Connects the widget "end" signal the changing display slots
 // It is used for testing until I made all the widget and I write an equivalent
 // for the constructor
@@ -117,7 +154,8 @@ void MasterWidget::test()
 {
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
-    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToScanner(int)));
+    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(choiceImageAcquisition(int)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
-    connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToWebcam()));
+    connect(scannerWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
+    connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
 }

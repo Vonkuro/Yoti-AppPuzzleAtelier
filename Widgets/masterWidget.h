@@ -32,18 +32,25 @@ private:
     HomepageWidget* homepageWidget;
     SavePuzzleWidget* savePuzzleWidget;
     CameraWidget* cameraWidget;
-    ValidationWidget* validationWidget;
     ScannerWidget* scannerWidget;
+    ValidationWidget* validationWidget;
+// Attributs
+    enum photoDevice {Webcam, Scanner};
+    photoDevice chosenDevice;
 // Methods
 
 
 public slots:
-// Slots managers of whitch widget is on screen
+// Slots managers of which widget is on screen
+    void choiceImageAcquisition(int id);
     void goToWebcam(int id);
     void goToWebcam();
-    void goToSavePuzzle();
-    void goToValidation(int idPuzzle, int idImage);
     void goToScanner(int id);
+    void goToScanner();
+    void goToSavePuzzle();
+    void goToPhotoDevice();
+    void goToValidation(int idPuzzle, int idImage);
+
 
 
 };
