@@ -18,8 +18,8 @@ int folderManager::findPuzzleNumber(QStringList puzzleList, bool first = true) /
 {
     int number = 0;
     foreach (QString puzzle, puzzleList) {
-        int numberSize = puzzle.size() - 8;
-        int numberNew = puzzle.right(numberSize);
+        int numberSize = puzzle.size() - 7;
+        int numberNew = puzzle.right(numberSize).toInt();
         if (first)
         {
             if (number > numberNew)
@@ -54,12 +54,14 @@ void folderManager::tarOldImageFolder()
     }
     else
     {
-        int firstPuzzle = findPuzzleNumber(puzzleList);
+        int firstPuzzle = findPuzzleNumber(puzzleList, true);
         QString exclusion = checkAlreadyArchived(firstPuzzle, lastPuzzle);
 
         QDateTime date = QDateTime::currentDateTime();
+        QString dateString = date.toString("dd_MM_yyyy-hh_mm_ss");
 
-        QString commandQString = "tar -Jcf" + exclusion + " ../Archive/Images-" + date +".tar.xz ../Images";
+        QString commandQString = "tar -Jcvf ../Archive/Images-" + dateString +".tar.xz" + exclusion + " ../Images";
+        qDebug() << commandQString;
         std::string commandString = commandQString.toStdString();
         const char* command = commandString.c_str();
         system(command);
@@ -71,37 +73,43 @@ void folderManager::tarOldImageFolder()
 QString folderManager::checkAlreadyArchived(int firstPuzzle,int lastPuzzle)
 {
 
-    if ( ! dataWrapper.database.open() )
+    if ( dataWrapper.database.open() )
     {
-        QString exclusion = '';
-        QString exclusionPartOne = ' --exclude="../Images/Puzzle-"';
+        QString exclusion = QString();
+        QString exclusionPartOne = QString(" --exclude=\"Puzzle-");
 
         bool alreadyArchived = true;
         int idPuzzle;
 
         QSqlQuery newPuzzleSql;
-        newPuzzleSql.prepare("SELECT id, archived from Puzzle;");
+        newPuzzleSql.prepare("SELECT id, archived FROM Puzzle WHERE id >= ?;");
+        newPuzzleSql.bindValue(0,firstPuzzle);
         newPuzzleSql.exec();
 
         do
         {
             newPuzzleSql.next();
-            alreadyArchived = newPuzzleSql.value("archived");
-            idPuzzle = newPuzzleSql.value("id");
-            exclusion += exclusionPartOne + QString::number(idPuzzle);
+            alreadyArchived = newPuzzleSql.value("archived").toBool();
+            if (! alreadyArchived )
+            {
+                break;
+            }
+            idPuzzle = newPuzzleSql.value("id").toInt();
+            exclusion = exclusion + exclusionPartOne + QString::number(idPuzzle) + "\"";
         }while(alreadyArchived);
 
         dataWrapper.database.close();
         return exclusion;
     }
+    return QString();
 }
 
 void folderManager::markPuzzleArchived(int lastPuzzle)
 {
-    if ( ! dataWrapper.database.open() )
+    if ( dataWrapper.database.open() )
     {
         QSqlQuery newPuzzleSql;
-        newPuzzleSql.prepare("UPDATE Puzzle SET archived = TRUE WHERE id <= ?");
+        newPuzzleSql.prepare("UPDATE Puzzle SET archived = 1 WHERE id <= ?");
         newPuzzleSql.bindValue(0,lastPuzzle);
         newPuzzleSql.exec();
 

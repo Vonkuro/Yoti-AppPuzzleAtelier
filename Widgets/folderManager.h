@@ -15,7 +15,7 @@ public:
 private:
     void tarAFolder(QString folderName);
     void newDir(QString dirPath);
-    int findPuzzleNumber(QStringList puzzleList, bool first = true);
+    int findPuzzleNumber(QStringList puzzleList, bool first);
     QString checkAlreadyArchived(int firstPuzzle,int lastPuzzle);
     void markPuzzleArchived(int lastPuzzle);
 
