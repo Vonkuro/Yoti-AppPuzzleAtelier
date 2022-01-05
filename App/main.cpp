@@ -1,6 +1,5 @@
 #include "masterWidget.h"
-#include "cameraWidget.h"
-#include "scannerWidget.h"
+#include "folderManager.h"
 #include <QApplication>
 
 
@@ -10,11 +9,7 @@ int main(int argc, char *argv[])
     MasterWidget w;
     w.show();
     w.test();
-
-    /*
-     * Place where I write the main for testing purpose
-    ScannerWidget s;
-    s.init_v2();
-    */
+    folderManager fm;
+    fm.tarAFolder("Puzzle-33");
     return a.exec();
 }
