@@ -67,6 +67,7 @@ void folderManager::tarOldImageFolder()
         system(command);
 
         markPuzzleArchived(lastPuzzle);
+        deleteOldImageFolder(puzzleList,lastPuzzle);
     }
 }
 
@@ -114,6 +115,23 @@ void folderManager::markPuzzleArchived(int lastPuzzle)
         newPuzzleSql.exec();
 
         dataWrapper.database.close();
+    }
+}
+
+void folderManager::deleteOldImageFolder(QStringList puzzleList,int lastPuzzle)
+{
+    int numberLimit = lastPuzzle - 10;
+    foreach (QString puzzle, puzzleList) {
+        int numberSize = puzzle.size() - 7;
+        int number = puzzle.right(numberSize).toInt();
+        if (number < numberLimit && puzzle != "." && puzzle != "..")
+        {
+            QString puzzlePath = "../Images/" + puzzle + "/";
+            QDir puzzleFolder(puzzlePath);
+
+            puzzleFolder.removeRecursively();
+
+        }
     }
 }
 

@@ -18,6 +18,7 @@ private:
     int findPuzzleNumber(QStringList puzzleList, bool first);
     QString checkAlreadyArchived(int firstPuzzle,int lastPuzzle);
     void markPuzzleArchived(int lastPuzzle);
+    void deleteOldImageFolder(QStringList puzzleList,int lastPuzzle);
 
     int limitBeforeArchive;
 // Database
