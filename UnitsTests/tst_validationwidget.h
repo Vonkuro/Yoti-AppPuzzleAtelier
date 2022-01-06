@@ -13,10 +13,13 @@ public:
     // Work in progress
 private slots:
     void initTestCase();
+    void cleanupTestCase();
+    void validTest();
+    void cancelTest();
 
 private:
-
-
+    ValidationWidget* validation;
+    QString path;
 };
 
 #endif // TST_VALIDATIONWIDGET_H

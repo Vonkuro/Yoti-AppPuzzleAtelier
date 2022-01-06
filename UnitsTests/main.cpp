@@ -1,6 +1,10 @@
 #include <QApplication>
 #include "tst_accesscamera.h"
 #include "tst_masterwidget.h"
+#include "tst_scannerwidget.h"
+#include "tst_envlocal.h"
+#include "tst_homepagewidget.h"
+#include "tst_validationwidget.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,5 +15,17 @@ int main(int argc, char *argv[])
 
     AccessCamera testCamera;
     QTest::qExec(&testCamera, argc, argv);
+
+    tst_scannerWidget testScanner;
+    QTest::qExec(&testScanner, argc, argv);
+
+    tst_envLocal testEnvLocal;
+    QTest::qExec(&testEnvLocal, argc, argv);
+
+    tst_homepageWidget testHomepage;
+    QTest::qExec(&testHomepage, argc, argv);
+
+    tst_validationWidget testValidation;
+    QTest::qExec(&testValidation, argc, argv);
     return 0;
 }
