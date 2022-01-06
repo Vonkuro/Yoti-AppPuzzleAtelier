@@ -34,7 +34,8 @@ SOURCES += \
     envLocal.cpp \
     validationWidget.cpp \
     homepageWidget.cpp \
-    notes.cpp
+    notes.cpp \
+    folderManager.cpp
 
 HEADERS += \
         scannerWidget.h \
@@ -44,7 +45,8 @@ HEADERS += \
     savePuzzleWidget.h \
     envLocal.h \
     validationWidget.h \
-    homepageWidget.h
+    homepageWidget.h \
+    folderManager.h
 
 
 
