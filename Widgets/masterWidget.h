@@ -21,7 +21,7 @@ public:
 // Methods for testing purposes
     bool testDuTest();
     void test();
-    enum pages {homepage, savePuzzle, camera, validation, noPage};
+    enum pages {homepage, savePuzzle, camera, validation, scanner, noPage};
     pages getLoadedPage();
 
 private:

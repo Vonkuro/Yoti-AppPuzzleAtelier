@@ -6,7 +6,7 @@ folderManager::folderManager()
     limitBeforeArchive = 200;
 }
 
-void folderManager::tarAFolder(QString folderName)
+void folderManager::tarAFolder(QString folderName) // need to delete
 {
     QString commandQString = "tar -Jcf ../Archive/" + folderName + ".tar.xz ../Images/" + folderName;
     std::string commandString = commandQString.toStdString();

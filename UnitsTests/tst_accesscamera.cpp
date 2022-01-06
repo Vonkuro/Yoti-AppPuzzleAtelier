@@ -19,7 +19,6 @@ void AccessCamera::initTestCase()
 }
 
 
-//first test, it will pass if the unit-test are correctly setup
 void AccessCamera::prepareTest()
 {
     QString path = "../Images/Puzzle--3";
@@ -32,7 +31,7 @@ void AccessCamera::prepareTest()
 
     if (exist)
     {
-        directory.remove(path);
+        directory.removeRecursively();
     }
 
 }

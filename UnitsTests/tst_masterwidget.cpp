@@ -34,9 +34,17 @@ void tst_masterWidget::goToWebcamTest()
     QCOMPARE(master->getLoadedPage(), MasterWidget::camera);
 }
 
-void tst_masterWidget::goToSavePuzzle()
+void tst_masterWidget::goToSavePuzzleTest()
 {
     master->goToSavePuzzle();
 
     QCOMPARE(master->getLoadedPage(), MasterWidget::savePuzzle);
 }
+
+void tst_masterWidget::goToScannerTest()
+{
+    master->goToScanner();
+
+    QCOMPARE(master->getLoadedPage(), MasterWidget::scanner);
+}
+
