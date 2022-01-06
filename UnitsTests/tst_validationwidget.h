@@ -14,7 +14,6 @@ public:
 private slots:
     void initTestCase();
     void cleanupTestCase();
-    void validTest();
     void cancelTest();
 
 private:

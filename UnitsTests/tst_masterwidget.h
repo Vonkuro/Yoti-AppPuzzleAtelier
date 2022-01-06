@@ -15,7 +15,15 @@ private slots:
     //void cleanupTestCase();
 
     void goToWebcamTest();
-    void goToSavePuzzle();
+    void goToSavePuzzleTest();
+    void goToScannerTest();
+/*
+    void goToPhotoDeviceTest();
+    void goToWebcamIntTest();
+    void goToScannerIntTest();
+    void goToValidationTest();
+*/
+
 
 private:
     MasterWidget* master;

@@ -15,10 +15,12 @@ void tst_validationWidget::initTestCase()
     painter.begin(&picture);
     painter.drawText(0, 0, "Test");
     painter.end();
-    picture.save(path + "/test.jpg");
+    picture.save(path + "/image-1.jpg");
 
-    QFile image(path + "/test.jpg");
+    QFile image(path + "/image-1.jpg");
     QVERIFY(image.exists());
+
+    validation->validateImageWebcam(-3,1);
 
 
 }
@@ -29,12 +31,14 @@ void tst_validationWidget::cleanupTestCase()
     directory.removeRecursively();
 }
 
-void tst_validationWidget::validTest()
-{
-
-}
 
 void tst_validationWidget::cancelTest()
 {
+    QSignalSpy spy(validation, SIGNAL(newPhoto()));
+    QTest::mouseClick(validation->cancelButton, Qt::LeftButton);
 
+    QCOMPARE(spy.count(), 1);
+
+    QFile image(path + "/test.jpg");
+    QVERIFY(! image.exists());
 }
