@@ -17,12 +17,7 @@ private slots:
     void goToWebcamTest();
     void goToSavePuzzleTest();
     void goToScannerTest();
-/*
-    void goToPhotoDeviceTest();
-    void goToWebcamIntTest();
-    void goToScannerIntTest();
-    void goToValidationTest();
-*/
+
 
 
 private:

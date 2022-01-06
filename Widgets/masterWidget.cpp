@@ -121,6 +121,10 @@ MasterWidget::pages MasterWidget::getLoadedPage()
     {
         return validation;
     }
+    else if (currentWidget == scannerWidget)
+    {
+        return scanner;
+    }
     else
     {
         return noPage;
