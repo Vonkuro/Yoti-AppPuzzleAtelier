@@ -122,7 +122,7 @@ bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
 
 }
 
-// Vérify if the short description is valid
+// Verify if the short description is valid
 bool SavePuzzleWidget::descriptionValid(QString description) // need unit-tests
 {
     if (description.size() > 256)
