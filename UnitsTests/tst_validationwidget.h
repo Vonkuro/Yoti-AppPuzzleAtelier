@@ -10,10 +10,12 @@ class tst_validationWidget: public QObject
 public:
     tst_validationWidget();
 
-    // Work in progress
+// Declaration of the Tests
 private slots:
-    void initTestCase();
-    void cleanupTestCase();
+    // Specials QT Tests at the launch at the start and the end of the Test Case
+    void initTestCase(); // start
+    void cleanupTestCase(); //end
+    // Unit-Tests of Methods
     void cancelTest();
 
 private:

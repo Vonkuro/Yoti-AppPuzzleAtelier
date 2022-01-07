@@ -69,7 +69,7 @@ void ValidationWidget::valid()
     }
 }
 
-// delete the photo and emit the signal for a new photo
+// Delete the photo and emit the signal for a new photo
 void ValidationWidget::cancel()
 {
     QFile imageFile(imagePath);

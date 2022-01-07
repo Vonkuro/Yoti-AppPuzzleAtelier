@@ -10,10 +10,13 @@ public:
     tst_masterWidget();
     ~tst_masterWidget();
 
+// Declaration of the Tests
 private slots:
-    void initTestCase();
-    //void cleanupTestCase();
+    // Specials QT Tests at the launch at the start and the end of the Test Case
+    void initTestCase(); // start
+    //void cleanupTestCase(); // end
 
+    // Unit-Tests of Methods
     void goToWebcamTest();
     void goToSavePuzzleTest();
     void goToScannerTest();

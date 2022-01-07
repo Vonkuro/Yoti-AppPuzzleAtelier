@@ -11,8 +11,9 @@ class tst_envLocal : public QObject
 public:
     tst_envLocal();
 
-
+// Declaration of the Tests
 private slots:
+    // Unit-Tests of Methods
     void openDatabaseTest();
 
 private:

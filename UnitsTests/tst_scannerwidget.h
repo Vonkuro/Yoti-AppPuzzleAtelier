@@ -10,8 +10,11 @@ class tst_scannerWidget : public QObject
 public:
     tst_scannerWidget();
 
+// Declaration of the Tests
 private slots:
-    void initTestCase();
+    // Specials QT Tests at the launch at the start and the end of the Test Case
+    void initTestCase(); // start
+    // Unit-Tests of Methods
     void prepareTest();
 
 private:

@@ -1,5 +1,7 @@
 #include "folderManager.h"
 
+// Prepare the directory where the Archive is stored
+// Prepare the limit of new puzzle directory before archiving them
 folderManager::folderManager()
 {
     newDir("../Archive");
@@ -14,6 +16,7 @@ void folderManager::tarAFolder(QString folderName) // need to delete
     system(command);
 }
 
+// Find the first or last number in a list of directory name with the format "Puzzle-n" with n an INT.
 int folderManager::findPuzzleNumber(QStringList puzzleList, bool first = true) // test needed
 {
     int number = 0;
@@ -71,6 +74,10 @@ void folderManager::tarOldImageFolder()
     }
 }
 
+// Check in database if the puzzles with an id equal or higher than fisrtPuzzle are already archived
+// If they are a QString is created with the format " --exclude=\"Puzzle-id --exclude=\"Puzzle-otherId"
+// That exclude instruction is repeated as many time as there are already archived Puzzle id
+// That QString is returned and could be empty
 QString folderManager::checkAlreadyArchived(int firstPuzzle,int lastPuzzle)
 {
 
@@ -105,6 +112,7 @@ QString folderManager::checkAlreadyArchived(int firstPuzzle,int lastPuzzle)
     return QString();
 }
 
+// In database, mark all the puzzle with an id equal of lower than lastPuzzle as archived
 void folderManager::markPuzzleArchived(int lastPuzzle)
 {
     if ( dataWrapper.database.open() )
@@ -118,6 +126,7 @@ void folderManager::markPuzzleArchived(int lastPuzzle)
     }
 }
 
+// Delete the puzzle directory with an id less than lastPuzzle minus 10
 void folderManager::deleteOldImageFolder(QStringList puzzleList,int lastPuzzle)
 {
     int numberLimit = lastPuzzle - 10;
@@ -135,6 +144,7 @@ void folderManager::deleteOldImageFolder(QStringList puzzleList,int lastPuzzle)
     }
 }
 
+// Check if a directory already exits, if not create it
 void folderManager::newDir(QString dirPath)
 {
     QDir dir(dirPath);

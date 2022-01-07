@@ -3,22 +3,25 @@
 
 ScannerWidget::ScannerWidget()
 {
+// Prepare the view
+    // Init of View Objects
     widgetLayout = new QVBoxLayout;
     scanButton = new QPushButton;
-
+// Linking View Objects
     widgetLayout->addWidget(scanButton);
-
     this->setLayout(widgetLayout);
-
+// Connect to slots
     connect(scanButton, &QPushButton::clicked, this, &ScannerWidget::scanPuzzle);
 }
 
+// The end of the line for the pointers
 ScannerWidget::~ScannerWidget()
 {
     delete widgetLayout;
     delete scanButton;
 }
 
+// Prepare the attributs and directory before scanning
 void ScannerWidget::prepare(int id)
 {
     lastImageId = 0;
@@ -28,6 +31,7 @@ void ScannerWidget::prepare(int id)
 
 }
 
+// Scan with the first detected scanner and emit the photoTaken signal
 void ScannerWidget::scanPuzzle()
 {
     lastImageId += 1;

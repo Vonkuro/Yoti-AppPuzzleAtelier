@@ -71,7 +71,6 @@ void CameraWidget::start()
 {
     webcam->start();
 }
-
 void CameraWidget::stop()
 {
     webcam->stop();

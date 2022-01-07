@@ -1,16 +1,18 @@
 #include "tst_homepagewidget.h"
 
+// Don't change anything in the constructor or QTest will crash
 tst_homepageWidget::tst_homepageWidget()
 {
 
 }
 
-//set up the common arrange
+// Set up the common arrange
 void tst_homepageWidget::initTestCase()
 {
     homepage = new HomepageWidget;
 }
 
+// Test if the startButton emit the start signal
 void tst_homepageWidget::startSignalTest()
 {
     QSignalSpy spy(homepage, SIGNAL(startApp()));
