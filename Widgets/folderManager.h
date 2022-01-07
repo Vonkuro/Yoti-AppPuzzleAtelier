@@ -18,7 +18,7 @@ private:
     void tarAFolder(QString folderName);
     void newDir(QString dirPath);
     int findPuzzleNumber(QStringList puzzleList, bool first);
-    QString checkAlreadyArchived(int firstPuzzle,int lastPuzzle);
+    QString checkAlreadyArchived(int firstPuzzle);
     void markPuzzleArchived(int lastPuzzle);
     void deleteOldImageFolder(QStringList puzzleList,int lastPuzzle);
 // Attributs

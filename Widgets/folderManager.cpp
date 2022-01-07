@@ -58,7 +58,7 @@ void folderManager::tarOldImageFolder()
     else
     {
         int firstPuzzle = findPuzzleNumber(puzzleList, true);
-        QString exclusion = checkAlreadyArchived(firstPuzzle, lastPuzzle);
+        QString exclusion = checkAlreadyArchived(firstPuzzle);
 
         QDateTime date = QDateTime::currentDateTime();
         QString dateString = date.toString("dd_MM_yyyy-hh_mm_ss");
@@ -78,7 +78,7 @@ void folderManager::tarOldImageFolder()
 // If they are a QString is created with the format " --exclude=\"Puzzle-id --exclude=\"Puzzle-otherId"
 // That exclude instruction is repeated as many time as there are already archived Puzzle id
 // That QString is returned and could be empty
-QString folderManager::checkAlreadyArchived(int firstPuzzle,int lastPuzzle)
+QString folderManager::checkAlreadyArchived(int firstPuzzle)
 {
 
     if ( dataWrapper.database.open() )
