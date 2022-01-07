@@ -1,19 +1,14 @@
 #include "folderManager.h"
 
+// Prepare the directory where the Archive is stored
+// Prepare the limit of new puzzle directory before archiving them
 folderManager::folderManager()
 {
     newDir("../Archive");
     limitBeforeArchive = 200;
 }
 
-void folderManager::tarAFolder(QString folderName) // need to delete
-{
-    QString commandQString = "tar -Jcf ../Archive/" + folderName + ".tar.xz ../Images/" + folderName;
-    std::string commandString = commandQString.toStdString();
-    const char* command = commandString.c_str();
-    system(command);
-}
-
+// Find the first or last number in a list of directory name with the format "Puzzle-n" with n an INT.
 int folderManager::findPuzzleNumber(QStringList puzzleList, bool first = true) // test needed
 {
     int number = 0;
@@ -42,6 +37,7 @@ int folderManager::findPuzzleNumber(QStringList puzzleList, bool first = true) /
 // This function should not be called multiple time during the same second
 void folderManager::tarOldImageFolder()
 {
+    // Map the Images directory
     QString directoryPath = "../Images";
     QDir images(directoryPath);
     QStringList puzzleList = images.entryList();
@@ -50,28 +46,36 @@ void folderManager::tarOldImageFolder()
 
     if (lastPuzzle % limitBeforeArchive != 0)
     {
+        // If under the limit nothing need to be done
         return;
     }
     else
     {
+        // Prepare the tar archive command
         int firstPuzzle = findPuzzleNumber(puzzleList, true);
-        QString exclusion = checkAlreadyArchived(firstPuzzle, lastPuzzle);
+        QString exclusion = checkAlreadyArchived(firstPuzzle);
 
         QDateTime date = QDateTime::currentDateTime();
         QString dateString = date.toString("dd_MM_yyyy-hh_mm_ss");
 
         QString commandQString = "tar -Jcvf ../Archive/Images-" + dateString +".tar.xz" + exclusion + " ../Images";
-        qDebug() << commandQString;
+
+        // Convert the command to const char* in order to transmit it to bash terminal
         std::string commandString = commandQString.toStdString();
         const char* command = commandString.c_str();
         system(command);
 
+        // Delete most of the archived Puzzle directory
         markPuzzleArchived(lastPuzzle);
         deleteOldImageFolder(puzzleList,lastPuzzle);
     }
 }
 
-QString folderManager::checkAlreadyArchived(int firstPuzzle,int lastPuzzle)
+// Check in database if the puzzles with an id equal or higher than fisrtPuzzle are already archived
+// If they are a QString is created with the format " --exclude=\"Puzzle-id --exclude=\"Puzzle-otherId"
+// That exclude instruction is repeated as many time as there are already archived Puzzle id
+// That QString is returned and could be empty
+QString folderManager::checkAlreadyArchived(int firstPuzzle)
 {
 
     if ( dataWrapper.database.open() )
@@ -105,6 +109,7 @@ QString folderManager::checkAlreadyArchived(int firstPuzzle,int lastPuzzle)
     return QString();
 }
 
+// In database, mark all the puzzle with an id equal of lower than lastPuzzle as archived
 void folderManager::markPuzzleArchived(int lastPuzzle)
 {
     if ( dataWrapper.database.open() )
@@ -118,6 +123,7 @@ void folderManager::markPuzzleArchived(int lastPuzzle)
     }
 }
 
+// Delete the puzzle directory with an id less than lastPuzzle minus 10
 void folderManager::deleteOldImageFolder(QStringList puzzleList,int lastPuzzle)
 {
     int numberLimit = lastPuzzle - 10;
@@ -135,6 +141,7 @@ void folderManager::deleteOldImageFolder(QStringList puzzleList,int lastPuzzle)
     }
 }
 
+// Check if a directory already exits, if not create it
 void folderManager::newDir(QString dirPath)
 {
     QDir dir(dirPath);

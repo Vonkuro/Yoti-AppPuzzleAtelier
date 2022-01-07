@@ -1,18 +1,18 @@
 #include "tst_masterwidget.h"
 
-// don't change anything in the constructor or it will crash
+// Don't change anything in the constructor or QTest will crash
 tst_masterWidget::tst_masterWidget()
 {
 
 }
 
-// don't change anything in the destructor or it will crash
+// Don't change anything in the destructor or QTest will crash
 tst_masterWidget::~tst_masterWidget()
 {
 
 }
 
-//set up the common arrange
+// Set up the common arrange
 void tst_masterWidget::initTestCase()
 {
 
@@ -21,12 +21,13 @@ void tst_masterWidget::initTestCase()
 }
 
 /*
-//clean up the common arrange but don't use delete or it will crash
+// Clean up the common arrange but don't use delete or QTest will crash
 void tst_masterWidget::cleanupTestCase()
 {
 }
 */
 
+// Test if the method goToWebcam display the camera widget
 void tst_masterWidget::goToWebcamTest()
 {
     master->goToWebcam();
@@ -34,6 +35,7 @@ void tst_masterWidget::goToWebcamTest()
     QCOMPARE(master->getLoadedPage(), MasterWidget::camera);
 }
 
+// Test if the method goToSavePuzzle display the save puzzle widget
 void tst_masterWidget::goToSavePuzzleTest()
 {
     master->goToSavePuzzle();
@@ -41,6 +43,7 @@ void tst_masterWidget::goToSavePuzzleTest()
     QCOMPARE(master->getLoadedPage(), MasterWidget::savePuzzle);
 }
 
+// Test if the method goToScanner display the scanner widget
 void tst_masterWidget::goToScannerTest()
 {
     master->goToScanner();

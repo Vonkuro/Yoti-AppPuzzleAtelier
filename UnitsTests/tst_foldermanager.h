@@ -10,7 +10,9 @@ class tst_folderManager : public QObject
 public:
     tst_folderManager();
 
+// Declaration of the Tests
 private slots:
+    // Unit-Tests of Methods
     void findPuzzleNumberTest();
     void checkAlreadyArchivedTest();
 

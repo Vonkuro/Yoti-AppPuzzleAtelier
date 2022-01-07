@@ -20,7 +20,7 @@ public:
     ~MasterWidget();
 // Methods for testing purposes
     bool testDuTest();
-    void test();
+
     enum pages {homepage, savePuzzle, camera, validation, scanner, noPage};
     pages getLoadedPage();
 
@@ -38,6 +38,7 @@ private:
     enum photoDevice {Webcam, Scanner};
     photoDevice chosenDevice;
 // Methods
+    void connectTheApplication();
 // Objects tools
     folderManager manager;
 
@@ -52,6 +53,7 @@ public slots:
     void goToSavePuzzle();
     void goToPhotoDevice();
     void goToValidation(int idPuzzle, int idImage);
+// Slots mangers of background process
     void archive();
 
 

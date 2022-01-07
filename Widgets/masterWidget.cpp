@@ -16,12 +16,15 @@ MasterWidget::MasterWidget(QWidget *parent) :
     cameraWidget = new CameraWidget();
     scannerWidget = new ScannerWidget;
     validationWidget = new ValidationWidget;
-
+// Linking the Widget to the stack
     masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
     masterStackedWidget->addWidget(cameraWidget);
     masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
+
+// Linking the Application together
+    connectTheApplication();
 
 }
 
@@ -63,12 +66,16 @@ void MasterWidget::goToWebcam()
     cameraWidget->start();
 }
 
+// Display the scanner widget and give it the id of the puzzle
+// Should always be the one used after saving the puzzle to the database
 void MasterWidget::goToScanner(int id)
 {
     scannerWidget->prepare(id);
     masterStackedWidget->setCurrentWidget(scannerWidget);
 }
 
+// Display the scanner widge
+// Should be the one used after the validation of a photo
 void MasterWidget::goToScanner()
 {
     masterStackedWidget->setCurrentWidget(scannerWidget);
@@ -80,7 +87,7 @@ void MasterWidget::goToSavePuzzle()
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
 }
 
-
+// Redirect to the correct photographic device in function of chosenDevice
 void MasterWidget::goToPhotoDevice()
 {
     if (chosenDevice == Webcam)
@@ -132,6 +139,7 @@ MasterWidget::pages MasterWidget::getLoadedPage()
 
 }
 
+// Open a message box in order to let the user chose which device with be used for the photos
 void MasterWidget::choiceImageAcquisition(int id)
 {
     QMessageBox choiceImage;
@@ -139,27 +147,29 @@ void MasterWidget::choiceImageAcquisition(int id)
     choiceImage.addButton("Imprimante", QMessageBox::NoRole);
     choiceImage.setText("Quel périphérique allez-vous utiliser pour prendre des photographies du Puzzle ?");
     int choice = choiceImage.exec();
-    if(choice == 0) // choice is webcam
+    // choice is webcam
+    if(choice == 0)
     {
         chosenDevice = Webcam;
         goToWebcam(id);
     }
-    else // choice is scanner
+    // choice is scanner
+    else
     {
         chosenDevice = Scanner;
         goToScanner(id);
     }
 }
 
+// Launch the archive process
 void MasterWidget::archive()
 {
     manager.tarOldImageFolder();
 }
 
 // Connects the widget "end" signal the changing display slots
-// It is used for testing until I made all the widget and I write an equivalent
-// for the constructor
-void MasterWidget::test()
+// Connects the backgrounds process to their signals
+void MasterWidget::connectTheApplication()
 {
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);

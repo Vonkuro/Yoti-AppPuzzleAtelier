@@ -6,6 +6,8 @@
 #include "tst_homepagewidget.h"
 #include "tst_validationwidget.h"
 
+
+// Launch the Unit-Tests class by class
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

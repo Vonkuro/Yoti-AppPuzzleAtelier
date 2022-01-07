@@ -12,8 +12,11 @@ class tst_homepageWidget : public QObject
 public:
     tst_homepageWidget();
 
+// Declaration of the Tests
 private slots:
-    void initTestCase();
+    // Specials QT Tests at the launch at the start and the end of the Test Case
+    void initTestCase(); // start
+    // Unit-Tests of Methods
     void startSignalTest();
 
 private:

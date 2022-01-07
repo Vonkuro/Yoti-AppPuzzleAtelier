@@ -1,10 +1,14 @@
 #include "tst_validationwidget.h"
 
+// Don't change anything in the constructor or QTest will crash
+// QString are safe (so far)
 tst_validationWidget::tst_validationWidget()
 {
     path = "../Images/Puzzle--3";
 }
 
+// Set up the common arrange
+// Prepare a puzzle directory with a jpg image
 void tst_validationWidget::initTestCase()
 {
     validation = new ValidationWidget;
@@ -25,6 +29,8 @@ void tst_validationWidget::initTestCase()
 
 }
 
+// Clean up the common arrange
+// Remove the puzzle directory and it's content
 void tst_validationWidget::cleanupTestCase()
 {
     QDir directory(path);
@@ -32,6 +38,7 @@ void tst_validationWidget::cleanupTestCase()
 }
 
 
+// Test if the method button cancel remove the test image and emit the signal newPhoto
 void tst_validationWidget::cancelTest()
 {
     QSignalSpy spy(validation, SIGNAL(newPhoto()));
