@@ -32,6 +32,7 @@ public:
 // Handle the validation process
 signals:
     void newPhoto();
+    void allIsValidated(int idPuzzle);
 
 public slots:
     void valid();

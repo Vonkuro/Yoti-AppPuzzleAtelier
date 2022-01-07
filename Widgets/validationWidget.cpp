@@ -63,6 +63,10 @@ void ValidationWidget::valid()
     {
         emit newPhoto();
     }
+    else
+    {
+        emit allIsValidated(puzzleId);
+    }
 }
 
 // delete the photo and emit the signal for a new photo

@@ -151,6 +151,11 @@ void MasterWidget::choiceImageAcquisition(int id)
     }
 }
 
+void MasterWidget::archive()
+{
+    manager.tarOldImageFolder();
+}
+
 // Connects the widget "end" signal the changing display slots
 // It is used for testing until I made all the widget and I write an equivalent
 // for the constructor
@@ -162,4 +167,5 @@ void MasterWidget::test()
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(scannerWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
+    connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(archive()));
 }

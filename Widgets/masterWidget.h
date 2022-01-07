@@ -9,7 +9,7 @@
 #include "savePuzzleWidget.h"
 #include "validationWidget.h"
 #include "scannerWidget.h"
-
+#include "folderManager.h"
 
 class MasterWidget : public QWidget
 {
@@ -38,6 +38,8 @@ private:
     enum photoDevice {Webcam, Scanner};
     photoDevice chosenDevice;
 // Methods
+// Objects tools
+    folderManager manager;
 
 
 public slots:
@@ -50,7 +52,7 @@ public slots:
     void goToSavePuzzle();
     void goToPhotoDevice();
     void goToValidation(int idPuzzle, int idImage);
-
+    void archive();
 
 
 };

@@ -1,5 +1,4 @@
 #include "masterWidget.h"
-#include "folderManager.h"
 #include <QApplication>
 
 
@@ -10,7 +9,5 @@ int main(int argc, char *argv[])
     w.show();
     w.test();
 
-    return a.exec();/*
-    folderManager fm;
-    fm.tarOldImageFolder();*/
+    return a.exec();
 }
