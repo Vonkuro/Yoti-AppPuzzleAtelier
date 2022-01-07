@@ -8,14 +8,6 @@ folderManager::folderManager()
     limitBeforeArchive = 200;
 }
 
-void folderManager::tarAFolder(QString folderName) // need to delete
-{
-    QString commandQString = "tar -Jcf ../Archive/" + folderName + ".tar.xz ../Images/" + folderName;
-    std::string commandString = commandQString.toStdString();
-    const char* command = commandString.c_str();
-    system(command);
-}
-
 // Find the first or last number in a list of directory name with the format "Puzzle-n" with n an INT.
 int folderManager::findPuzzleNumber(QStringList puzzleList, bool first = true) // test needed
 {
