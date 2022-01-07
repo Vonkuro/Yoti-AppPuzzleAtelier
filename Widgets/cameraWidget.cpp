@@ -90,7 +90,6 @@ void CameraWidget::takePhoto()
 {
     ++lastImageId;
     webcam->searchAndLock();
-    //
     QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
     webcamImageCapture->capture(imagePath);
     webcam->unlock();

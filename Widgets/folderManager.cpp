@@ -37,6 +37,7 @@ int folderManager::findPuzzleNumber(QStringList puzzleList, bool first = true) /
 // This function should not be called multiple time during the same second
 void folderManager::tarOldImageFolder()
 {
+    // Map the Images directory
     QString directoryPath = "../Images";
     QDir images(directoryPath);
     QStringList puzzleList = images.entryList();
@@ -45,10 +46,12 @@ void folderManager::tarOldImageFolder()
 
     if (lastPuzzle % limitBeforeArchive != 0)
     {
+        // If under the limit nothing need to be done
         return;
     }
     else
     {
+        // Prepare the tar archive command
         int firstPuzzle = findPuzzleNumber(puzzleList, true);
         QString exclusion = checkAlreadyArchived(firstPuzzle);
 
@@ -56,11 +59,13 @@ void folderManager::tarOldImageFolder()
         QString dateString = date.toString("dd_MM_yyyy-hh_mm_ss");
 
         QString commandQString = "tar -Jcvf ../Archive/Images-" + dateString +".tar.xz" + exclusion + " ../Images";
-        qDebug() << commandQString;
+
+        // Convert the command to const char* in order to transmit it to bash terminal
         std::string commandString = commandQString.toStdString();
         const char* command = commandString.c_str();
         system(command);
 
+        // Delete most of the archived Puzzle directory
         markPuzzleArchived(lastPuzzle);
         deleteOldImageFolder(puzzleList,lastPuzzle);
     }
