@@ -23,6 +23,9 @@ MasterWidget::MasterWidget(QWidget *parent) :
     masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
 
+// Linking the Application together
+    connectTheApplication();
+
 }
 
 // The end of the line for the pointers
@@ -165,9 +168,8 @@ void MasterWidget::archive()
 }
 
 // Connects the widget "end" signal the changing display slots
-// It is used for testing until I made all the widget and I write an equivalent
-// for the constructor
-void MasterWidget::test()
+// Connects the backgrounds process to their signals
+void MasterWidget::connectTheApplication()
 {
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);

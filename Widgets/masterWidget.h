@@ -20,7 +20,7 @@ public:
     ~MasterWidget();
 // Methods for testing purposes
     bool testDuTest();
-    void test();
+
     enum pages {homepage, savePuzzle, camera, validation, scanner, noPage};
     pages getLoadedPage();
 
@@ -38,6 +38,7 @@ private:
     enum photoDevice {Webcam, Scanner};
     photoDevice chosenDevice;
 // Methods
+    void connectTheApplication();
 // Objects tools
     folderManager manager;
 
