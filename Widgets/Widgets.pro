@@ -35,7 +35,8 @@ SOURCES += \
     validationWidget.cpp \
     homepageWidget.cpp \
     notes.cpp \
-    folderManager.cpp
+    folderManager.cpp \
+    common.cpp
 
 HEADERS += \
         scannerWidget.h \
@@ -46,7 +47,8 @@ HEADERS += \
     envLocal.h \
     validationWidget.h \
     homepageWidget.h \
-    folderManager.h
+    folderManager.h \
+    common.h
 
 
 

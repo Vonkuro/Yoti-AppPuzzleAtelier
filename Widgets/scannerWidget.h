@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "widgets_global.h"
+#include "common.h"
 
 class ScannerWidget: public QWidget
 {
@@ -34,8 +35,6 @@ private:
     int lastImageId;
     QString pathImageDirectory;
 // Methods
-    void newDir(QString dirPath);
-    void delay();
 };
 
 #endif // SCANNERWIDGET_H

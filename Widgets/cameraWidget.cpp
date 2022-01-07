@@ -84,16 +84,6 @@ void CameraWidget::prepare(int id)
     newDir("../" + pathImageDirectory);
 }
 
-// Create a directory if it doesn't exit
-void CameraWidget::newDir(QString dirPath)
-{
-    QDir dir(dirPath);
-    QDir dir2;
-    if(!dir.exists())
-    {
-        dir2.mkpath(dirPath);
-    }
-}
 
 // Take the photo
 void CameraWidget::takePhoto()
@@ -107,18 +97,8 @@ void CameraWidget::takePhoto()
 
     stop();
 
-    delay();
+    delay(1000);
 
     emit photoTaken(puzzleId, lastImageId);
 }
 
-// Delay the widget loop for 1 second
-void CameraWidget::delay()
-{
-    QTime dieTime = QTime::currentTime().addMSecs(1000);
-
-    while(QTime::currentTime() < dieTime)
-    {
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    }
-}

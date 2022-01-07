@@ -6,6 +6,7 @@
 #include <QtMultimediaWidgets>
 #include <unistd.h>
 #include "widgets_global.h"
+#include "common.h"
 
 class CameraWidget : public QWidget
 {
@@ -45,8 +46,6 @@ private:
     bool checkWebcamAvailable();
     void webcamView();
 // Methods
-    void newDir(QString dirPath);
-    void delay();
     void viewStyle();
 
 };
