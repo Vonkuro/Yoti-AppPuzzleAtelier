@@ -16,7 +16,7 @@ MasterWidget::MasterWidget(QWidget *parent) :
     cameraWidget = new CameraWidget();
     scannerWidget = new ScannerWidget;
     validationWidget = new ValidationWidget;
-
+// Linking the Widget to the stack
     masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
     masterStackedWidget->addWidget(cameraWidget);

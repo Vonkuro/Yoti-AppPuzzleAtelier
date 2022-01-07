@@ -52,6 +52,7 @@ public slots:
     void goToSavePuzzle();
     void goToPhotoDevice();
     void goToValidation(int idPuzzle, int idImage);
+// Slots mangers of background process
     void archive();
 
 
