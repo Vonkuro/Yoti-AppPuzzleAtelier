@@ -6,6 +6,12 @@ folderManager::folderManager()
 {
     newDir("../Archive");
     limitBeforeArchive = 200;
+    dataWrapper = new EnvLocal;
+}
+
+folderManager::~folderManager()
+{
+    delete dataWrapper;
 }
 
 // Find the first or last number in a list of directory name with the format "Puzzle-n" with n an INT.
@@ -78,7 +84,7 @@ void folderManager::tarOldImageFolder()
 QString folderManager::checkAlreadyArchived(int firstPuzzle)
 {
 
-    if ( dataWrapper.database.open() )
+    if ( dataWrapper->database.open() )
     {
         QString exclusion = QString();
         QString exclusionPartOne = QString(" --exclude=\"Puzzle-");
@@ -103,7 +109,7 @@ QString folderManager::checkAlreadyArchived(int firstPuzzle)
             exclusion = exclusion + exclusionPartOne + QString::number(idPuzzle) + "\"";
         }while(alreadyArchived);
 
-        dataWrapper.database.close();
+        dataWrapper->database.close();
         return exclusion;
     }
     return QString();
@@ -112,14 +118,14 @@ QString folderManager::checkAlreadyArchived(int firstPuzzle)
 // In database, mark all the puzzle with an id equal of lower than lastPuzzle as archived
 void folderManager::markPuzzleArchived(int lastPuzzle)
 {
-    if ( dataWrapper.database.open() )
+    if ( dataWrapper->database.open() )
     {
         QSqlQuery newPuzzleSql;
         newPuzzleSql.prepare("UPDATE Puzzle SET archived = 1 WHERE id <= ?");
         newPuzzleSql.bindValue(0,lastPuzzle);
         newPuzzleSql.exec();
 
-        dataWrapper.database.close();
+        dataWrapper->database.close();
     }
 }
 

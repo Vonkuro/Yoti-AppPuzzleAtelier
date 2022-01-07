@@ -12,3 +12,6 @@ int scanningStart(const char *fileName)
     system(command);
 }
 */
+
+
+// QSqlDatabase::removeDatabase("puzzle");

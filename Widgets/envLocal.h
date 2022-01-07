@@ -9,6 +9,7 @@ class EnvLocal
 // If you are an open source visitor, here is my dev/debug database
 public:
     EnvLocal();
+    ~EnvLocal();
     QSqlDatabase database;
 private:
     QString dataDriver;

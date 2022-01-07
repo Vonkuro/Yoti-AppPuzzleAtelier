@@ -24,6 +24,7 @@ MasterWidget::MasterWidget(QWidget *parent) :
     masterStackedWidget->addWidget(validationWidget);
 
 // Linking the Application together
+    manager = new folderManager;
     connectTheApplication();
 
 }
@@ -38,6 +39,9 @@ MasterWidget::~MasterWidget()
     delete cameraWidget;
     delete scannerWidget;
     delete validationWidget;
+    delete manager;
+
+    QSqlDatabase::removeDatabase("puzzle");
 }
 
 
@@ -164,7 +168,7 @@ void MasterWidget::choiceImageAcquisition(int id)
 // Launch the archive process
 void MasterWidget::archive()
 {
-    manager.tarOldImageFolder();
+    manager->tarOldImageFolder();
 }
 
 // Connects the widget "end" signal the changing display slots

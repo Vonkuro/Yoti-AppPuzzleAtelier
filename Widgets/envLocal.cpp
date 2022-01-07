@@ -11,11 +11,16 @@ EnvLocal::EnvLocal()
     dataPort = 3306;
 
 // Init of database
-    database = QSqlDatabase::addDatabase(dataDriver);
+    database = QSqlDatabase::addDatabase(dataDriver, "puzzle");
     database.setDatabaseName(dataName);
     database.setUserName(dataUser);
     database.setPassword(dataPassword);
     database.setHostName(dataHost);
     database.setPort(dataPort);
 
+}
+
+EnvLocal::~EnvLocal()
+{
+    database.close();
 }

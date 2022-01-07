@@ -44,7 +44,7 @@ private:
     bool barcodeValid(QString barcodeText);
 
 // Database
-    EnvLocal dataWrapper;
+    EnvLocal* dataWrapper;
 
 // Methods back
 

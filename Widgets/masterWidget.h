@@ -40,7 +40,7 @@ private:
 // Methods
     void connectTheApplication();
 // Objects tools
-    folderManager manager;
+    folderManager* manager;
 
 
 public slots:
