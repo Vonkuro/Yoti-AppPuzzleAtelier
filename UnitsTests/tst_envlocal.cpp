@@ -9,8 +9,10 @@ tst_envLocal::tst_envLocal()
 // Test if the database open, aka the App can use it
 void tst_envLocal::openDatabaseTest()
 {
-    QVERIFY(dataWrapper.database.open());
-    dataWrapper.database.close();
+    QSqlDatabase database = QSqlDatabase::database("puzzle");
+
+    QVERIFY(database.open());
+    database.close();
 }
 
 

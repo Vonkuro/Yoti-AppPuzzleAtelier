@@ -3,8 +3,10 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "envLocal.h"
 #include "widgets_global.h"
 #include "homepageWidget.h"
+#include "choiceCameraWidget.h"
 #include "cameraWidget.h"
 #include "savePuzzleWidget.h"
 #include "validationWidget.h"
@@ -31,6 +33,7 @@ private:
 // Widgets
     HomepageWidget* homepageWidget;
     SavePuzzleWidget* savePuzzleWidget;
+    ChoiceCameraWidget* choiceCamera;
     CameraWidget* cameraWidget;
     ScannerWidget* scannerWidget;
     ValidationWidget* validationWidget;
@@ -46,13 +49,14 @@ private:
 public slots:
 // Slots managers of which widget is on screen
     void choiceImageAcquisition(int id);
-    void goToWebcam(int id);
+    void goToWebcam(int id, QCameraInfo cameraInfo);
     void goToWebcam();
     void goToScanner(int id);
     void goToScanner();
     void goToSavePuzzle();
     void goToPhotoDevice();
     void goToValidation(int idPuzzle, int idImage);
+    void goToChoiceCamera(int id);
 // Slots mangers of background process
     void archive();
 

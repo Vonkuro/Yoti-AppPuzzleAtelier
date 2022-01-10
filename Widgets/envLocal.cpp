@@ -10,17 +10,19 @@ EnvLocal::EnvLocal()
     dataHost = "localhost";
     dataPort = 3306;
 
+
+
+}
+
+QSqlDatabase EnvLocal::getDatabase()
+{
 // Init of database
-    database = QSqlDatabase::addDatabase(dataDriver, "puzzle");
+    QSqlDatabase database = QSqlDatabase::addDatabase(dataDriver);
     database.setDatabaseName(dataName);
     database.setUserName(dataUser);
     database.setPassword(dataPassword);
     database.setHostName(dataHost);
     database.setPort(dataPort);
 
-}
-
-EnvLocal::~EnvLocal()
-{
-    database.close();
+    return database;
 }

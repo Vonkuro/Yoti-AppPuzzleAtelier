@@ -8,5 +8,7 @@ int main(int argc, char *argv[])
     MasterWidget w;
     w.show();
 
+
+
     return a.exec();
 }

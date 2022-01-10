@@ -31,11 +31,11 @@ ValidationWidget::ValidationWidget(QWidget *parent) : QWidget(parent)
 // The end of the line for the pointers
 ValidationWidget::~ValidationWidget()
 {
-    delete widgetLayout;
-    delete choiceLayout;
     delete imageLabel;
     delete validButton;
     delete cancelButton;
+    delete choiceLayout;
+    delete widgetLayout;
 }
 
 // Load the correct image to valide into the image Label

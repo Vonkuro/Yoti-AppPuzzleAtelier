@@ -21,8 +21,8 @@ HomepageWidget::HomepageWidget(QWidget *parent) : QWidget(parent)
 // The end of the line for the pointers
 HomepageWidget::~HomepageWidget()
 {
-    delete widgetLayout;
     delete startButton;
+    delete widgetLayout;
 }
 
 // Emit the signal to start the Application

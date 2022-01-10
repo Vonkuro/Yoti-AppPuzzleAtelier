@@ -11,7 +11,6 @@ class folderManager
 {
 public:
     folderManager();
-    ~folderManager();
 // Method to launch the archive process if necessary
     void tarOldImageFolder();
 private:
@@ -24,7 +23,7 @@ private:
 // Attributs
     int limitBeforeArchive;
 // Database
-    EnvLocal* dataWrapper;
+    EnvLocal dataWrapper;
 };
 
 #endif // FOLDERMANAGER_H

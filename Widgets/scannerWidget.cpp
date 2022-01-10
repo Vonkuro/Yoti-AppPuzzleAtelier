@@ -17,8 +17,8 @@ ScannerWidget::ScannerWidget()
 // The end of the line for the pointers
 ScannerWidget::~ScannerWidget()
 {
-    delete widgetLayout;
     delete scanButton;
+    delete widgetLayout;
 }
 
 // Prepare the attributs and directory before scanning
