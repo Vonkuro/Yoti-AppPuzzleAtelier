@@ -5,6 +5,12 @@ CameraWidget::CameraWidget(QWidget *parent) :
 {
 // Init of attribut at application start
     lastImageId = 0;
+    cameraLayout = NULL;
+    photoButton = NULL;
+    webcam = NULL;
+    webcamViewfinder = NULL;
+    webcamImageCapture = NULL;
+
 // Prepare the view
     if (checkWebcamAvailable())
     {
