@@ -7,20 +7,32 @@
 #include <QWidget>
 #include <QtWidgets>
 
+typedef QMap<QString, QString> Devices;
+
 class ChoiceScannerWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit ChoiceScannerWidget(QWidget *parent = nullptr);
-    void test();
+    ~ChoiceScannerWidget();
 
 signals:
+    void scannerSetUp(int id, QString scannerName);
 
 public slots:
+    void searchScanner(int id);
+    void scannerChosen();
 
 private:
     std::string execute(const std::string& command);
-    QStringList findScanners();
+    Devices findScanners();
+
+    QVBoxLayout* widgetLayout;
+    QPushButton* choiceButton;
+    QComboBox* choiceCombobox;
+
+    int Id;
+
 };
 
 #endif // CHOICESCANNERWIDGET_H

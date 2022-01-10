@@ -2,7 +2,23 @@
 
 ChoiceScannerWidget::ChoiceScannerWidget(QWidget *parent) : QWidget(parent)
 {
+    widgetLayout = new QVBoxLayout;
+    choiceButton = new QPushButton;
+    choiceCombobox = new QComboBox;
 
+    widgetLayout->addWidget(choiceCombobox);
+    widgetLayout->addWidget(choiceButton);
+
+    this->setLayout(widgetLayout);
+
+    connect(choiceButton, &QPushButton::clicked, this, &ChoiceScannerWidget::scannerChosen);
+}
+
+ChoiceScannerWidget::~ChoiceScannerWidget()
+{
+    delete choiceCombobox;
+    delete choiceButton;
+    delete widgetLayout;
 }
 
 std::string ChoiceScannerWidget::execute(const std::string& command) {
@@ -17,28 +33,44 @@ std::string ChoiceScannerWidget::execute(const std::string& command) {
     return ret;
 }
 
-void ChoiceScannerWidget::test()
+void ChoiceScannerWidget::searchScanner(int id)
 {
+    Id = id;
 
-
+    Devices deviceList = findScanners();
+    for ( Devices::iterator i = deviceList.begin() ; i!=deviceList.end() ; ++i)
+    {
+        choiceCombobox->addItem( i.key(), QVariant(i.value()) );
+    }
 
 }
 
-QStringList findScanners()
+Devices ChoiceScannerWidget::findScanners()
 {
     QString scanimageOutput = QString::fromStdString(execute("scanimage -L"));
     scanimageOutput = scanimageOutput.simplified();
     QStringList deviceListOutput = scanimageOutput.split("`");
 
-    QStringList deviceListNames;
+    Devices deviceList;
 
     for ( QString substring : deviceListOutput)
     {
         if (substring.contains("'"))
         {
             QString deviceName = substring.split("'")[0];
-            deviceListNames.push_back(deviceName);
+
+            QString deviceDescription = substring.split("'")[1];
+            deviceDescription = deviceDescription.mid(5);
+            deviceDescription = deviceDescription.remove(" device ");
+
+            deviceList.insert(deviceDescription,deviceName);
         }
     }
-    return deviceListNames;
+    return deviceList;
+}
+
+void ChoiceScannerWidget::scannerChosen()
+{
+    QString scannerName = choiceCombobox->currentData().toString();
+    emit scannerSetUp(Id,scannerName);
 }

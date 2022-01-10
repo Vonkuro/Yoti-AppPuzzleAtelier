@@ -6,9 +6,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MasterWidget w;
-    w.show();
+    //w.show();
     ChoiceScannerWidget c;
-    c.test();
-
+    c.searchScanner(5);
+    c.show();
     return a.exec();
 }
