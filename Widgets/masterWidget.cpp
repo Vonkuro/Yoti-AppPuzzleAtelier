@@ -14,15 +14,17 @@ MasterWidget::MasterWidget(QWidget *parent) :
 // Loading Widgets
     homepageWidget = new HomepageWidget;
     savePuzzleWidget = new SavePuzzleWidget;
-    choiceCamera = new ChoiceCameraWidget;
+    choiceCameraWidget = new ChoiceCameraWidget;
     cameraWidget = new CameraWidget();
+    choiceScannerWidget = new ChoiceScannerWidget;
     scannerWidget = new ScannerWidget;
     validationWidget = new ValidationWidget;
 // Linking the Widget to the stack
     masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
-    masterStackedWidget->addWidget(choiceCamera);
+    masterStackedWidget->addWidget(choiceCameraWidget);
     masterStackedWidget->addWidget(cameraWidget);
+    masterStackedWidget->addWidget(choiceScannerWidget);
     masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
 
@@ -37,8 +39,9 @@ MasterWidget::~MasterWidget()
 {
     delete homepageWidget;
     delete savePuzzleWidget;
-    delete choiceCamera;
+    delete choiceCameraWidget;
     delete cameraWidget;
+    delete choiceScannerWidget;
     delete scannerWidget;
     delete validationWidget;
     delete manager;   
@@ -76,9 +79,9 @@ void MasterWidget::goToWebcam()
 
 // Display the scanner widget and give it the id of the puzzle
 // Should always be the one used after saving the puzzle to the database
-void MasterWidget::goToScanner(int id)
+void MasterWidget::goToScanner(int id, QString deviceName)
 {
-    scannerWidget->prepare(id);
+    scannerWidget->prepare(id, deviceName);
     masterStackedWidget->setCurrentWidget(scannerWidget);
 }
 
@@ -117,8 +120,14 @@ void MasterWidget::goToValidation(int idPuzzle, int idImage)
 
 void MasterWidget::goToChoiceCamera(int id)
 {
-    choiceCamera->searchCamera(id);
-    masterStackedWidget->setCurrentWidget(choiceCamera);
+    choiceCameraWidget->searchCamera(id);
+    masterStackedWidget->setCurrentWidget(choiceCameraWidget);
+}
+
+void MasterWidget::goToChoiceScanner(int id)
+{
+    choiceScannerWidget->searchScanner(id);
+    masterStackedWidget->setCurrentWidget(choiceScannerWidget);
 }
 
 // Return a page keyword that describe the widget displayed on screen
@@ -171,7 +180,7 @@ void MasterWidget::choiceImageAcquisition(int id)
     else
     {
         chosenDevice = Scanner;
-        goToScanner(id);
+        goToChoiceScanner(id);
     }
 }
 
@@ -188,8 +197,9 @@ void MasterWidget::connectTheApplication()
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(choiceImageAcquisition(int)));
-    connect(choiceCamera, SIGNAL(cameraSetUp(int, QCameraInfo)) , this, SLOT(goToWebcam(int,QCameraInfo)));
+    connect(choiceCameraWidget, SIGNAL(cameraSetUp(int, QCameraInfo)) , this, SLOT(goToWebcam(int,QCameraInfo)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
+    connect(choiceScannerWidget, SIGNAL(scannerSetUp(int, QString)) , this, SLOT(goToScanner(int,QString)));
     connect(scannerWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
     connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(archive()));

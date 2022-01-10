@@ -17,7 +17,7 @@ void tst_scannerWidget::prepareTest()
 {
     QString path = "../Images/Puzzle--3";
 
-    scanner->prepare(-3);
+    scanner->prepare(-3, "test");
 
     QDir directory(path);
     bool exist = directory.exists();

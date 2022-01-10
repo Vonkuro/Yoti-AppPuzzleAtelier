@@ -10,6 +10,7 @@
 #include "cameraWidget.h"
 #include "savePuzzleWidget.h"
 #include "validationWidget.h"
+#include "choiceScannerWidget.h"
 #include "scannerWidget.h"
 #include "folderManager.h"
 
@@ -33,8 +34,9 @@ private:
 // Widgets
     HomepageWidget* homepageWidget;
     SavePuzzleWidget* savePuzzleWidget;
-    ChoiceCameraWidget* choiceCamera;
+    ChoiceCameraWidget* choiceCameraWidget;
     CameraWidget* cameraWidget;
+    ChoiceScannerWidget* choiceScannerWidget;
     ScannerWidget* scannerWidget;
     ValidationWidget* validationWidget;
 // Attributs
@@ -51,12 +53,13 @@ public slots:
     void choiceImageAcquisition(int id);
     void goToWebcam(int id, QCameraInfo cameraInfo);
     void goToWebcam();
-    void goToScanner(int id);
+    void goToScanner(int id, QString deviceName);
     void goToScanner();
     void goToSavePuzzle();
     void goToPhotoDevice();
     void goToValidation(int idPuzzle, int idImage);
     void goToChoiceCamera(int id);
+    void goToChoiceScanner(int id);
 // Slots mangers of background process
     void archive();
 

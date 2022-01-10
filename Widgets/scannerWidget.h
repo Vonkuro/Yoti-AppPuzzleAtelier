@@ -16,7 +16,7 @@ public:
     ScannerWidget();
     ~ScannerWidget();
 // Tools for the master widget
-    void prepare(int id);
+    void prepare(int id, QString deviceName);
 
 // Taking the photo
 signals:
@@ -34,6 +34,7 @@ private:
     int puzzleId;
     int lastImageId;
     QString pathImageDirectory;
+    QString scannerName;
 // Methods
 };
 
