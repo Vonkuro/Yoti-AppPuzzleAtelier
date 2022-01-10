@@ -16,9 +16,12 @@ public:
     explicit CameraWidget(QWidget *parent = 0);
     ~CameraWidget();
 // Tools for the Master Widget to Manage the Webcam
-    void prepare(int id);
+    void prepare(int id, QCameraInfo cameraInfo);
     void start();
     void stop();
+
+public slots:
+
 
 // Taking the photo
 signals:
@@ -44,9 +47,10 @@ private:
     QString pathImageDirectory;
 // Methods to control and config the webcam
     bool checkWebcamAvailable();
-    void webcamView();
+    void webcamView(QCameraInfo cameraInfo);
 // Methods
     void viewStyle();
+    void cameraStyle();
 
 };
 

@@ -12,3 +12,21 @@ int scanningStart(const char *fileName)
     system(command);
 }
 */
+
+
+/*
+ * Pour la page de choix des scanners
+ * Appel de scanimage -L
+ * récuppération de l'output
+ * affichage du nom dans un combobox
+ * transfert du nom choisit via signal
+ * mise en attribut dans prepare de scanner
+*/
+
+/*
+ * Pour la page de choix des webcams
+ * Appel de const QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
+ * affichage des npùs dans un combobox
+ * transfert du QCameraInfo via signal
+ * passage de la def de la webcam dans prepare
+*/

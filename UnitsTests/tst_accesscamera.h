@@ -17,7 +17,7 @@ private slots:
     // Specials QT Tests at the launch at the start and the end of the Test Case
     void initTestCase(); // start
     // Unit-Tests of Methods
-    void prepareTest();
+    //void prepareTest();
 
 private:
     CameraWidget* camera;

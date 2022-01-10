@@ -16,8 +16,6 @@ private slots:
     // Unit-Tests of Methods
     void openDatabaseTest();
 
-private:
-    EnvLocal dataWrapper;
 
 };
 

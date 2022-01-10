@@ -19,8 +19,8 @@ SavePuzzleWidget::SavePuzzleWidget()
 // The end of the line for the pointers
 SavePuzzleWidget::~SavePuzzleWidget()
 {
-    delete widgetLayout;
-    delete formLayout;
+
+
     delete barcodeLabel;
     delete barcodeLineEdit;
     delete barcodeErrorLabel;
@@ -28,6 +28,8 @@ SavePuzzleWidget::~SavePuzzleWidget()
     delete descriptionTextEdit;
     delete descriptionErrorLabel;
     delete validationButton;
+    delete formLayout;
+    delete widgetLayout;
 }
 
 // Prepare the form
@@ -149,7 +151,9 @@ void SavePuzzleWidget::save()
 
         long long int barcode = barcodeText.toLongLong();
 
-        if ( ! dataWrapper.database.open() )
+        QSqlDatabase database = dataWrapper.getDatabase();
+
+        if ( ! database.open() )
         {
             // Could extend into a better error handling
             QMessageBox::information(this, "Erreur", "La base de données n'est pas correctement installée.");
@@ -173,7 +177,7 @@ void SavePuzzleWidget::save()
         newPuzzleSql.next();
         int id = newPuzzleSql.value("id").toInt();
 
-        dataWrapper.database.close();
+        database.close();
 
         emit puzzleSaved(id);
     }

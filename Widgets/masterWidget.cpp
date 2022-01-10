@@ -9,21 +9,25 @@ MasterWidget::MasterWidget(QWidget *parent) :
 
     masterLayout->addWidget(masterStackedWidget);
     setLayout(masterLayout);
-
+// Database
+    EnvLocal datawrapper;
 // Loading Widgets
     homepageWidget = new HomepageWidget;
     savePuzzleWidget = new SavePuzzleWidget;
+    choiceCamera = new ChoiceCameraWidget;
     cameraWidget = new CameraWidget();
     scannerWidget = new ScannerWidget;
     validationWidget = new ValidationWidget;
 // Linking the Widget to the stack
     masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
+    masterStackedWidget->addWidget(choiceCamera);
     masterStackedWidget->addWidget(cameraWidget);
     masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
 
 // Linking the Application together
+    manager = new folderManager;
     connectTheApplication();
 
 }
@@ -31,13 +35,17 @@ MasterWidget::MasterWidget(QWidget *parent) :
 // The end of the line for the pointers
 MasterWidget::~MasterWidget()
 {
-    delete masterLayout;
-    delete masterStackedWidget;
     delete homepageWidget;
     delete savePuzzleWidget;
+    delete choiceCamera;
     delete cameraWidget;
     delete scannerWidget;
     delete validationWidget;
+    delete manager;   
+    delete masterStackedWidget;
+    delete masterLayout;
+
+    QSqlDatabase::removeDatabase("puzzle");
 }
 
 
@@ -49,11 +57,11 @@ bool MasterWidget::testDuTest()
 
 // Display the camera widget and give it the id of the puzzle
 // Should always be the one used after saving the puzzle to the database
-void MasterWidget::goToWebcam(int id)
+void MasterWidget::goToWebcam(int id, QCameraInfo cameraInfo)
 {
     masterStackedWidget->setCurrentWidget(cameraWidget);
 
-    cameraWidget->prepare(id);
+    cameraWidget->prepare(id, cameraInfo);
     cameraWidget->start();
 }
 
@@ -107,6 +115,12 @@ void MasterWidget::goToValidation(int idPuzzle, int idImage)
     masterStackedWidget->setCurrentWidget(validationWidget);
 }
 
+void MasterWidget::goToChoiceCamera(int id)
+{
+    choiceCamera->searchCamera(id);
+    masterStackedWidget->setCurrentWidget(choiceCamera);
+}
+
 // Return a page keyword that describe the widget displayed on screen
 MasterWidget::pages MasterWidget::getLoadedPage()
 {
@@ -151,7 +165,7 @@ void MasterWidget::choiceImageAcquisition(int id)
     if(choice == 0)
     {
         chosenDevice = Webcam;
-        goToWebcam(id);
+        goToChoiceCamera(id);
     }
     // choice is scanner
     else
@@ -164,7 +178,7 @@ void MasterWidget::choiceImageAcquisition(int id)
 // Launch the archive process
 void MasterWidget::archive()
 {
-    manager.tarOldImageFolder();
+    manager->tarOldImageFolder();
 }
 
 // Connects the widget "end" signal the changing display slots
@@ -174,6 +188,7 @@ void MasterWidget::connectTheApplication()
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(choiceImageAcquisition(int)));
+    connect(choiceCamera, SIGNAL(cameraSetUp(int, QCameraInfo)) , this, SLOT(goToWebcam(int,QCameraInfo)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(scannerWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));

@@ -5,11 +5,17 @@ CameraWidget::CameraWidget(QWidget *parent) :
 {
 // Init of attribut at application start
     lastImageId = 0;
+    cameraLayout = NULL;
+    photoButton = NULL;
+    webcam = NULL;
+    webcamViewfinder = NULL;
+    webcamImageCapture = NULL;
+
 // Prepare the view
     if (checkWebcamAvailable())
     {
+        cameraLayout = new QVBoxLayout;
         photoButton = new QPushButton;
-        webcamView();
         cameraLayout->addWidget(photoButton);
         this->setLayout(cameraLayout);
         connect(photoButton, &QPushButton::clicked, this, &CameraWidget::takePhoto);
@@ -23,18 +29,28 @@ void CameraWidget::viewStyle()
     photoButton->setText("Prendre une Photo");
     this->setMinimumHeight(1200);
     this->setMinimumWidth(1200);
-    webcamViewfinder->setMaximumHeight(887);
+}
+
+void CameraWidget::cameraStyle()
+{
     cameraLayout->setSizeConstraint(QLayout::SetMinimumSize);
+    webcamViewfinder->setMaximumHeight(887);
 }
 
 // The end of the line for the pointers
 CameraWidget::~CameraWidget()
 {
-    delete webcam;
-    delete webcamViewfinder;
+    if (webcam)
+    {
+       delete webcam;
+    }
+    if (webcamViewfinder)
+    {
+        delete webcamViewfinder;
+    }
     delete webcamImageCapture;
-    delete cameraLayout;
     delete photoButton;
+    delete cameraLayout;
 }
 
 // Check if there are Webcam (Future : choose the specific webcam)
@@ -47,10 +63,10 @@ bool CameraWidget::checkWebcamAvailable()
 }
 
 // Prepare the webcam and the view of it's video feed
-void CameraWidget::webcamView()
+void CameraWidget::webcamView(QCameraInfo cameraInfo)
 {
 // Init of attributs for view of the webcam
-    webcam = new QCamera;
+    webcam = new QCamera(cameraInfo);
     webcamViewfinder = new QCameraViewfinder;
     viewfinderSettings.setResolution(1280, 960); //<- here for size of the viewFinder Widget created from webcamViewfinder
 
@@ -62,7 +78,7 @@ void CameraWidget::webcamView()
 
 
 //Starting the view
-    cameraLayout = new QVBoxLayout;
+
     cameraLayout->addWidget(webcamViewfinder);
 }
 
@@ -77,11 +93,15 @@ void CameraWidget::stop()
 }
 
 // Prepare the directory to store the images
-void CameraWidget::prepare(int id)
+void CameraWidget::prepare(int id, QCameraInfo cameraInfo)
 {
     puzzleId = id;
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
+
+    webcamView(cameraInfo);
+
+    cameraStyle();
 }
 
 

@@ -45,7 +45,6 @@ private:
 
 // Database
     EnvLocal dataWrapper;
-
 // Methods back
 
 
