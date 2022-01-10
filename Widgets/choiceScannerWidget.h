@@ -20,6 +20,7 @@ public slots:
 
 private:
     std::string execute(const std::string& command);
+    QStringList findScanners();
 };
 
 #endif // CHOICESCANNERWIDGET_H

@@ -19,6 +19,26 @@ std::string ChoiceScannerWidget::execute(const std::string& command) {
 
 void ChoiceScannerWidget::test()
 {
-    QString output = QString::fromStdString(execute("scanimage -L"));
-    qDebug() << output;
+
+
+
+}
+
+QStringList findScanners()
+{
+    QString scanimageOutput = QString::fromStdString(execute("scanimage -L"));
+    scanimageOutput = scanimageOutput.simplified();
+    QStringList deviceListOutput = scanimageOutput.split("`");
+
+    QStringList deviceListNames;
+
+    for ( QString substring : deviceListOutput)
+    {
+        if (substring.contains("'"))
+        {
+            QString deviceName = substring.split("'")[0];
+            deviceListNames.push_back(deviceName);
+        }
+    }
+    return deviceListNames;
 }
