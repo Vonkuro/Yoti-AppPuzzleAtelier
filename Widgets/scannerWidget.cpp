@@ -22,12 +22,13 @@ ScannerWidget::~ScannerWidget()
 }
 
 // Prepare the attributs and directory before scanning
-void ScannerWidget::prepare(int id)
+void ScannerWidget::prepare(int id, QString deviceName)
 {
     lastImageId = 0;
     puzzleId = id;
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
+    scannerName = deviceName;
 
 }
 
@@ -37,7 +38,7 @@ void ScannerWidget::scanPuzzle()
     lastImageId += 1;
     QString imagePathQString = "../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
 
-    QString commandQString = "scanimage --mode Color --format=jpeg > " + imagePathQString;
+    QString commandQString = "scanimage -d " + scannerName + " --mode Color --format=jpeg > " + imagePathQString;
     std::string commandString = commandQString.toStdString();
     const char* command = commandString.c_str();
     system(command);
