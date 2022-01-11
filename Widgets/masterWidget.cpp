@@ -19,6 +19,8 @@ MasterWidget::MasterWidget(QWidget *parent) :
     choiceScannerWidget = new ChoiceScannerWidget;
     scannerWidget = new ScannerWidget;
     validationWidget = new ValidationWidget;
+    waittingWidget = new WaittingWidget;
+    resultWidget = new ResultWidget;
 // Linking the Widget to the stack
     masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
@@ -27,6 +29,8 @@ MasterWidget::MasterWidget(QWidget *parent) :
     masterStackedWidget->addWidget(choiceScannerWidget);
     masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
+    masterStackedWidget->addWidget(waittingWidget);
+    masterStackedWidget->addWidget(resultWidget);
 
 // Linking the Application together
     manager = new folderManager;
@@ -44,6 +48,8 @@ MasterWidget::~MasterWidget()
     delete choiceScannerWidget;
     delete scannerWidget;
     delete validationWidget;
+    delete waittingWidget;
+    delete resultWidget;
     delete manager;   
     delete masterStackedWidget;
     delete masterLayout;
@@ -130,6 +136,18 @@ void MasterWidget::goToChoiceScanner(int id)
     masterStackedWidget->setCurrentWidget(choiceScannerWidget);
 }
 
+void MasterWidget::goToWaitting(int id)
+{
+    masterStackedWidget->setCurrentWidget(waittingWidget);
+    waittingWidget->solverProcess(id);
+}
+
+void MasterWidget::goToResult(int numberPieces, bool completed)
+{
+    resultWidget->display(numberPieces, completed);
+    masterStackedWidget->setCurrentWidget(resultWidget);
+}
+
 // Return a page keyword that describe the widget displayed on screen
 MasterWidget::pages MasterWidget::getLoadedPage()
 {
@@ -202,5 +220,6 @@ void MasterWidget::connectTheApplication()
     connect(choiceScannerWidget, SIGNAL(scannerSetUp(int, QString)) , this, SLOT(goToScanner(int,QString)));
     connect(scannerWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
-    connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(archive()));
+    connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(goToWaitting(int)));
+    connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
 }
