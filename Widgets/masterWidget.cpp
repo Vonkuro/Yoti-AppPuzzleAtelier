@@ -139,7 +139,7 @@ void MasterWidget::goToChoiceScanner(int id)
 void MasterWidget::goToWaitting(int id)
 {
     masterStackedWidget->setCurrentWidget(waittingWidget);
-    waittingWidget->solverProcess(id);
+    waittingWidget->solverProcessStart(id);
 }
 
 void MasterWidget::goToResult(int numberPieces, bool completed)

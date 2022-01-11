@@ -40,9 +40,6 @@ void WaittingWidget::solverProcessEnd()
 
     int piecesNumber = findPiecesNumber(solverSplited);
     bool completed = findIfCompleted(solverSplited);
-    qDebug() << piecesNumber;
-    qDebug() << completed;
-
     saveInDatabase(piecesNumber, completed);
     emit puzzleSolved(piecesNumber, completed);
 }
