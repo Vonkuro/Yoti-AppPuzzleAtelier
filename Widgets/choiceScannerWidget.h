@@ -1,8 +1,7 @@
 #ifndef CHOICESCANNERWIDGET_H
 #define CHOICESCANNERWIDGET_H
 
-#include <fstream>
-#include <iostream>
+#include "common.h"
 
 #include <QWidget>
 #include <QtWidgets>
@@ -24,7 +23,6 @@ public slots:
     void scannerChosen();
 
 private:
-    std::string execute(const std::string& command);
     Devices findScanners();
 
     QVBoxLayout* widgetLayout;

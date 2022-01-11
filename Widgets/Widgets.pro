@@ -38,7 +38,8 @@ SOURCES += \
     folderManager.cpp \
     common.cpp \
     choiceCameraWidget.cpp \
-    choiceScannerWidget.cpp
+    choiceScannerWidget.cpp \
+    waittingWidget.cpp
 
 HEADERS += \
         scannerWidget.h \
@@ -52,7 +53,8 @@ HEADERS += \
     folderManager.h \
     common.h \
     choiceCameraWidget.h \
-    choiceScannerWidget.h
+    choiceScannerWidget.h \
+    waittingWidget.h
 
 
 
