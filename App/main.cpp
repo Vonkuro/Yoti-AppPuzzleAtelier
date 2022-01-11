@@ -1,6 +1,5 @@
 #include "masterWidget.h"
 #include <QApplication>
-#include "choiceScannerWidget.h"
 
 int main(int argc, char *argv[])
 {

@@ -119,10 +119,10 @@ void folderManager::markPuzzleArchived(int lastPuzzle)
 
     if ( database.open() )
     {
-        QSqlQuery newPuzzleSql;
-        newPuzzleSql.prepare("UPDATE Puzzle SET archived = 1 WHERE id <= ?");
-        newPuzzleSql.bindValue(0,lastPuzzle);
-        newPuzzleSql.exec();
+        QSqlQuery markSql;
+        markSql.prepare("UPDATE Puzzle SET archived = 1 WHERE id <= ?");
+        markSql.bindValue(0,lastPuzzle);
+        markSql.exec();
 
         database.close();
     }
