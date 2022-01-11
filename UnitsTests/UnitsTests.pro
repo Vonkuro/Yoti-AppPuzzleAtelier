@@ -13,8 +13,7 @@ SOURCES +=  tst_accesscamera.cpp \
     tst_scannerwidget.cpp \
     tst_envlocal.cpp \
     tst_homepagewidget.cpp \
-    tst_foldermanager.cpp \
-    tst_waittingwidget.cpp
+    tst_foldermanager.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Widgets/release/ -lWidgets
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Widgets/debug/ -lWidgets
@@ -30,5 +29,4 @@ HEADERS += \
     tst_scannerwidget.h \
     tst_envlocal.h \
     tst_homepagewidget.h \
-    tst_foldermanager.h \
-    tst_waittingwidget.h
+    tst_foldermanager.h
