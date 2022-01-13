@@ -16,6 +16,7 @@ signals:
     void restart();
 public slots:
     void display(int piecesNumber, bool completed);
+    void display();
     void emitRestart();
 
 private:

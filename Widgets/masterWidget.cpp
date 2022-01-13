@@ -156,6 +156,11 @@ void MasterWidget::goToResult(int numberPieces, bool completed)
     masterStackedWidget->setCurrentWidget(resultWidget);
 }
 
+void MasterWidget::goToResult()
+{
+    resultWidget->display();
+    masterStackedWidget->setCurrentWidget(resultWidget);
+}
 // Return a page keyword that describe the widget displayed on screen
 MasterWidget::pages MasterWidget::getLoadedPage()
 {
@@ -244,5 +249,6 @@ void MasterWidget::connectTheApplication()
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
     connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(goToWaitting(int)));
     connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
+    connect(waittingWidget, SIGNAL(puzzleNotSolved()), this, SLOT(goToResult()));
     connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
 }

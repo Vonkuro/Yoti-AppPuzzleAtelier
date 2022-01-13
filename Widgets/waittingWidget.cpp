@@ -3,10 +3,10 @@
 WaittingWidget::WaittingWidget(QWidget *parent) : QWidget(parent)
 {
     // QString for the running command
-    //commandStringHead = "./Yoti-PuzzleSolver ../Images/Puzzle-";
+    commandStringHead = "./Yoti-PuzzleSolver ../Images/Puzzle-";
 
     // Qstring for testing without photos
-    commandStringHead = "./Yoti-PuzzleSolver ../../PuzzleSolverProject/Scans/puzzle";
+    //commandStringHead = "./Yoti-PuzzleSolver ../../PuzzleSolverProject/Scans/puzzle";
 
     widgetLayout = new QVBoxLayout;
 
@@ -23,10 +23,12 @@ WaittingWidget::~WaittingWidget()
 void WaittingWidget::solverProcessStart(int id)
 {
     // id fix to one for test until creating correct images
-    idPuzzle = 1;// id;
+    idPuzzle = id;
 
     QString commandString = commandStringHead + QString::number(idPuzzle) + "/";
     std::string command = commandString.toStdString();
+
+
     solverProcess = QtConcurrent::run(execute, command);
     solverWatcher.setFuture(solverProcess);
 
@@ -35,13 +37,24 @@ void WaittingWidget::solverProcessStart(int id)
 void WaittingWidget::solverProcessEnd()
 {
     QString solverOutput = QString::fromStdString( solverProcess.result() );
-    solverOutput = solverOutput.simplified();
-    QStringList solverSplited = solverOutput.split(":");
 
-    int piecesNumber = findPiecesNumber(solverSplited);
-    bool completed = findIfCompleted(solverSplited);
-    saveInDatabase(piecesNumber, completed);
-    emit puzzleSolved(piecesNumber, completed);
+    qDebug() << solverOutput;
+
+    solverOutput = solverOutput.simplified();
+
+    if (solverOutput.contains("Nombre")){
+        QStringList solverSplited = solverOutput.split(":");
+
+        int piecesNumber = findPiecesNumber(solverSplited);
+        bool completed = findIfCompleted(solverSplited);
+        saveInDatabase(piecesNumber, completed);
+        emit puzzleSolved(piecesNumber, completed);
+    } else
+    {
+        emit puzzleNotSolved();
+    }
+
+
 }
 
 int WaittingWidget::findPiecesNumber(QStringList solverSplited)

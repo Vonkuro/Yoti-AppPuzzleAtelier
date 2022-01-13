@@ -17,6 +17,8 @@ public:
 
 signals:
     void puzzleSolved(int numberPieces, bool completed);
+    void puzzleNotSolved();
+
 public slots:
     void solverProcessStart(int id);
     void solverProcessEnd();

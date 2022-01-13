@@ -42,6 +42,15 @@ void ResultWidget::display(int piecesNumber, bool completed)
     completedLabel->setText(completedString);
 }
 
+void ResultWidget::display()
+{
+    QString piecesNumberString = "Yoti App Puzzle n'est pas capable de résoudre ce Puzzle...";
+    piecesNumberLabel->setText(piecesNumberString);
+
+    QString completedString = "Yoti App Puzzle est désolé...";
+    completedLabel->setText(completedString);
+}
+
 void ResultWidget::emitRestart()
 {
     emit restart();
