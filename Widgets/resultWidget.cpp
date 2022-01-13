@@ -5,15 +5,21 @@ ResultWidget::ResultWidget(QWidget *parent) : QWidget(parent)
     widgetLayout = new QVBoxLayout;
     piecesNumberLabel = new QLabel;
     completedLabel = new QLabel;
+    restartButton = new QPushButton;
 
     widgetLayout->addWidget(piecesNumberLabel);
     widgetLayout->addWidget(completedLabel);
+    widgetLayout->addWidget(restartButton);
 
     this->setLayout(widgetLayout);
+
+    connect(restartButton, &QPushButton::clicked, this,&ResultWidget::emitRestart);
+
 }
 
 ResultWidget::~ResultWidget()
 {
+    delete restartButton;
     delete completedLabel;
     delete piecesNumberLabel;
     delete widgetLayout;
@@ -34,4 +40,9 @@ void ResultWidget::display(int piecesNumber, bool completed)
     }
 
     completedLabel->setText(completedString);
+}
+
+void ResultWidget::emitRestart()
+{
+    emit restart();
 }

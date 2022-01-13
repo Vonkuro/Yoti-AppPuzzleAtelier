@@ -14,11 +14,3 @@ int scanningStart(const char *fileName)
 */
 
 
-/*
- * Pour la page de choix des scanners
- * Appel de scanimage -L
- * récuppération de l'output
- * affichage du nom dans un combobox
- * transfert du nom choisit via signal
- * mise en attribut dans prepare de scanner
-*/
