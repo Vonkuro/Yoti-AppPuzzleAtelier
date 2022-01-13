@@ -13,15 +13,16 @@ public:
     ~ResultWidget();
 
 signals:
-
+    void restart();
 public slots:
     void display(int piecesNumber, bool completed);
+    void emitRestart();
 
 private:
     QVBoxLayout* widgetLayout;
     QLabel* piecesNumberLabel;
     QLabel* completedLabel;
-
+    QPushButton* restartButton;
 
 };
 

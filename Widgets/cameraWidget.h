@@ -45,6 +45,7 @@ private:
     int puzzleId;
     int lastImageId;
     QString pathImageDirectory;
+    bool cameraConfigured;
 // Methods to control and config the webcam
     bool checkWebcamAvailable();
     void webcamView(QCameraInfo cameraInfo);

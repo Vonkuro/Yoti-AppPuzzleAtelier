@@ -46,6 +46,8 @@ private:
 // Attributs
     enum photoDevice {Webcam, Scanner};
     photoDevice chosenDevice;
+    QCameraInfo cameraInfoMemory;
+    QString deviceNameMemory;
 // Methods
     void connectTheApplication();
 // Objects tools

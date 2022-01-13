@@ -10,6 +10,7 @@ CameraWidget::CameraWidget(QWidget *parent) :
     webcam = NULL;
     webcamViewfinder = NULL;
     webcamImageCapture = NULL;
+    cameraConfigured = false;
 
 // Prepare the view
     if (checkWebcamAvailable())
@@ -80,6 +81,8 @@ void CameraWidget::webcamView(QCameraInfo cameraInfo)
 //Starting the view
 
     cameraLayout->addWidget(webcamViewfinder);
+
+    cameraConfigured =true;
 }
 
 // Give the Master Widget the ability to start and stop the webcam
@@ -99,9 +102,12 @@ void CameraWidget::prepare(int id, QCameraInfo cameraInfo)
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
 
-    webcamView(cameraInfo);
+    if (! cameraConfigured)
+    {
+        webcamView(cameraInfo);
 
-    cameraStyle();
+        cameraStyle();
+    }
 }
 
 

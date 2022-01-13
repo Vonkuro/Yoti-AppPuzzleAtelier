@@ -36,6 +36,8 @@ MasterWidget::MasterWidget(QWidget *parent) :
     manager = new folderManager;
     connectTheApplication();
 
+    deviceNameMemory = QString();
+    cameraInfoMemory = QCameraInfo();
 }
 
 // The end of the line for the pointers
@@ -71,6 +73,9 @@ void MasterWidget::goToWebcam(int id, QCameraInfo cameraInfo)
     masterStackedWidget->setCurrentWidget(cameraWidget);
 
     cameraWidget->prepare(id, cameraInfo);
+
+    cameraInfoMemory = cameraInfo;
+
     cameraWidget->start();
 }
 
@@ -88,6 +93,9 @@ void MasterWidget::goToWebcam()
 void MasterWidget::goToScanner(int id, QString deviceName)
 {
     scannerWidget->prepare(id, deviceName);
+
+    deviceNameMemory = deviceName;
+
     masterStackedWidget->setCurrentWidget(scannerWidget);
 }
 
@@ -192,13 +200,27 @@ void MasterWidget::choiceImageAcquisition(int id)
     if(choice == 0)
     {
         chosenDevice = Webcam;
-        goToChoiceCamera(id);
+        if (cameraInfoMemory.isNull())
+        {
+            goToChoiceCamera(id);
+        } else
+        {
+            goToWebcam(id, cameraInfoMemory);
+        }
+
     }
     // choice is scanner
     else
     {
         chosenDevice = Scanner;
-        goToChoiceScanner(id);
+        if (deviceNameMemory.isNull())
+        {
+            goToChoiceScanner(id);
+        } else
+        {
+            goToScanner(id, deviceNameMemory);
+        }
+
     }
 }
 
@@ -222,4 +244,5 @@ void MasterWidget::connectTheApplication()
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
     connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(goToWaitting(int)));
     connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
+    connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
 }
