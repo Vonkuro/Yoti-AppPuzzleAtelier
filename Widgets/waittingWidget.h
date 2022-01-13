@@ -31,7 +31,7 @@ private:
     QFuture<std::string> solverProcess;
 
     int idPuzzle;
-    QString commandString;
+    QString commandStringHead;
 
     QVBoxLayout* widgetLayout;
 

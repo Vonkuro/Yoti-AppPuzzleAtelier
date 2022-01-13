@@ -28,7 +28,7 @@ CameraWidget::CameraWidget(QWidget *parent) :
 void CameraWidget::viewStyle()
 {
     photoButton->setText("Prendre une Photo");
-    this->setMinimumHeight(1200);
+    this->setMinimumHeight(1000);
     this->setMinimumWidth(1200);
 }
 

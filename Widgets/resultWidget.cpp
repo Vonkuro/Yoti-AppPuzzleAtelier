@@ -14,6 +14,7 @@ ResultWidget::ResultWidget(QWidget *parent) : QWidget(parent)
     this->setLayout(widgetLayout);
 
     connect(restartButton, &QPushButton::clicked, this,&ResultWidget::emitRestart);
+
 }
 
 ResultWidget::~ResultWidget()
