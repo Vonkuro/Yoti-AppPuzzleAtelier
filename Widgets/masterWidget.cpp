@@ -9,8 +9,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
 
     masterLayout->addWidget(masterStackedWidget);
     setLayout(masterLayout);
-// Database
-    EnvLocal datawrapper;
 // Loading Widgets
     homepageWidget = new HomepageWidget;
     savePuzzleWidget = new SavePuzzleWidget;
@@ -34,6 +32,7 @@ MasterWidget::MasterWidget(QWidget *parent) :
 
 // Linking the Application together
     manager = new folderManager;
+    datawrapper.setDatabase();
     connectTheApplication();
 
     deviceNameMemory = QString();
@@ -56,7 +55,7 @@ MasterWidget::~MasterWidget()
     delete masterStackedWidget;
     delete masterLayout;
 
-    QSqlDatabase::removeDatabase("puzzle");
+    datawrapper.removeDatabase();
 }
 
 

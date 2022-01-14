@@ -89,7 +89,7 @@ QString folderManager::checkAlreadyArchived(int firstPuzzle)
         bool alreadyArchived = true;
         int idPuzzle;
 
-        QSqlQuery newPuzzleSql;
+        QSqlQuery newPuzzleSql(database);
         newPuzzleSql.prepare("SELECT id, archived FROM Puzzle WHERE id >= ?;");
         newPuzzleSql.bindValue(0,firstPuzzle);
         newPuzzleSql.exec();
@@ -119,7 +119,7 @@ void folderManager::markPuzzleArchived(int lastPuzzle)
 
     if ( database.open() )
     {
-        QSqlQuery markSql;
+        QSqlQuery markSql(database);
         markSql.prepare("UPDATE Puzzle SET archived = 1 WHERE id <= ?");
         markSql.bindValue(0,lastPuzzle);
         markSql.exec();

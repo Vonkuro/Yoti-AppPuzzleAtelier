@@ -93,7 +93,7 @@ void WaittingWidget::saveInDatabase(int numberPieces, bool completed)
     QSqlDatabase database = dataWrapper.getDatabase();
     if ( database.open() )
     {
-        QSqlQuery resultSql;
+        QSqlQuery resultSql(database);
 
         resultSql.prepare("UPDATE Puzzle SET pieces_number = ? , completed = ?  WHERE id = ?");
         resultSql.bindValue(0,numberPieces);

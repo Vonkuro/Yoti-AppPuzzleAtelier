@@ -9,7 +9,9 @@ class EnvLocal
 // If you are an open source visitor, here is my dev/debug database
 public:
     EnvLocal();
+    void setDatabase();
     QSqlDatabase getDatabase();
+    void removeDatabase();
 private:
     QString dataDriver;
     QString dataName;
@@ -17,6 +19,8 @@ private:
     QString dataPassword;
     QString dataHost;
     int dataPort;
+
+    QString connectionName;
 };
 
 #endif // ENVLOCAL_H

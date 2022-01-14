@@ -159,7 +159,7 @@ void SavePuzzleWidget::save()
             QMessageBox::information(this, "Erreur", "La base de données n'est pas correctement installée.");
             QCoreApplication::quit();
         }
-        QSqlQuery newPuzzleSql;
+        QSqlQuery newPuzzleSql(database);
         if (descriptionTextEdit->toPlainText().size() == 0)
         {
             newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, archived, completed) VALUES (?, FALSE, FALSE);");

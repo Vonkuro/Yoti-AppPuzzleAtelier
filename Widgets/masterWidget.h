@@ -52,7 +52,8 @@ private:
     void connectTheApplication();
 // Objects tools
     folderManager* manager;
-
+// Database
+    EnvLocal datawrapper;
 
 public slots:
 // Slots managers of which widget is on screen
