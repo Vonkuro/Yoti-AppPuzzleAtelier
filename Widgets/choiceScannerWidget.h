@@ -3,8 +3,7 @@
 
 #include "common.h"
 
-#include <QWidget>
-#include <QtWidgets>
+
 
 typedef QMap<QString, QString> Devices;
 
@@ -16,19 +15,24 @@ public:
     ~ChoiceScannerWidget();
 
 signals:
+// Transfert the name of the scanner
     void scannerSetUp(int id, QString scannerName);
 
 public slots:
+// Tools for master widget
     void searchScanner(int id);
+// Methods
     void scannerChosen();
 
 private:
     Devices findScanners();
 
+// Object managers of view
     QVBoxLayout* widgetLayout;
     QPushButton* choiceButton;
     QComboBox* choiceCombobox;
 
+// Attributs
     int Id;
 
 };

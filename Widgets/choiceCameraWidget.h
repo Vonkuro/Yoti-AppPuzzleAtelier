@@ -13,17 +13,21 @@ public:
     ~ChoiceCameraWidget();
 
 public slots:
+// Tools for master widget
     void searchCamera(int id);
+// Methods
     void cameraChosen();
 
 signals:
     void cameraSetUp(int id, QCameraInfo cameraInfo);
 
 private:
+// Object managers of view
     QVBoxLayout* widgetLayout;
     QPushButton* choiceButton;
     QComboBox* choiceCombobox;
 
+// Attributs
     QList<QCameraInfo> cameraList;
     int Id;
 };

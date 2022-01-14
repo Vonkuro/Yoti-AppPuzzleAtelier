@@ -2,27 +2,32 @@
 
 WaittingWidget::WaittingWidget(QWidget *parent) : QWidget(parent)
 {
-    // QString for the running command
+// QString for the running command
     commandStringHead = "./Yoti-PuzzleSolver ../Images/Puzzle-";
 
-    // Qstring for testing without photos
+// Qstring for testing without new photos
     //commandStringHead = "./Yoti-PuzzleSolver ../../PuzzleSolverProject/Scans/puzzle";
 
+// Init of view objects
     widgetLayout = new QVBoxLayout;
 
+// Linking the view object
     this->setLayout(widgetLayout);
 
+// Connect the signals to the slots
     connect(&solverWatcher, &QFutureWatcher<QString>::finished, this, &WaittingWidget::solverProcessEnd);
 }
 
+// The end of the line for pointers
 WaittingWidget::~WaittingWidget()
 {
     delete widgetLayout;
 }
 
+// Start a thread in order to run the puzzle solver in it
 void WaittingWidget::solverProcessStart(int id)
 {
-    // id fix to one for test until creating correct images
+    // id fix to one during test without photos
     idPuzzle = id;
 
     QString commandString = commandStringHead + QString::number(idPuzzle) + "/";
@@ -34,6 +39,7 @@ void WaittingWidget::solverProcessStart(int id)
 
 }
 
+// Handle the result from the puzzle solver
 void WaittingWidget::solverProcessEnd()
 {
     QString solverOutput = QString::fromStdString( solverProcess.result() );
@@ -57,6 +63,7 @@ void WaittingWidget::solverProcessEnd()
 
 }
 
+// Extract the number of pieces from the splited output
 int WaittingWidget::findPiecesNumber(QStringList solverSplited)
 {
     QString piecesNumberString = solverSplited[1];
@@ -71,6 +78,7 @@ int WaittingWidget::findPiecesNumber(QStringList solverSplited)
     return piecesNumber;
 }
 
+// Extract the information of if the puzzle is complet or not
 bool WaittingWidget::findIfCompleted(QStringList solverSplited)
 {
     QString completedString = solverSplited[3];
@@ -88,6 +96,7 @@ bool WaittingWidget::findIfCompleted(QStringList solverSplited)
     }
 }
 
+// Save in database the completeness and number of pieces of the puzzle
 void WaittingWidget::saveInDatabase(int numberPieces, bool completed)
 {
     QSqlDatabase database = dataWrapper.getDatabase();

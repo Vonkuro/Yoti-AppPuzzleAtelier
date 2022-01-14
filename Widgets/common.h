@@ -5,6 +5,10 @@
 #include <iostream>
 
 #include <QtCore>
+#include <QWidget>
+#include <QtWidgets>
+
+// Comonly used functions
 
 void newDir(QString dirPath);
 

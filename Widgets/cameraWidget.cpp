@@ -31,7 +31,6 @@ void CameraWidget::viewStyle()
     this->setMinimumHeight(1000);
     this->setMinimumWidth(1200);
 }
-
 void CameraWidget::cameraStyle()
 {
     cameraLayout->setSizeConstraint(QLayout::SetMinimumSize);

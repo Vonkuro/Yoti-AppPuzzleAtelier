@@ -3,18 +3,22 @@
 ChoiceCameraWidget::ChoiceCameraWidget(QWidget *parent) :
     QWidget(parent)
 {
+// Init of view objects
     widgetLayout = new QVBoxLayout;
     choiceButton = new QPushButton;
     choiceCombobox = new QComboBox;
 
+// Linking view objects
     widgetLayout->addWidget(choiceCombobox);
     widgetLayout->addWidget(choiceButton);
 
     this->setLayout(widgetLayout);
 
+// Connect the signals and the slots
     connect(choiceButton, &QPushButton::clicked, this, &ChoiceCameraWidget::cameraChosen);
 }
 
+// The end of the line for the pointers
 ChoiceCameraWidget::~ChoiceCameraWidget()
 {
     delete choiceButton;
@@ -22,6 +26,7 @@ ChoiceCameraWidget::~ChoiceCameraWidget()
     delete widgetLayout;
 }
 
+// Look for the available cameras and store them in cameraList
 void ChoiceCameraWidget::searchCamera(int id)
 {
     Id = id;
@@ -33,6 +38,7 @@ void ChoiceCameraWidget::searchCamera(int id)
     }
 }
 
+// Emit the signal cameraSetUp loaded with the selected cameraInfo and the id of the puzzle
 void ChoiceCameraWidget::cameraChosen()
 {
     int index = choiceCombobox->currentData().toInt();
