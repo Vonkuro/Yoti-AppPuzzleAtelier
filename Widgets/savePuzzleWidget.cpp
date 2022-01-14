@@ -19,8 +19,6 @@ SavePuzzleWidget::SavePuzzleWidget()
 // The end of the line for the pointers
 SavePuzzleWidget::~SavePuzzleWidget()
 {
-
-
     delete barcodeLabel;
     delete barcodeLineEdit;
     delete barcodeErrorLabel;

@@ -12,6 +12,7 @@ public:
     explicit ResultWidget(QWidget *parent = nullptr);
     ~ResultWidget();
 
+// Tools for the master Widget
 signals:
     void restart();
 public slots:
@@ -20,6 +21,7 @@ public slots:
     void emitRestart();
 
 private:
+// Object managers of the view
     QVBoxLayout* widgetLayout;
     QLabel* piecesNumberLabel;
     QLabel* completedLabel;
