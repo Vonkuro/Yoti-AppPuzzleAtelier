@@ -2,18 +2,22 @@
 
 ChoiceScannerWidget::ChoiceScannerWidget(QWidget *parent) : QWidget(parent)
 {
+// Init of view objects
     widgetLayout = new QVBoxLayout;
     choiceButton = new QPushButton;
     choiceCombobox = new QComboBox;
 
+// Linking view objects
     widgetLayout->addWidget(choiceCombobox);
     widgetLayout->addWidget(choiceButton);
 
     this->setLayout(widgetLayout);
 
+// Connect the signals and the slots
     connect(choiceButton, &QPushButton::clicked, this, &ChoiceScannerWidget::scannerChosen);
 }
 
+// The end of the line for the pointers
 ChoiceScannerWidget::~ChoiceScannerWidget()
 {
     delete choiceCombobox;
@@ -21,6 +25,7 @@ ChoiceScannerWidget::~ChoiceScannerWidget()
     delete widgetLayout;
 }
 
+// Look for the available scanners and store them in the choiceCombobox
 void ChoiceScannerWidget::searchScanner(int id)
 {
     Id = id;
@@ -33,6 +38,7 @@ void ChoiceScannerWidget::searchScanner(int id)
 
 }
 
+// Look for the available scanner for searchScanner
 Devices ChoiceScannerWidget::findScanners()
 {
     QString scanimageOutput = QString::fromStdString(execute("scanimage -L"));
@@ -57,6 +63,7 @@ Devices ChoiceScannerWidget::findScanners()
     return deviceList;
 }
 
+// Emit the signal scannerSetUp loaded with the name of the scanner and the id of the puzzle
 void ChoiceScannerWidget::scannerChosen()
 {
     QString scannerName = choiceCombobox->currentData().toString();
