@@ -1,8 +1,6 @@
 #ifndef SCANNERWIDGET_H
 #define SCANNERWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
 #include <QDebug>
 #include <stdlib.h>
 #include <string.h>

@@ -4,8 +4,6 @@
 #include "common.h"
 #include "envLocal.h"
 
-#include <QWidget>
-#include <QtWidgets>
 #include <QtConcurrent/QtConcurrent>
 
 class WaittingWidget : public QWidget

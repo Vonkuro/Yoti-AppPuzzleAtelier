@@ -3,8 +3,7 @@
 
 #include "common.h"
 
-#include <QWidget>
-#include <QtWidgets>
+
 
 typedef QMap<QString, QString> Devices;
 
