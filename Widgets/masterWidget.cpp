@@ -131,35 +131,43 @@ void MasterWidget::goToValidation(int idPuzzle, int idImage)
     masterStackedWidget->setCurrentWidget(validationWidget);
 }
 
+// Display the choice of camera widget
 void MasterWidget::goToChoiceCamera(int id)
 {
     choiceCameraWidget->searchCamera(id);
     masterStackedWidget->setCurrentWidget(choiceCameraWidget);
 }
 
+// Display the choice of scanner widget
 void MasterWidget::goToChoiceScanner(int id)
 {
     choiceScannerWidget->searchScanner(id);
     masterStackedWidget->setCurrentWidget(choiceScannerWidget);
 }
 
+// Display the waitting widget
 void MasterWidget::goToWaitting(int id)
 {
     masterStackedWidget->setCurrentWidget(waittingWidget);
     waittingWidget->solverProcessStart(id);
 }
 
+// Display the resultult widget
+// Used when the puzzle is solved
 void MasterWidget::goToResult(int numberPieces, bool completed)
 {
     resultWidget->display(numberPieces, completed);
     masterStackedWidget->setCurrentWidget(resultWidget);
 }
 
+// Display the resultult widget
+// Used when the puzzle is not solved
 void MasterWidget::goToResult()
 {
     resultWidget->display();
     masterStackedWidget->setCurrentWidget(resultWidget);
 }
+
 // Return a page keyword that describe the widget displayed on screen
 MasterWidget::pages MasterWidget::getLoadedPage()
 {
@@ -239,15 +247,20 @@ void MasterWidget::archive()
 void MasterWidget::connectTheApplication()
 {
     // these testing connect will be almost good to go for the full application
-    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
+    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle); 
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(choiceImageAcquisition(int)));
+
     connect(choiceCameraWidget, SIGNAL(cameraSetUp(int, QCameraInfo)) , this, SLOT(goToWebcam(int,QCameraInfo)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
+
     connect(choiceScannerWidget, SIGNAL(scannerSetUp(int, QString)) , this, SLOT(goToScanner(int,QString)));
     connect(scannerWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
+
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
     connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(goToWaitting(int)));
+
     connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
     connect(waittingWidget, SIGNAL(puzzleNotSolved()), this, SLOT(goToResult()));
+
     connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
 }

@@ -14,11 +14,13 @@ EnvLocal::EnvLocal()
 
 }
 
+// Deconnect the database from the application
 void EnvLocal::removeDatabase()
 {
     QSqlDatabase::removeDatabase(connectionName);
 }
 
+// Give a connection to the database
 QSqlDatabase EnvLocal::getDatabase()
 {
     QSqlDatabase database = QSqlDatabase::database(connectionName);
@@ -26,6 +28,7 @@ QSqlDatabase EnvLocal::getDatabase()
     return database;
 }
 
+// Set up the connection to the database
 void EnvLocal::setDatabase()
 {
 // Init of database

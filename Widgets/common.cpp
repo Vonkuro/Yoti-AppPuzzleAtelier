@@ -22,6 +22,7 @@ void delay(int milliSeconds)
     }
 }
 
+// Excute a system command silently and return it's output as a standard string
 std::string execute(const std::string& command) {
     system((command + " > temp.txt").c_str());
 

@@ -17,7 +17,6 @@ public:
 // Starting the Application
 signals:
     void startApp();
-
 private slots:
     void startButtonClicked();
 

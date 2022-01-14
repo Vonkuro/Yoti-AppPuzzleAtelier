@@ -9,10 +9,12 @@ class EnvLocal
 // If you are an open source visitor, here is my dev/debug database
 public:
     EnvLocal();
+// Tools to manipulate the database
     void setDatabase();
     QSqlDatabase getDatabase();
     void removeDatabase();
 private:
+// Attributs
     QString dataDriver;
     QString dataName;
     QString dataUser;

@@ -6,6 +6,8 @@
 
 #include <QtCore>
 
+// Comonly used functions
+
 void newDir(QString dirPath);
 
 void delay(int milliSeconds);
