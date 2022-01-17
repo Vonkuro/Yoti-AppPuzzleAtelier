@@ -45,13 +45,22 @@ void HomepageWidget::viewStyle()
     QPixmap logo(":/viewRessource/logoYoti");
     logoLabel->setProperty("cssClass","logoTitle");
     logoLabel->setPixmap(logo.scaled(logoLabel->width(),logoLabel->height(), Qt::KeepAspectRatio));
+    widgetLayout->setAlignment(logoLabel,Qt::AlignHCenter);
 
     titleLabel->setText("Application Puzzle");
     titleLabel->setProperty("cssClass","title");
+    widgetLayout->setAlignment(titleLabel,Qt::AlignHCenter);
 
     subtitleLabel->setText("Prenez les pièces d'un Puzzle en images et découvrez s'il est complet !");
     subtitleLabel->setProperty("cssClass","subtitle");
+    widgetLayout->setAlignment(subtitleLabel,Qt::AlignHCenter);
 
     startButton->setText("Commencer");
     startButton->setProperty("cssClass","greenButton");
+    widgetLayout->setAlignment(startButton,Qt::AlignHCenter);
+
+    widgetLayout->setAlignment(Qt::AlignTop);
+    widgetLayout->setSpacing(100);
+    widgetLayout->insertSpacing(0,100);
+
 }
