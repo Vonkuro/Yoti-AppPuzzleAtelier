@@ -44,10 +44,14 @@ void HomepageWidget::viewStyle()
 {
     QPixmap logo(":/viewRessource/logoYoti");
     logoLabel->setPixmap(logo);
+    logoLabel->setProperty("cssClass","logoTitle");
 
     titleLabel->setText("Application Puzzle");
+    titleLabel->setProperty("cssClass","title");
 
     subtitleLabel->setText("Prenez les pièces d'un Puzzle en images et découvrez s'il est complet !");
+    subtitleLabel->setProperty("cssClass","subtitle");
 
     startButton->setText("Commencer");
+    startButton->setProperty("cssClass","greenButton");
 }

@@ -50,6 +50,7 @@ private:
     QString deviceNameMemory;
 // Methods
     void connectTheApplication();
+    void viewStyle();
 // Objects tools
     folderManager* manager;
 // Database

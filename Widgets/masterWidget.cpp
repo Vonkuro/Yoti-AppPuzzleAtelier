@@ -35,6 +35,9 @@ MasterWidget::MasterWidget(QWidget *parent) :
     datawrapper.setDatabase();
     connectTheApplication();
 
+// View Style
+    viewStyle();
+// Init empty attribut
     deviceNameMemory = QString();
     cameraInfoMemory = QCameraInfo();
 }
@@ -263,4 +266,21 @@ void MasterWidget::connectTheApplication()
     connect(waittingWidget, SIGNAL(puzzleNotSolved()), this, SLOT(goToResult()));
 
     connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
+}
+
+
+void MasterWidget::viewStyle()
+{
+// Application size
+    QSize applicationSize(1260,980);
+    masterStackedWidget->setMaximumSize(applicationSize);
+// Adding the font of Yoti to the Application
+    QFontDatabase::addApplicationFont(":/viewRessource/Montserrat-SemiBold");
+    QFontDatabase::addApplicationFont(":/viewRessource/Montserrat");
+    QFontDatabase::addApplicationFont(":/viewRessource/Poppins-Medium");
+    QFontDatabase::addApplicationFont(":/viewRessource/Poppins-Bold");
+
+    QString StyleSheet = "QLabel[cssClass=\"title\"] { font: bold \"Montserrat\"; font-size: 36px; }";
+
+    this->setStyleSheet(StyleSheet);
 }
