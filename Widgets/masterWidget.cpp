@@ -280,7 +280,12 @@ void MasterWidget::viewStyle()
     QFontDatabase::addApplicationFont(":/viewRessource/Poppins-Medium");
     QFontDatabase::addApplicationFont(":/viewRessource/Poppins-Bold");
 
-    QString StyleSheet = "QLabel[cssClass=\"title\"] { font: bold \"Montserrat\"; font-size: 36px; }";
+    QString StyleSheet = "QLabel[cssClass=\"title\"] { font: bold \"Montserrat\"; font-size: 42px; color: #2C2E71}";
+    StyleSheet += "QLabel[cssClass=\"subtitle\"] { font: \"Montserrat\"; font-size: 22px; color: #6569C4}" ;
+    StyleSheet += "QPushButton[cssClass=\"greenButton\"] {font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
+                                                        "background-color: #78C29B; border: 2px solid #6569C4; "
+                                                        "height: 50px; max-width: 500px; }";
+    StyleSheet +="QLabel[cssClass=\"logoTitle\"] {max-width: 960px} ";
 
     this->setStyleSheet(StyleSheet);
 }

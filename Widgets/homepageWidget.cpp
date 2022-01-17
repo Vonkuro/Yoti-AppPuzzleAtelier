@@ -43,8 +43,8 @@ void HomepageWidget::startButtonClicked()
 void HomepageWidget::viewStyle()
 {
     QPixmap logo(":/viewRessource/logoYoti");
-    logoLabel->setPixmap(logo);
     logoLabel->setProperty("cssClass","logoTitle");
+    logoLabel->setPixmap(logo.scaled(logoLabel->width(),logoLabel->height(), Qt::KeepAspectRatio));
 
     titleLabel->setText("Application Puzzle");
     titleLabel->setProperty("cssClass","title");
