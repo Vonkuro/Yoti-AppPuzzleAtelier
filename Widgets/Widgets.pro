@@ -30,33 +30,33 @@ SOURCES += \
         scannerWidget.cpp \
         masterWidget.cpp \
         cameraWidget.cpp \
-    savePuzzleWidget.cpp \
-    envLocal.cpp \
-    validationWidget.cpp \
-    homepageWidget.cpp \
-    notes.cpp \
-    folderManager.cpp \
-    common.cpp \
-    choiceCameraWidget.cpp \
-    choiceScannerWidget.cpp \
-    waittingWidget.cpp \
-    resultWidget.cpp
+        savePuzzleWidget.cpp \
+        envLocal.cpp \
+        validationWidget.cpp \
+        homepageWidget.cpp \
+        notes.cpp \
+        folderManager.cpp \
+        common.cpp \
+        choiceCameraWidget.cpp \
+        choiceScannerWidget.cpp \
+        waittingWidget.cpp \
+        resultWidget.cpp
 
 HEADERS += \
         scannerWidget.h \
         widgets_global.h \
         masterWidget.h \
         cameraWidget.h \
-    savePuzzleWidget.h \
-    envLocal.h \
-    validationWidget.h \
-    homepageWidget.h \
-    folderManager.h \
-    common.h \
-    choiceCameraWidget.h \
-    choiceScannerWidget.h \
-    waittingWidget.h \
-    resultWidget.h
+        savePuzzleWidget.h \
+        envLocal.h \
+        validationWidget.h \
+        homepageWidget.h \
+        folderManager.h \
+        common.h \
+        choiceCameraWidget.h \
+        choiceScannerWidget.h \
+        waittingWidget.h \
+        resultWidget.h
 
 
 
@@ -64,4 +64,7 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+RESOURCES += \
+    viewressource.qrc
 
