@@ -113,6 +113,8 @@ void SavePuzzleWidget::form()
 bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
 {
     QMessageBox choiceBarcodeMessageBox;
+    choiceBarcodeMessageBox.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
+                                           "QMessageBox {background-color: white}");
     choiceBarcodeMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
     choiceBarcodeMessageBox.addButton(tr("Non"), QMessageBox::NoRole);
 

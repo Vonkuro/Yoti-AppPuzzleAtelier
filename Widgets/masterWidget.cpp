@@ -279,13 +279,15 @@ void MasterWidget::viewStyle()
     QFontDatabase::addApplicationFont(":/viewRessource/Montserrat");
     QFontDatabase::addApplicationFont(":/viewRessource/Poppins-Medium");
     QFontDatabase::addApplicationFont(":/viewRessource/Poppins-Bold");
-
+// Pages
+    this->setObjectName("window");
 // Common StyleSheet
-    QString StyleSheet = "QLabel[cssClass=\"title\"] { font: bold \"Montserrat\"; font-size: 42px; color: #2C2E71}";
+    QString StyleSheet = "#window {background-color: white} ";
+    StyleSheet += "QLabel[cssClass=\"title\"] { font: bold \"Montserrat\"; font-size: 42px; color: #2C2E71} ";
     StyleSheet += "QLabel[cssClass=\"subtitle\"] { font: \"Montserrat\"; font-size: 22px; color: #6569C4}" ;
     StyleSheet += "QPushButton[cssClass=\"greenButton\"] {font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
                                                         "background-color: #78C29B; border: 2px solid #6569C4; "
-                                                        "height: 50px; max-width: 500px; padding-right: 150px; padding-left: 150px}";
+                                                        "height: 50px; max-width: 500px; padding-right: 150px; padding-left: 150px} ";
     StyleSheet +="QLabel[cssClass=\"logoTitle\"] {max-width: 625px; max-height: 220px} ";
     StyleSheet +="QLabel[cssClass=\"logo\"] {max-width: 312; max-height: 110px } ";
 
