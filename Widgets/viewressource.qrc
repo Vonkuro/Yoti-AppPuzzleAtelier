@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/viewRessource">
+        <file alias="logoYoti">viewRessource/logoyoti PNG.png</file>
+    </qresource>
+</RCC>

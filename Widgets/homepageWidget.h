@@ -13,6 +13,9 @@ public:
 // Objects managers of the View
     QVBoxLayout* widgetLayout;
     QPushButton* startButton;
+    QLabel* logoLabel;
+    QLabel* titleLabel;
+    QLabel* subtitleLabel;
 
 // Starting the Application
 signals:
@@ -20,7 +23,9 @@ signals:
 private slots:
     void startButtonClicked();
 
-
+// Manage the view
+private:
+    void viewStyle();
 
 
 };
