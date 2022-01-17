@@ -23,7 +23,13 @@ private slots:
 private:
 // Objects managers of the View
     QVBoxLayout* widgetLayout;
+    QWidget* backgroundWidget;
+    QVBoxLayout* backgroundLayout;
     QFormLayout* formLayout;
+
+    QLabel* logoLabel;
+
+    QLabel* titleLabel;
 
     QLabel* barcodeLabel;
     QLineEdit*  barcodeLineEdit;

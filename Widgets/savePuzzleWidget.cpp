@@ -4,11 +4,19 @@ SavePuzzleWidget::SavePuzzleWidget()
 {
 // Init of View Objects
     widgetLayout = new QVBoxLayout;
+    backgroundWidget = new QWidget;
+    backgroundLayout = new QVBoxLayout(backgroundWidget);
     validationButton = new QPushButton;
+    logoLabel = new QLabel;
+    titleLabel = new QLabel;
     form();
 // Linking View Objects
-    widgetLayout->addLayout(formLayout);
-    formLayout->addWidget(validationButton);
+    backgroundLayout->addWidget(titleLabel);
+    backgroundLayout->addLayout(formLayout);
+
+    widgetLayout->addWidget(logoLabel);
+    widgetLayout->addWidget(backgroundWidget);
+    widgetLayout->addWidget(validationButton);
     this->setLayout(widgetLayout);
 // Style of View Objects
     viewStyle();
@@ -19,6 +27,7 @@ SavePuzzleWidget::SavePuzzleWidget()
 // The end of the line for the pointers
 SavePuzzleWidget::~SavePuzzleWidget()
 {
+    delete logoLabel;
     delete barcodeLabel;
     delete barcodeLineEdit;
     delete barcodeErrorLabel;
@@ -27,6 +36,9 @@ SavePuzzleWidget::~SavePuzzleWidget()
     delete descriptionErrorLabel;
     delete validationButton;
     delete formLayout;
+    delete titleLabel;
+    delete backgroundLayout;
+    delete backgroundWidget;
     delete widgetLayout;
 }
 
@@ -47,18 +59,47 @@ void SavePuzzleWidget::form()
     formLayout->addRow(descriptionLabel, descriptionTextEdit);
 
 // Style of View Objects
-    barcodeLabel->setText("Code Barre : ");
+    barcodeLabel->setText("Le Code Barre : ");
+    barcodeLabel->setProperty("cssClass", "subtitle");
+
     barcodeErrorLabel->setText("Un code bare doit contenir uniquement des chiffres.");
-    descriptionLabel->setText("Une description rapide du Puzzle (optionnel) :");
+
+    descriptionLabel->setText("Une description rapide du Puzzle :\n (optionnelle)");
+    descriptionLabel->setProperty("cssClass", "subtitle");
+    descriptionLabel->setAlignment(Qt::AlignRight);
+
     descriptionErrorLabel->setText("La description est trop longue.");
 }
 
 // Manage the details of the View
  void SavePuzzleWidget::viewStyle()
  {
+     backgroundWidget->setMinimumSize(802,320);
+     backgroundWidget->setMaximumHeight(320);
+     backgroundWidget->setObjectName("greenBackground");
+     backgroundWidget->setStyleSheet("#greenBackground {background-color: #B0F2B6;  border: 2px solid #6569C4;"
+                                     "max-width: 800px; width: 800px;}"
+                                     "");
+
+     QPixmap logo(":/viewRessource/logoYoti");
+     logoLabel->setProperty("cssClass","logo");
+     logoLabel->setScaledContents(true);
+     logoLabel->setPixmap(logo);
+     widgetLayout->setAlignment(logoLabel,Qt::AlignHCenter);
+
+     titleLabel->setText("Enregistrement du Puzzle");
+     titleLabel->setProperty("cssClass","title");
+     backgroundLayout->setAlignment(titleLabel,Qt::AlignHCenter);
 
      validationButton->setText("Enregistrer le Puzzle");
      validationButton->setEnabled(true);
+     validationButton->setProperty("cssClass","greenButton");
+     validationButton->setStyleSheet("max-width: 800px; width: 500px");
+     widgetLayout->setAlignment(validationButton,Qt::AlignHCenter);
+
+     widgetLayout->setAlignment(backgroundWidget,Qt::AlignHCenter);
+     widgetLayout->setAlignment(Qt::AlignTop);
+     widgetLayout->setSpacing(50);
  }
 
 // Verify if a barcode is valid
