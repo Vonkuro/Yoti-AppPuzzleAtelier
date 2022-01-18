@@ -21,6 +21,8 @@ ChoiceCameraWidget::ChoiceCameraWidget(QWidget *parent) :
 
 // Connect the signals and the slots
     connect(choiceButton, &QPushButton::clicked, this, &ChoiceCameraWidget::cameraChosen);
+
+    viewStyle();
 }
 
 // The end of the line for the pointers
@@ -56,8 +58,27 @@ void ChoiceCameraWidget::cameraChosen()
 
 void ChoiceCameraWidget::viewStyle()
 {
+    QPixmap logo(":/viewRessource/logoYoti");
     logoLabel->setProperty("cssClass","logo");
+    logoLabel->setScaledContents(true);
+    logoLabel->setPixmap(logo);
+    widgetLayout->setAlignment(logoLabel,Qt::AlignHCenter);
+
     titleLabel->setProperty("cssClass","title");
+    titleLabel->setText("Webcams Disponibles");
+    widgetLayout->setAlignment(titleLabel,Qt::AlignHCenter);
+
     subTitleLabel->setProperty("cssClass","subtitle");
+    subTitleLabel->setText("Veuillez choisir une Webcam dans la liste");
+    widgetLayout->setAlignment(subTitleLabel,Qt::AlignHCenter);
+
+    choiceCombobox->setProperty("cssClass","choice");
+    widgetLayout->setAlignment(choiceCombobox,Qt::AlignHCenter);
+
     choiceButton->setProperty("cssClass","greenButton");
+    choiceButton->setText("Choisir cette Webcam");
+    widgetLayout->setAlignment(choiceButton,Qt::AlignHCenter);
+
+    widgetLayout->setAlignment(Qt::AlignTop);
+    widgetLayout->setSpacing(50);
 }

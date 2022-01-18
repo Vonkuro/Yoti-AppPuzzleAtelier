@@ -299,9 +299,10 @@ void MasterWidget::viewStyle()
     StyleSheet += "QLabel[cssClass=\"subtitle\"] { font: \"Montserrat\"; font-size: 22px; color: #6569C4}" ;
     StyleSheet += "QPushButton[cssClass=\"greenButton\"] {font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
                                                         "background-color: #78C29B; border: 2px solid #6569C4; "
-                                                        "height: 50px; max-width: 500px; padding-right: 150px; padding-left: 150px} ";
-    StyleSheet +="QLabel[cssClass=\"logoTitle\"] {max-width: 625px; max-height: 220px} ";
-    StyleSheet +="QLabel[cssClass=\"logo\"] {max-width: 312; max-height: 110px } ";
+                                                        "height: 50px; max-width: 800px; min-width: 800px; } ";
+    StyleSheet += "QLabel[cssClass=\"logoTitle\"] {max-width: 625px; max-height: 220px} ";
+    StyleSheet += "QLabel[cssClass=\"logo\"] {max-width: 312; max-height: 110px } ";
+    StyleSheet += "QComboBox[cssClass=\"choice\"] {height: 50px; max-width: 800px; min-width: 800px; }";
 
     this->setStyleSheet(StyleSheet);
 }

@@ -32,9 +32,13 @@ private:
     QPushButton* choiceButton;
     QComboBox* choiceCombobox;
 
+    QLabel* logoLabel;
+    QLabel* titleLabel;
+    QLabel* subTitleLabel;
 // Attributs
     int Id;
 
+    void viewStyle();
 };
 
 #endif // CHOICESCANNERWIDGET_H
