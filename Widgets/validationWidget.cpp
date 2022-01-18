@@ -3,39 +3,49 @@
 ValidationWidget::ValidationWidget(QWidget *parent) : QWidget(parent)
 {
     // Init of the View objects
+    logoLayout = new QVBoxLayout;
     widgetLayout = new QHBoxLayout;
     choiceLayout = new QVBoxLayout;
 
+    logoLabel = new QLabel;
+    titleLabel = new QLabel;
     imageLabel = new QLabel;
     validButton = new QPushButton;
     cancelButton = new QPushButton;
 
     // Linking the objects to the layout
+    logoLayout->addWidget(logoLabel);
+    logoLayout->insertLayout(1,widgetLayout);
+
     widgetLayout->addWidget(imageLabel);
     widgetLayout->addLayout(choiceLayout);
+
+    choiceLayout->addWidget(titleLabel);
     choiceLayout->addWidget(validButton);
     choiceLayout->addWidget(cancelButton);
 
-    this->setLayout(widgetLayout);
+    this->setLayout(logoLayout);
 
     // Connect the buttons to the slots
     connect(validButton, &QPushButton::clicked, this, &ValidationWidget::valid);
     connect(cancelButton, &QPushButton::clicked, this, &ValidationWidget::cancel);
 
     // Style my widget !
-    validButton->setText("Valide");
-    cancelButton->setText("Refuse");
+    viewStyle();
 
 }
 
 // The end of the line for the pointers
 ValidationWidget::~ValidationWidget()
 {
+    delete logoLabel;
+    delete titleLabel;
     delete imageLabel;
     delete validButton;
     delete cancelButton;
     delete choiceLayout;
     delete widgetLayout;
+    delete logoLayout;
 }
 
 // Load the correct image to valide into the image Label
@@ -75,4 +85,40 @@ void ValidationWidget::cancel()
     QFile imageFile(imagePath);
     imageFile.remove();
     emit newPhoto();
+}
+
+void ValidationWidget::viewStyle()
+{
+
+    QPixmap logo(":/viewRessource/logoYoti");
+    logoLabel->setProperty("cssClass","logo");
+    logoLabel->setScaledContents(true);
+    logoLabel->setPixmap(logo);
+    logoLayout->setAlignment(logoLabel,Qt::AlignHCenter);
+
+    imageLabel->setStyleSheet("border: 2px solid #6569C4; max-width: 914px; min-width: 914px; max-height: 690px; min-height: 690px; ");
+
+    titleLabel->setProperty("cssClass","title");
+    titleLabel->setText("L'Image est-elle\nValide ?");
+    titleLabel->setStyleSheet("text-align: center");
+    widgetLayout->setAlignment(titleLabel,Qt::AlignHCenter);
+
+    validButton->setText("Valide");
+    validButton->setStyleSheet("font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
+                               "background-color: #78C29B; border: 2px solid #6569C4; "
+                               "height: 50px;");
+    widgetLayout->setAlignment(validButton,Qt::AlignHCenter);
+
+
+    cancelButton->setText("Refuse");
+    cancelButton->setStyleSheet("font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
+                                            "background-color: #E54D96; border: 2px solid #6569C4; "
+                                            "height: 50px;");
+    widgetLayout->setAlignment(cancelButton,Qt::AlignHCenter);
+
+    choiceLayout->setAlignment(Qt::AlignCenter);
+    choiceLayout->setSpacing(50);
+
+    logoLayout->setAlignment(Qt::AlignTop);
+    logoLayout->setSpacing(50);
 }

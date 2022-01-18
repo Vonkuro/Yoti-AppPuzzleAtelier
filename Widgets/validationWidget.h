@@ -15,19 +15,23 @@ public:
     void validateImageWebcam(int idPuzzle, int idImage);
 
 // Objects managers of View
+    QVBoxLayout* logoLayout;
     QHBoxLayout* widgetLayout;
     QVBoxLayout* choiceLayout;
 
+    QLabel* logoLabel;
+    QLabel* titleLabel;
     QLabel* imageLabel;
     QPushButton* validButton;
     QPushButton* cancelButton;
-
 
 // Attributs
     int puzzleId;
     int imageId;
     QPixmap image;
     QString imagePath;
+
+    void viewStyle();
 
 // Handle the validation process
 signals:
