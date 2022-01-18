@@ -113,10 +113,28 @@ void SavePuzzleWidget::form()
 bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
 {
     QMessageBox choiceBarcodeMessageBox;
-    choiceBarcodeMessageBox.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
-                                           "QMessageBox {background-color: white}");
     choiceBarcodeMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
     choiceBarcodeMessageBox.addButton(tr("Non"), QMessageBox::NoRole);
+
+    QList<QAbstractButton *> buttons = choiceBarcodeMessageBox.buttons();
+    for (QAbstractButton * button : buttons)
+    {
+        QPushButton* buttonPush = dynamic_cast<QPushButton*>(button);
+
+        if ( buttonPush->text() == "Oui")
+        {
+            buttonPush->setObjectName("yesButton");
+        } else if (buttonPush->text() == "Non")
+        {
+            buttonPush->setObjectName("noButton");
+        }
+    }
+    choiceBarcodeMessageBox.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
+                                           "QMessageBox {background-color: white}"
+                                           "#yesButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
+                                           "background-color: #78C29B; border: 2px solid #6569C4;}"
+                                           "#noButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
+                                           "background-color: #E54D96; border: 2px solid #6569C4;}");
 
     QRegExp notNumeric;
     notNumeric.setPattern("[^0-9 .]+");

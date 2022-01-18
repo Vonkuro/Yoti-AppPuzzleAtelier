@@ -210,6 +210,18 @@ void MasterWidget::choiceImageAcquisition(int id)
     choiceImage.addButton("Webcam", QMessageBox::YesRole);
     choiceImage.addButton("Imprimante", QMessageBox::NoRole);
     choiceImage.setText("Quel périphérique allez-vous utiliser pour prendre des photographies du Puzzle ?");
+
+    QList<QAbstractButton *> buttons = choiceImage.buttons();
+    for (QAbstractButton * button : buttons)
+    {
+        button->setProperty("cssClass","greenButton");
+    }
+    choiceImage.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
+                              "QMessageBox {background-color: white}"
+                              "QPushButton[cssClass=\"greenButton\"]  {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
+                              "background-color: #78C29B; border: 2px solid #6569C4;}");
+
+
     int choice = choiceImage.exec();
     // choice is webcam
     if(choice == 0)
