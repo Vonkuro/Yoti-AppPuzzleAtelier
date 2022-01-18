@@ -35,6 +35,10 @@ private:
     QVBoxLayout* cameraLayout;
     QPushButton* photoButton;
 
+    QLabel* logoLabel;
+    QWidget* backgroundWidget;
+    QVBoxLayout* backgroundLayout;
+
 // Objects managers of webcam
     QCamera* webcam;
     QCameraViewfinder* webcamViewfinder;

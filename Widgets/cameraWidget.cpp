@@ -16,9 +16,17 @@ CameraWidget::CameraWidget(QWidget *parent) :
     if (checkWebcamAvailable())
     {
         cameraLayout = new QVBoxLayout;
+        logoLabel = new QLabel;
+        backgroundWidget = new QWidget;
+        backgroundLayout = new QVBoxLayout(backgroundWidget);
         photoButton = new QPushButton;
+
+        cameraLayout->addWidget(logoLabel);
+        cameraLayout->addWidget(backgroundWidget);
         cameraLayout->addWidget(photoButton);
+
         this->setLayout(cameraLayout);
+
         connect(photoButton, &QPushButton::clicked, this, &CameraWidget::takePhoto);
         viewStyle();
     }
@@ -27,9 +35,21 @@ CameraWidget::CameraWidget(QWidget *parent) :
 // Manage details of the view
 void CameraWidget::viewStyle()
 {
-    photoButton->setText("Prendre une Photo");
-    this->setMinimumHeight(1000);
-    this->setMinimumWidth(1200);
+    QPixmap logo(":/viewRessource/logoYoti");
+    logoLabel->setProperty("cssClass","logo");
+    logoLabel->setScaledContents(true);
+    logoLabel->setPixmap(logo);
+    cameraLayout->setAlignment(logoLabel,Qt::AlignHCenter);
+
+    backgroundWidget->setObjectName("background");
+    backgroundWidget->setStyleSheet("#background {background-color: #2C2E71; max-width: 914px; min-width: 914px; max-height: 690px; min-height: 690px;}");
+    cameraLayout->setAlignment(backgroundWidget,Qt::AlignHCenter);
+
+    photoButton->setText("Prendre la Photographie");
+    photoButton->setProperty("cssClass","greenButton");
+    cameraLayout->setAlignment(photoButton,Qt::AlignHCenter);
+
+
 }
 void CameraWidget::cameraStyle()
 {
@@ -48,6 +68,7 @@ CameraWidget::~CameraWidget()
     {
         delete webcamViewfinder;
     }
+    delete logoLabel;
     delete webcamImageCapture;
     delete photoButton;
     delete cameraLayout;
@@ -79,9 +100,10 @@ void CameraWidget::webcamView(QCameraInfo cameraInfo)
 
 //Starting the view
 
-    cameraLayout->addWidget(webcamViewfinder);
+    backgroundLayout->addWidget(webcamViewfinder);
 
     cameraConfigured =true;
+
 }
 
 // Give the Master Widget the ability to start and stop the webcam

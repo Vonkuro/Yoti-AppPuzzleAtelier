@@ -286,6 +286,7 @@ void MasterWidget::viewStyle()
 // Application size
     QSize applicationSize(1260,980);
     masterStackedWidget->setMaximumSize(applicationSize);
+    masterStackedWidget->setMinimumSize(applicationSize);
 // Adding the font of Yoti to the Application
     QFontDatabase::addApplicationFont(":/viewRessource/Montserrat-SemiBold");
     QFontDatabase::addApplicationFont(":/viewRessource/Montserrat");
