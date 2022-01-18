@@ -41,6 +41,7 @@ private:
 
     QPushButton* validationButton;
 
+
 // Methods managers of the View
     void form();
     void viewStyle();
