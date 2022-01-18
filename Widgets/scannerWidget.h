@@ -24,6 +24,11 @@ private:
 // view object manager
     QVBoxLayout* widgetLayout;
     QPushButton* scanButton;
+    QLabel* logoLabel;
+    QLabel* titleLabel;
+    QLabel* subTitleOneLabel;
+    QLabel* subTitleTwoLabel;
+    QLabel* subTitleThreeLabel;
 
 // Methods managing the scanner
     void scanPuzzle();
@@ -34,6 +39,7 @@ private:
     QString pathImageDirectory;
     QString scannerName;
 // Methods
+    void viewStyle();
 };
 
 #endif // SCANNERWIDGET_H

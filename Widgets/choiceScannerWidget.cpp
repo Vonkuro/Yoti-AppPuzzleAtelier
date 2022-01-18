@@ -101,7 +101,7 @@ void ChoiceScannerWidget::viewStyle()
     widgetLayout->setAlignment(choiceCombobox,Qt::AlignHCenter);
 
     choiceButton->setProperty("cssClass","greenButton");
-    choiceButton->setText("Choisir cette Webcam");
+    choiceButton->setText("Choisir cette Imprimante");
     widgetLayout->setAlignment(choiceButton,Qt::AlignHCenter);
 
     widgetLayout->setAlignment(Qt::AlignTop);
