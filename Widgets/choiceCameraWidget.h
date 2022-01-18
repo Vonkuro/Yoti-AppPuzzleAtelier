@@ -27,9 +27,15 @@ private:
     QPushButton* choiceButton;
     QComboBox* choiceCombobox;
 
+    QLabel* logoLabel;
+    QLabel* titleLabel;
+    QLabel* subTitleLabel;
+
 // Attributs
     QList<QCameraInfo> cameraList;
     int Id;
+
+    void viewStyle();
 };
 
 #endif // CHOIXCAMERAWIDGET_H

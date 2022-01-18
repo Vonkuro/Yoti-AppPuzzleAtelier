@@ -7,8 +7,13 @@ ChoiceCameraWidget::ChoiceCameraWidget(QWidget *parent) :
     widgetLayout = new QVBoxLayout;
     choiceButton = new QPushButton;
     choiceCombobox = new QComboBox;
-
+    logoLabel = new QLabel;
+    titleLabel = new QLabel;
+    subTitleLabel = new QLabel;
 // Linking view objects
+    widgetLayout->addWidget(logoLabel);
+    widgetLayout->addWidget(titleLabel);
+    widgetLayout->addWidget(subTitleLabel);
     widgetLayout->addWidget(choiceCombobox);
     widgetLayout->addWidget(choiceButton);
 
@@ -21,6 +26,9 @@ ChoiceCameraWidget::ChoiceCameraWidget(QWidget *parent) :
 // The end of the line for the pointers
 ChoiceCameraWidget::~ChoiceCameraWidget()
 {
+    delete logoLabel;
+    delete titleLabel;
+    delete subTitleLabel;
     delete choiceButton;
     delete choiceCombobox;
     delete widgetLayout;
@@ -44,4 +52,12 @@ void ChoiceCameraWidget::cameraChosen()
     int index = choiceCombobox->currentData().toInt();
     QCameraInfo chosenCamera = cameraList[index];
     emit cameraSetUp(Id, chosenCamera);
+}
+
+void ChoiceCameraWidget::viewStyle()
+{
+    logoLabel->setProperty("cssClass","logo");
+    titleLabel->setProperty("cssClass","title");
+    subTitleLabel->setProperty("cssClass","subtitle");
+    choiceButton->setProperty("cssClass","greenButton");
 }
