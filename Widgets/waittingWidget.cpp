@@ -10,17 +10,25 @@ WaittingWidget::WaittingWidget(QWidget *parent) : QWidget(parent)
 
 // Init of view objects
     widgetLayout = new QVBoxLayout;
+    gifMovie = new QMovie(":/viewRessource/waittingGif");
+    gifLabel = new QLabel;
 
 // Linking the view object
+    gifLabel->setMovie(gifMovie);
+    widgetLayout->addWidget(gifLabel);
     this->setLayout(widgetLayout);
 
 // Connect the signals to the slots
     connect(&solverWatcher, &QFutureWatcher<QString>::finished, this, &WaittingWidget::solverProcessEnd);
+
+    viewStyle();
 }
 
 // The end of the line for pointers
 WaittingWidget::~WaittingWidget()
 {
+    delete gifLabel;
+    delete gifMovie;
     delete widgetLayout;
 }
 
@@ -82,7 +90,7 @@ int WaittingWidget::findPiecesNumber(QStringList solverSplited)
 bool WaittingWidget::findIfCompleted(QStringList solverSplited)
 {
     QString completedString = solverSplited[3];
-
+    gifMovie->stop();
     if (completedString.contains("incomplet"))
     {
         return false;
@@ -113,4 +121,13 @@ void WaittingWidget::saveInDatabase(int numberPieces, bool completed)
 
         database.close();
     }
+}
+
+void WaittingWidget::viewStyle()
+{
+    gifMovie->start();
+
+    gifLabel->setScaledContents(true);
+    gifLabel->setStyleSheet("min-width: 1244; max-width: 1244; min-height: 700; max-height:700");
+
 }
