@@ -53,9 +53,16 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage)
 {
     puzzleId = idPuzzle;
     imageId = idImage;
+
     imagePath = qApp->applicationDirPath() + "/../" + "Images/Puzzle-" + QString::number(puzzleId);
     imagePath = imagePath + "/image-" + QString::number(imageId) + ".jpg";
-    image.load(imagePath);
+
+// generate image for scanner
+    double angle = 90;
+    image = QPixmap::fromImage(QImage(imagePath).transformed(QMatrix().rotate(angle)));
+// generate image for webcam
+    // image.load(imagePath);
+
     imageLabel->setPixmap(image);
 }
 
@@ -118,7 +125,11 @@ void ValidationWidget::viewStyle()
 
 
     imageLabel->setScaledContents(true);
-    imageLabel->setStyleSheet("border: 2px solid #6569C4; max-width: 914px; min-width: 914px; max-height: 690px; min-height: 690px; ");
+// Image size for webcam
+    // max-width: 914px; min-width: 914px; max-height: 690px; min-height: 690px;
+// Image size for scanner
+    // max-width: 914px; min-width: 914px; max-height: 663px; min-height: 663px;
+    imageLabel->setStyleSheet("border: 2px solid #6569C4; max-width: 914px; min-width: 914px; max-height: 663px; min-height: 663px; ");
 
     titleLabel->setProperty("cssClass","title");
     titleLabel->setText("L'Image est-elle\nValide ?");
