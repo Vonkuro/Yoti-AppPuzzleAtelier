@@ -67,6 +67,26 @@ void ValidationWidget::valid()
     continueMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
     continueMessageBox.addButton(tr("Non"), QMessageBox::NoRole);
 
+    QList<QAbstractButton *> buttons = continueMessageBox.buttons();
+    for (QAbstractButton * button : buttons)
+    {
+        QPushButton* buttonPush = dynamic_cast<QPushButton*>(button);
+
+        if ( buttonPush->text() == "Oui")
+        {
+            buttonPush->setObjectName("yesButton");
+        } else if (buttonPush->text() == "Non")
+        {
+            buttonPush->setObjectName("noButton");
+        }
+    }
+    continueMessageBox.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
+                                           "QMessageBox {background-color: white}"
+                                           "#yesButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
+                                           "background-color: #78C29B; border: 2px solid #6569C4;}"
+                                           "#noButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
+                                           "background-color: #E54D96; border: 2px solid #6569C4;}");
+
     int returnMessageBox = continueMessageBox.exec();
 
     if (returnMessageBox == 0)
@@ -96,6 +116,8 @@ void ValidationWidget::viewStyle()
     logoLabel->setPixmap(logo);
     logoLayout->setAlignment(logoLabel,Qt::AlignHCenter);
 
+
+    imageLabel->setScaledContents(true);
     imageLabel->setStyleSheet("border: 2px solid #6569C4; max-width: 914px; min-width: 914px; max-height: 690px; min-height: 690px; ");
 
     titleLabel->setProperty("cssClass","title");
@@ -103,14 +125,14 @@ void ValidationWidget::viewStyle()
     titleLabel->setStyleSheet("text-align: center");
     widgetLayout->setAlignment(titleLabel,Qt::AlignHCenter);
 
-    validButton->setText("Valide");
+    validButton->setText("Valider");
     validButton->setStyleSheet("font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
                                "background-color: #78C29B; border: 2px solid #6569C4; "
                                "height: 50px;");
     widgetLayout->setAlignment(validButton,Qt::AlignHCenter);
 
 
-    cancelButton->setText("Refuse");
+    cancelButton->setText("Refuser");
     cancelButton->setStyleSheet("font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
                                             "background-color: #E54D96; border: 2px solid #6569C4; "
                                             "height: 50px;");
