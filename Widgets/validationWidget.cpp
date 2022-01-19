@@ -116,6 +116,8 @@ void ValidationWidget::viewStyle()
     logoLabel->setPixmap(logo);
     logoLayout->setAlignment(logoLabel,Qt::AlignHCenter);
 
+
+    imageLabel->setScaledContents(true);
     imageLabel->setStyleSheet("border: 2px solid #6569C4; max-width: 914px; min-width: 914px; max-height: 690px; min-height: 690px; ");
 
     titleLabel->setProperty("cssClass","title");
