@@ -28,6 +28,7 @@ private:
     int findPiecesNumber(QStringList solverSplited);
     bool findIfCompleted(QStringList solverSplited);
     void saveInDatabase(int numberPieces, bool completed);
+    void viewStyle();
 
 // Database
     EnvLocal dataWrapper;
@@ -40,6 +41,10 @@ private:
 
 // Objects mmanagers of View
     QVBoxLayout* widgetLayout;
+    QLabel* logoLabel;
+    QLabel* titleLabel;
+    QLabel* gifLabel;
+    QMovie* gifMovie;
 
 };
 

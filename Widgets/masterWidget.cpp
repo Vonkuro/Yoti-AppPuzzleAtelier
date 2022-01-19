@@ -262,7 +262,8 @@ void MasterWidget::archive()
 void MasterWidget::connectTheApplication()
 {
     // these testing connect will be almost good to go for the full application
-    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle); 
+    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::archive);
+    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(choiceImageAcquisition(int)));
 
     connect(choiceCameraWidget, SIGNAL(cameraSetUp(int, QCameraInfo)) , this, SLOT(goToWebcam(int,QCameraInfo)));
