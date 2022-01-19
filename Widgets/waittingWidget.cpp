@@ -10,10 +10,14 @@ WaittingWidget::WaittingWidget(QWidget *parent) : QWidget(parent)
 
 // Init of view objects
     widgetLayout = new QVBoxLayout;
+    logoLabel = new QLabel;
+    titleLabel = new QLabel;
     gifMovie = new QMovie(":/viewRessource/waittingGif");
     gifLabel = new QLabel;
 
 // Linking the view object
+    widgetLayout->addWidget(logoLabel);
+    widgetLayout->addWidget(titleLabel);
     gifLabel->setMovie(gifMovie);
     widgetLayout->addWidget(gifLabel);
     this->setLayout(widgetLayout);
@@ -27,6 +31,8 @@ WaittingWidget::WaittingWidget(QWidget *parent) : QWidget(parent)
 // The end of the line for pointers
 WaittingWidget::~WaittingWidget()
 {
+    delete logoLabel;
+    delete titleLabel;
     delete gifLabel;
     delete gifMovie;
     delete widgetLayout;
@@ -44,6 +50,9 @@ void WaittingWidget::solverProcessStart(int id)
 
     solverProcess = QtConcurrent::run(execute, command);
     solverWatcher.setFuture(solverProcess);
+
+    gifMovie->start();
+
 
 }
 
@@ -125,9 +134,23 @@ void WaittingWidget::saveInDatabase(int numberPieces, bool completed)
 
 void WaittingWidget::viewStyle()
 {
-    gifMovie->start();
+
+    QPixmap logo(":/viewRessource/logoYoti");
+    logoLabel->setProperty("cssClass","logo");
+    logoLabel->setScaledContents(true);
+    logoLabel->setPixmap(logo);
+    widgetLayout->setAlignment(logoLabel,Qt::AlignHCenter);
+
+    titleLabel->setProperty("cssClass","title");
+    titleLabel->setText("Veuillez patienter pendant que Yoti App Puzzle travaille");
+    titleLabel->setStyleSheet("text-align: center");
+    widgetLayout->setAlignment(titleLabel,Qt::AlignHCenter);
 
     gifLabel->setScaledContents(true);
-    gifLabel->setStyleSheet("min-width: 1244; max-width: 1244; min-height: 700; max-height:700");
+    gifLabel->setStyleSheet("border: 2px solid #6569C4; min-width: 854; max-width: 854; min-height: 480; max-height:480");
+    widgetLayout->setAlignment(gifLabel,Qt::AlignHCenter);
+
+    widgetLayout->setAlignment(Qt::AlignTop);
+    widgetLayout->setSpacing(100);
 
 }

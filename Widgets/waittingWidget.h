@@ -41,6 +41,8 @@ private:
 
 // Objects mmanagers of View
     QVBoxLayout* widgetLayout;
+    QLabel* logoLabel;
+    QLabel* titleLabel;
     QLabel* gifLabel;
     QMovie* gifMovie;
 
