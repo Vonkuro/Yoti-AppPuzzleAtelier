@@ -23,9 +23,12 @@ public slots:
 private:
 // Object managers of the view
     QVBoxLayout* widgetLayout;
+    QLabel* logoLabel;
     QLabel* piecesNumberLabel;
     QLabel* completedLabel;
     QPushButton* restartButton;
+
+    void viewStyle();
 
 };
 

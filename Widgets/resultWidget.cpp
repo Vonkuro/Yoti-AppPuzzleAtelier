@@ -4,11 +4,13 @@ ResultWidget::ResultWidget(QWidget *parent) : QWidget(parent)
 {
 // Init of view objects
     widgetLayout = new QVBoxLayout;
-    piecesNumberLabel = new QLabel;
+    logoLabel= new QLabel;
     completedLabel = new QLabel;
+    piecesNumberLabel = new QLabel;
     restartButton = new QPushButton;
 
 // Linking the view objects
+    widgetLayout->addWidget(logoLabel);
     widgetLayout->addWidget(piecesNumberLabel);
     widgetLayout->addWidget(completedLabel);
     widgetLayout->addWidget(restartButton);
@@ -18,11 +20,13 @@ ResultWidget::ResultWidget(QWidget *parent) : QWidget(parent)
 // Connect the signals and the slots
     connect(restartButton, &QPushButton::clicked, this,&ResultWidget::emitRestart);
 
+    viewStyle();
 }
 
 // The end of the line for the pointers
 ResultWidget::~ResultWidget()
 {
+    delete logoLabel;
     delete restartButton;
     delete completedLabel;
     delete piecesNumberLabel;
@@ -32,16 +36,16 @@ ResultWidget::~ResultWidget()
 // Display the result of a solved puzzle
 void ResultWidget::display(int piecesNumber, bool completed)
 {
-    QString piecesNumberString = "Il y a " + QString::number(piecesNumber) + " pièces dans ce Puzzle.";
+    QString piecesNumberString = "Le Puzzle contient " + QString::number(piecesNumber) + " pièces dans ce Puzzle.";
     piecesNumberLabel->setText(piecesNumberString);
 
-    QString completedString = "Ce Puzzle est ";
+    QString completedString = "Le Puzzle est ";
     if (completed)
     {
-        completedString += "complet.";
+        completedString += "Complet.";
     } else
     {
-        completedString += "imcomplet.";
+        completedString += "Imcomplet.";
     }
 
     completedLabel->setText(completedString);
@@ -50,15 +54,40 @@ void ResultWidget::display(int piecesNumber, bool completed)
 // Display excuse when the puzzle remains unsolved
 void ResultWidget::display()
 {
-    QString piecesNumberString = "Yoti App Puzzle n'est pas capable de résoudre ce Puzzle...";
-    piecesNumberLabel->setText(piecesNumberString);
-
-    QString completedString = "Yoti App Puzzle est désolé...";
+    QString completedString = "Yoti App Puzzle n'est pas capable de résoudre ce Puzzle...";
     completedLabel->setText(completedString);
+
+    QString piecesNumberString = "Yoti App Puzzle est désolé...";
+    piecesNumberLabel->setText(piecesNumberString);
 }
 
 // Emit the restart signal
 void ResultWidget::emitRestart()
 {
     emit restart();
+}
+
+void ResultWidget::viewStyle()
+{
+
+    QPixmap logo(":/viewRessource/logoYoti");
+    logoLabel->setProperty("cssClass","logo");
+    logoLabel->setScaledContents(true);
+    logoLabel->setPixmap(logo);
+    widgetLayout->setAlignment(logoLabel,Qt::AlignHCenter);
+
+    completedLabel->setProperty("cssClass","title");
+    completedLabel->setStyleSheet("text-align: center");
+    widgetLayout->setAlignment(completedLabel,Qt::AlignHCenter);
+
+    piecesNumberLabel->setProperty("cssClass","title");
+    piecesNumberLabel->setStyleSheet("text-align: center");
+    widgetLayout->setAlignment(piecesNumberLabel,Qt::AlignHCenter);
+
+    restartButton->setText("Vérifier le Puzzle Suivant");
+    restartButton->setProperty("cssClass","greenButton");
+    widgetLayout->setAlignment(restartButton,Qt::AlignHCenter);
+
+    widgetLayout->setAlignment(Qt::AlignTop);
+    widgetLayout->setSpacing(100);
 }
