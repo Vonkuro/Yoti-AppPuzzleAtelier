@@ -44,7 +44,6 @@ private:
     WaittingWidget* waittingWidget;
     ResultWidget* resultWidget;
 // Attributs
-    enum photoDevice {Webcam, Scanner};
     photoDevice chosenDevice;
     QCameraInfo cameraInfoMemory;
     QString deviceNameMemory;

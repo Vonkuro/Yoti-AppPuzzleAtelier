@@ -1,5 +1,5 @@
 #include "tst_validationwidget.h"
-
+/*
 // Don't change anything in the constructor or QTest will crash
 // QString are safe (so far)
 tst_validationWidget::tst_validationWidget()
@@ -49,3 +49,4 @@ void tst_validationWidget::cancelTest()
     QFile image(path + "/test.jpg");
     QVERIFY(! image.exists());
 }
+*/

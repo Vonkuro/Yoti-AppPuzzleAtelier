@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     tst_homepageWidget testHomepage;
     QTest::qExec(&testHomepage, argc, argv);
 
-    tst_validationWidget testValidation;
-    QTest::qExec(&testValidation, argc, argv);
+    //tst_validationWidget testValidation;
+    //QTest::qExec(&testValidation, argc, argv);
     return 0;
 }
