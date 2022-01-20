@@ -5,6 +5,8 @@
 #include <QtWidgets>
 #include <QFile>
 
+enum photoDevice {Webcam, Scanner};
+
 class ValidationWidget : public QWidget
 {
     Q_OBJECT
@@ -12,7 +14,7 @@ public:
     explicit ValidationWidget(QWidget *parent = nullptr);
     ~ValidationWidget();
 // Tool for the master widget to manage the validation widget
-    void validateImageWebcam(int idPuzzle, int idImage);
+    void validateImageWebcam(int idPuzzle, int idImage, photoDevice device);
 
 // Objects managers of View
     QVBoxLayout* logoLayout;
@@ -30,7 +32,6 @@ public:
     int imageId;
     QPixmap image;
     QString imagePath;
-
     void viewStyle();
 
 // Handle the validation process

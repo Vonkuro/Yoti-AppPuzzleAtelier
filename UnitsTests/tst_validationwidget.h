@@ -11,7 +11,7 @@ public:
     tst_validationWidget();
 
 // Declaration of the Tests
-private slots:
+private slots:/*
     // Specials QT Tests at the launch at the start and the end of the Test Case
     void initTestCase(); // start
     void cleanupTestCase(); //end
@@ -20,7 +20,7 @@ private slots:
 
 private:
     ValidationWidget* validation;
-    QString path;
+    QString path;*/
 };
 
 #endif // TST_VALIDATIONWIDGET_H

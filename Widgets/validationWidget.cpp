@@ -49,7 +49,7 @@ ValidationWidget::~ValidationWidget()
 }
 
 // Load the correct image to valide into the image Label
-void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage)
+void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage, photoDevice device)
 {
     puzzleId = idPuzzle;
     imageId = idImage;
@@ -57,13 +57,24 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage)
     imagePath = qApp->applicationDirPath() + "/../" + "Images/Puzzle-" + QString::number(puzzleId);
     imagePath = imagePath + "/image-" + QString::number(imageId) + ".jpg";
 
-// generate image for scanner
-    double angle = 90;
-    image = QPixmap::fromImage(QImage(imagePath).transformed(QMatrix().rotate(angle)));
-// generate image for webcam
-    // image.load(imagePath);
+    QString imageSize;
+    if (device == Scanner)
+    {
+        // generate image for scanner
+        double angle = 90;
+        image = QPixmap::fromImage(QImage(imagePath).transformed(QMatrix().rotate(angle)));
+        imageSize = "border: 2px solid #6569C4; max-width: 914px; min-width: 914px; max-height: 663px; min-height: 663px;";
+    }
+    else if (device == Webcam)
+    {
+        // generate image for webcam
+        image.load(imagePath);
+        imageSize = "border: 2px solid #6569C4; max-width: 914px; min-width: 914px; max-height: 690px; min-height: 690px;";
+    }
+
 
     imageLabel->setPixmap(image);
+    imageLabel->setStyleSheet(imageSize);
 }
 
 // Ask if an other photo is needed and emit the signal if the user confirm it
@@ -125,11 +136,6 @@ void ValidationWidget::viewStyle()
 
 
     imageLabel->setScaledContents(true);
-// Image size for webcam
-    // max-width: 914px; min-width: 914px; max-height: 690px; min-height: 690px;
-// Image size for scanner
-    // max-width: 914px; min-width: 914px; max-height: 663px; min-height: 663px;
-    imageLabel->setStyleSheet("border: 2px solid #6569C4; max-width: 914px; min-width: 914px; max-height: 663px; min-height: 663px; ");
 
     titleLabel->setProperty("cssClass","title");
     titleLabel->setText("L'Image est-elle\nValide ?");

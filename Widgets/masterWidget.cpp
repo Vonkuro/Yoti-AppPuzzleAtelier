@@ -130,7 +130,7 @@ void MasterWidget::goToPhotoDevice()
 // Display the validation widget
 void MasterWidget::goToValidation(int idPuzzle, int idImage)
 {
-    validationWidget->validateImageWebcam(idPuzzle, idImage);
+    validationWidget->validateImageWebcam(idPuzzle, idImage, chosenDevice);
     masterStackedWidget->setCurrentWidget(validationWidget);
 }
 
