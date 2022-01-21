@@ -56,6 +56,7 @@ void ChoiceCameraWidget::cameraChosen()
     emit cameraSetUp(Id, chosenCamera);
 }
 
+// Manage details of the view of the webcamViewfinder
 void ChoiceCameraWidget::viewStyle()
 {
     QPixmap logo(":/viewRessource/logoYoti");

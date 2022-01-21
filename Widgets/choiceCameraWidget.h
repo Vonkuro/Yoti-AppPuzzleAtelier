@@ -19,6 +19,7 @@ public slots:
     void cameraChosen();
 
 signals:
+// Signal loaded with the return for master widget
     void cameraSetUp(int id, QCameraInfo cameraInfo);
 
 private:
