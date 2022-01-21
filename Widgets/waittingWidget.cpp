@@ -52,8 +52,6 @@ void WaittingWidget::solverProcessStart(int id)
     solverWatcher.setFuture(solverProcess);
 
     gifMovie->start();
-
-
 }
 
 // Handle the result from the puzzle solver
@@ -76,8 +74,6 @@ void WaittingWidget::solverProcessEnd()
     {
         emit puzzleNotSolved();
     }
-
-
 }
 
 // Extract the number of pieces from the splited output
@@ -132,9 +128,9 @@ void WaittingWidget::saveInDatabase(int numberPieces, bool completed)
     }
 }
 
+// Manage details of the view
 void WaittingWidget::viewStyle()
 {
-
     QPixmap logo(":/viewRessource/logoYoti");
     logoLabel->setProperty("cssClass","logo");
     logoLabel->setScaledContents(true);
