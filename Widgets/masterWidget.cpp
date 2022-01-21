@@ -281,7 +281,7 @@ void MasterWidget::connectTheApplication()
     connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
 }
 
-
+// Manage details of the view
 void MasterWidget::viewStyle()
 {
 // Application size
