@@ -49,12 +49,18 @@ void ScannerWidget::prepare(int id, QString deviceName)
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
     scannerName = deviceName;
+}
 
+// Enable the scan button for a new scan
+void ScannerWidget::prepare()
+{
+    scanButton->setEnabled(true);
 }
 
 // Scan with the first detected scanner and emit the photoTaken signal
 void ScannerWidget::scanPuzzle()
 {
+    scanButton->setEnabled(false);
     lastImageId += 1;
     QString imagePathQString = "../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
 

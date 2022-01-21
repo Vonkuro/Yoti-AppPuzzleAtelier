@@ -15,6 +15,7 @@ public:
     ~ScannerWidget();
 // Tools for the master widget
     void prepare(int id, QString deviceName);
+    void prepare();
 
 // Taking the photo
 signals:

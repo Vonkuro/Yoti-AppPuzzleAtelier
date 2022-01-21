@@ -1,8 +1,6 @@
 #ifndef CAMERAWIDGET_H
 #define CAMERAWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
 #include <QtMultimediaWidgets>
 #include <unistd.h>
 #include "widgets_global.h"

@@ -105,6 +105,7 @@ void MasterWidget::goToScanner(int id, QString deviceName)
 // Should be the one used after the validation of a photo
 void MasterWidget::goToScanner()
 {
+    scannerWidget->prepare();
     masterStackedWidget->setCurrentWidget(scannerWidget);
 }
 
