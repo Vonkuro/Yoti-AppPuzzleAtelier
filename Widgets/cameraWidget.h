@@ -20,9 +20,6 @@ public:
     void start();
     void stop();
 
-public slots:
-
-
 // Taking the photo
 signals:
     void photoTaken(int idPuzzle, int idImage);
