@@ -81,6 +81,7 @@ void ChoiceScannerWidget::scannerChosen()
     emit scannerSetUp(Id,scannerName);
 }
 
+// Manage details of the view
 void ChoiceScannerWidget::viewStyle()
 {
     QPixmap logo(":/viewRessource/logoYoti");
