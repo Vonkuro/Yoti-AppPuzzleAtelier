@@ -15,19 +15,24 @@ CameraWidget::CameraWidget(QWidget *parent) :
 // Prepare the view
     if (checkWebcamAvailable())
     {
+        // Init of view objects
         cameraLayout = new QVBoxLayout;
         logoLabel = new QLabel;
         backgroundWidget = new QWidget;
         backgroundLayout = new QVBoxLayout(backgroundWidget);
         photoButton = new QPushButton;
 
+        // Linking the view objects
         cameraLayout->addWidget(logoLabel);
         cameraLayout->addWidget(backgroundWidget);
         cameraLayout->addWidget(photoButton);
 
         this->setLayout(cameraLayout);
 
+        // Connect the slots and signals
         connect(photoButton, &QPushButton::clicked, this, &CameraWidget::takePhoto);
+
+        // Style my widget !
         viewStyle();
     }
 }
@@ -51,6 +56,8 @@ void CameraWidget::viewStyle()
 
 
 }
+
+// Manage details of the view of the webcamViewfinder
 void CameraWidget::cameraStyle()
 {
     cameraLayout->setSizeConstraint(QLayout::SetMinimumSize);

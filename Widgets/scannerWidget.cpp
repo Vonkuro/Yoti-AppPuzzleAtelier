@@ -25,6 +25,7 @@ ScannerWidget::ScannerWidget()
 // Connect to slots
     connect(scanButton, &QPushButton::clicked, this, &ScannerWidget::scanPuzzle);
 
+// Style my widget !
     viewStyle();
 }
 
@@ -48,12 +49,18 @@ void ScannerWidget::prepare(int id, QString deviceName)
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
     scannerName = deviceName;
+}
 
+// Enable the scan button for a new scan
+void ScannerWidget::prepare()
+{
+    scanButton->setEnabled(true);
 }
 
 // Scan with the first detected scanner and emit the photoTaken signal
 void ScannerWidget::scanPuzzle()
 {
+    scanButton->setEnabled(false);
     lastImageId += 1;
     QString imagePathQString = "../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
 
@@ -67,6 +74,7 @@ void ScannerWidget::scanPuzzle()
      emit photoTaken(puzzleId, lastImageId);
 }
 
+// Manage details of the view
 void ScannerWidget::viewStyle()
 {
     QPixmap logo(":/viewRessource/logoYoti");

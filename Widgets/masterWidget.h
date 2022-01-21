@@ -25,7 +25,6 @@ public:
     ~MasterWidget();
 // Methods for testing purposes
     bool testDuTest();
-
     enum pages {homepage, savePuzzle, camera, validation, scanner, noPage};
     pages getLoadedPage();
 

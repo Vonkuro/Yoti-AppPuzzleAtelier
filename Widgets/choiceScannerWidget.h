@@ -23,7 +23,6 @@ public slots:
     void searchScanner(int id);
 // Methods
     void scannerChosen();
-
 private:
     Devices findScanners();
 

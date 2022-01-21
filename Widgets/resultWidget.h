@@ -16,9 +16,10 @@ public:
 signals:
     void restart();
 public slots:
+    void emitRestart();
+// Display the result
     void display(int piecesNumber, bool completed);
     void display();
-    void emitRestart();
 
 private:
 // Object managers of the view

@@ -85,6 +85,7 @@ void ValidationWidget::valid()
     continueMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
     continueMessageBox.addButton(tr("Non"), QMessageBox::NoRole);
 
+    // Find the button in messageBox and mark them with an objectname in order to style them
     QList<QAbstractButton *> buttons = continueMessageBox.buttons();
     for (QAbstractButton * button : buttons)
     {
@@ -125,6 +126,7 @@ void ValidationWidget::cancel()
     emit newPhoto();
 }
 
+// Manage details of the view
 void ValidationWidget::viewStyle()
 {
 

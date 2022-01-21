@@ -129,6 +129,7 @@ bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
             buttonPush->setObjectName("noButton");
         }
     }
+
     choiceBarcodeMessageBox.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
                                            "QMessageBox {background-color: white}"
                                            "#yesButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
@@ -195,21 +196,25 @@ bool SavePuzzleWidget::descriptionValid(QString description) // need unit-tests
 }
 
 // Save the puzzle to the database and emit a signal
-// The signal is for the master widget to display the camera
+// The signal is for the master widget
 void SavePuzzleWidget::save()
 {
+    // Init & Prepare data
     QString barcodeText = barcodeLineEdit->text();
     QRegExp whitespaceRegExp;
     whitespaceRegExp.setPattern("\\s");
     barcodeText = barcodeText.remove(whitespaceRegExp);
 
+    // Verify the data
     if ( barcodeValid( barcodeText ) && descriptionValid( descriptionTextEdit->toPlainText() ) )
     {
+        // Acquire the corrected data
         barcodeText = barcodeLineEdit->text();
         barcodeText = barcodeText.remove(whitespaceRegExp);
 
         long long int barcode = barcodeText.toLongLong();
 
+        // Get the connextion to the database
         QSqlDatabase database = dataWrapper.getDatabase();
 
         if ( ! database.open() )
@@ -218,6 +223,8 @@ void SavePuzzleWidget::save()
             QMessageBox::information(this, "Erreur", "La base de données n'est pas correctement installée.");
             QCoreApplication::quit();
         }
+
+        // Prepare the query
         QSqlQuery newPuzzleSql(database);
         if (descriptionTextEdit->toPlainText().size() == 0)
         {
@@ -229,15 +236,19 @@ void SavePuzzleWidget::save()
             newPuzzleSql.bindValue(0, barcode);
             newPuzzleSql.bindValue(1, descriptionTextEdit->toPlainText() );
         }
+        // Execute the query
         newPuzzleSql.exec();
 
+        // Find the new id
         newPuzzleSql.prepare("SELECT id FROM Puzzle ORDER BY id DESC LIMIT 1;");
         newPuzzleSql.exec();
         newPuzzleSql.next();
         int id = newPuzzleSql.value("id").toInt();
 
+        // Clean up the database connexion
         database.close();
 
+        // Return to the master widget
         emit puzzleSaved(id);
     }
 }

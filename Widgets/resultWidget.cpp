@@ -67,9 +67,9 @@ void ResultWidget::emitRestart()
     emit restart();
 }
 
+// Manage details of the view
 void ResultWidget::viewStyle()
 {
-
     QPixmap logo(":/viewRessource/logoYoti");
     logoLabel->setProperty("cssClass","logo");
     logoLabel->setScaledContents(true);

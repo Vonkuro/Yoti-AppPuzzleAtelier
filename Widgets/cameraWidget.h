@@ -1,8 +1,6 @@
 #ifndef CAMERAWIDGET_H
 #define CAMERAWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
 #include <QtMultimediaWidgets>
 #include <unistd.h>
 #include "widgets_global.h"
@@ -19,9 +17,6 @@ public:
     void prepare(int id, QCameraInfo cameraInfo);
     void start();
     void stop();
-
-public slots:
-
 
 // Taking the photo
 signals:
