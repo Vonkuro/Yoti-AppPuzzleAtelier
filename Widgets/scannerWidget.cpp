@@ -25,6 +25,7 @@ ScannerWidget::ScannerWidget()
 // Connect to slots
     connect(scanButton, &QPushButton::clicked, this, &ScannerWidget::scanPuzzle);
 
+// Style my widget !
     viewStyle();
 }
 
@@ -67,6 +68,7 @@ void ScannerWidget::scanPuzzle()
      emit photoTaken(puzzleId, lastImageId);
 }
 
+// Manage details of the view
 void ScannerWidget::viewStyle()
 {
     QPixmap logo(":/viewRessource/logoYoti");
