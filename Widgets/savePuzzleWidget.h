@@ -28,7 +28,6 @@ private:
     QFormLayout* formLayout;
 
     QLabel* logoLabel;
-
     QLabel* titleLabel;
 
     QLabel* barcodeLabel;
