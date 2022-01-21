@@ -11,8 +11,8 @@ ResultWidget::ResultWidget(QWidget *parent) : QWidget(parent)
 
 // Linking the view objects
     widgetLayout->addWidget(logoLabel);
-    widgetLayout->addWidget(piecesNumberLabel);
     widgetLayout->addWidget(completedLabel);
+    widgetLayout->addWidget(piecesNumberLabel);
     widgetLayout->addWidget(restartButton);
 
     this->setLayout(widgetLayout);

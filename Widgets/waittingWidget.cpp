@@ -98,7 +98,7 @@ int WaittingWidget::findPiecesNumber(QStringList solverSplited)
 // Extract the information of if the puzzle is complet or not
 bool WaittingWidget::findIfCompleted(QStringList solverSplited)
 {
-    QString completedString = solverSplited[3];
+    QString completedString = solverSplited[2];
     gifMovie->stop();
     if (completedString.contains("incomplet"))
     {

@@ -11,6 +11,9 @@ int scanningStart(const char *fileName)
     strcat(command, ".jpg");
     system(command);
 }
+
+https://askubuntu.com/questions/106769/scanning-from-terminal
+xenia-zelenaya is a queen
 */
 
 

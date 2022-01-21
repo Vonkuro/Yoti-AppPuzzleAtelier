@@ -57,7 +57,7 @@ void ScannerWidget::scanPuzzle()
     lastImageId += 1;
     QString imagePathQString = "../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
 
-    QString commandQString = "scanimage -d " + scannerName + " --mode Color --format=jpeg > " + imagePathQString;
+    QString commandQString = "scanimage -d " + scannerName + " --mode Color --resolution 300 --format=jpeg > " + imagePathQString;
     std::string commandString = commandQString.toStdString();
     const char* command = commandString.c_str();
     system(command);
