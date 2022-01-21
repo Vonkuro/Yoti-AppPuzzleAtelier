@@ -40,6 +40,7 @@ void HomepageWidget::startButtonClicked()
     emit startApp();
 }
 
+// Manage details of the view
 void HomepageWidget::viewStyle()
 {
     QPixmap logo(":/viewRessource/logoYoti");
