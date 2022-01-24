@@ -44,6 +44,10 @@ ScannerWidget::~ScannerWidget()
 // Prepare the attributs and directory before scanning
 void ScannerWidget::prepare(int id, QString deviceName)
 {
+
+    scanButton->setStyleSheet(greenButtonBackgroundStyle);
+    scanButton->setEnabled(true);
+
     lastImageId = 0;
     puzzleId = id;
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
@@ -54,13 +58,19 @@ void ScannerWidget::prepare(int id, QString deviceName)
 // Enable the scan button for a new scan
 void ScannerWidget::prepare()
 {
+    scanButton->setStyleSheet(greenButtonBackgroundStyle);
     scanButton->setEnabled(true);
 }
 
 // Scan with the first detected scanner and emit the photoTaken signal
 void ScannerWidget::scanPuzzle()
 {
+    scanButton->setStyleSheet(greenCheckedButtonBackgroundStyle);
+
     scanButton->setEnabled(false);
+
+    delay(100);
+
     lastImageId += 1;
     QString imagePathQString = "../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
 

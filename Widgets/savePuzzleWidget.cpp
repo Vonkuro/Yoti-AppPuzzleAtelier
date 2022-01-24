@@ -42,6 +42,11 @@ SavePuzzleWidget::~SavePuzzleWidget()
     delete widgetLayout;
 }
 
+void SavePuzzleWidget::prepare()
+{
+    validationButton->setStyleSheet(greenButtonBackgroundStyle);
+    validationButton->setEnabled(true);
+}
 // Prepare the form
 void SavePuzzleWidget::form()
 {
@@ -133,7 +138,7 @@ bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
     choiceBarcodeMessageBox.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
                                            "QMessageBox {background-color: white}"
                                            "#yesButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
-                                           "background-color: #78C29B; border: 2px solid #6569C4;}"
+                                           " " +greenButtonBackgroundStyle +"}"
                                            "#noButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
                                            "background-color: #E54D96; border: 2px solid #6569C4;}");
 
@@ -199,6 +204,9 @@ bool SavePuzzleWidget::descriptionValid(QString description) // need unit-tests
 // The signal is for the master widget
 void SavePuzzleWidget::save()
 {
+    validationButton->setStyleSheet(greenCheckedButtonBackgroundStyle);
+    validationButton->setEnabled(false);
+
     // Init & Prepare data
     QString barcodeText = barcodeLineEdit->text();
     QRegExp whitespaceRegExp;
@@ -250,7 +258,12 @@ void SavePuzzleWidget::save()
 
         // Return to the master widget
         emit puzzleSaved(id);
+    } else
+    {
+        validationButton->setStyleSheet(greenButtonBackgroundStyle);
+        validationButton->setEnabled(true);
     }
+
 }
 
 

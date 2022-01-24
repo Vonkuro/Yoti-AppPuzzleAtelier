@@ -1,8 +1,7 @@
 #ifndef VALIDATIONWIDGET_H
 #define VALIDATIONWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
+#include "common.h"
 #include <QFile>
 
 enum photoDevice {Webcam, Scanner};

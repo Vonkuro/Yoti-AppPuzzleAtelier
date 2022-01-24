@@ -1,8 +1,7 @@
 #ifndef SAVEPUZZLEWIDGET_H
 #define SAVEPUZZLEWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
+#include "common.h"
 #include <QRegExp>
 #include "envLocal.h"
 
@@ -12,6 +11,7 @@ class SavePuzzleWidget : public QWidget
 public:
     SavePuzzleWidget();
     ~SavePuzzleWidget();
+    void prepare();
 
 // Saving the Puzzle
 signals:

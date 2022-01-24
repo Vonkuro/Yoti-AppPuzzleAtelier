@@ -112,6 +112,7 @@ void MasterWidget::goToScanner()
 // Display the save puzzle widget
 void MasterWidget::goToSavePuzzle()
 {
+    savePuzzleWidget->prepare();
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
 }
 
@@ -300,9 +301,9 @@ void MasterWidget::viewStyle()
     QString StyleSheet = "#window {background-color: white} ";
     StyleSheet += "QLabel[cssClass=\"title\"] { font: bold \"Montserrat\"; font-size: 42px; color: #2C2E71} ";
     StyleSheet += "QLabel[cssClass=\"subtitle\"] { font: \"Montserrat\"; font-size: 22px; color: #6569C4}" ;
-    StyleSheet += "QPushButton[cssClass=\"greenButton\"] {font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
-                                                        "background-color: #78C29B; border: 2px solid #6569C4; "
-                                                        "height: 50px; max-width: 800px; min-width: 800px; } ";
+    StyleSheet += "QPushButton[cssClass=\"greenButton\"] {"+ greenButtonFontStyle +
+                                                        " " + greenButtonBackgroundStyle +
+                                                        " " + greenButtonSizeStyle +" } ";
     StyleSheet += "QLabel[cssClass=\"logoTitle\"] {max-width: 625px; max-height: 220px} ";
     StyleSheet += "QLabel[cssClass=\"logo\"] {max-width: 312; max-height: 110px } ";
     StyleSheet += "QComboBox[cssClass=\"choice\"] {height: 50px; max-width: 800px; min-width: 800px; }";

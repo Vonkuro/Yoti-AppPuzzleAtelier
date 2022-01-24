@@ -1,8 +1,7 @@
 #ifndef HOMEPAGEWIDGET_H
 #define HOMEPAGEWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
+#include "common.h"
 
 class HomepageWidget : public QWidget
 {

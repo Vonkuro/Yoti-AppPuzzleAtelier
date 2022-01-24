@@ -37,6 +37,7 @@ HomepageWidget::~HomepageWidget()
 // Emit the signal to start the Application
 void HomepageWidget::startButtonClicked()
 {
+    startButton->setStyleSheet(greenCheckedButtonBackgroundStyle);
     emit startApp();
 }
 

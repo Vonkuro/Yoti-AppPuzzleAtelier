@@ -51,6 +51,7 @@ void ChoiceCameraWidget::searchCamera(int id)
 // Emit the signal cameraSetUp loaded with the selected cameraInfo and the id of the puzzle
 void ChoiceCameraWidget::cameraChosen()
 {
+    choiceButton->setStyleSheet(greenCheckedButtonBackgroundStyle);
     int index = choiceCombobox->currentData().toInt();
     QCameraInfo chosenCamera = cameraList[index];
     emit cameraSetUp(Id, chosenCamera);

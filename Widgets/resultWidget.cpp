@@ -36,6 +36,8 @@ ResultWidget::~ResultWidget()
 // Display the result of a solved puzzle
 void ResultWidget::display(int piecesNumber, bool completed)
 {
+    restartButton->setStyleSheet(greenButtonBackgroundStyle);
+
     QString piecesNumberString = "Le Puzzle contient " + QString::number(piecesNumber) + " pièces dans ce Puzzle.";
     piecesNumberLabel->setText(piecesNumberString);
 
@@ -54,6 +56,8 @@ void ResultWidget::display(int piecesNumber, bool completed)
 // Display excuse when the puzzle remains unsolved
 void ResultWidget::display()
 {
+    restartButton->setStyleSheet(greenButtonBackgroundStyle);
+
     QString completedString = "Yoti App Puzzle n'est pas capable de résoudre ce Puzzle...";
     completedLabel->setText(completedString);
 
@@ -64,6 +68,7 @@ void ResultWidget::display()
 // Emit the restart signal
 void ResultWidget::emitRestart()
 {
+    restartButton->setStyleSheet(greenCheckedButtonBackgroundStyle);
     emit restart();
 }
 

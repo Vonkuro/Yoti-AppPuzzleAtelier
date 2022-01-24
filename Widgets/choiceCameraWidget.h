@@ -1,8 +1,8 @@
 #ifndef CHOIXCAMERAWIDGET_H
 #define CHOIXCAMERAWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
+
+#include "common.h"
 #include <QCameraInfo>
 
 class ChoiceCameraWidget : public QWidget

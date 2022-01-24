@@ -1,8 +1,7 @@
 #ifndef MASTERWIDGET_H
 #define MASTERWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
+#include "common.h"
 #include "envLocal.h"
 #include "widgets_global.h"
 #include "homepageWidget.h"

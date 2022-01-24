@@ -51,6 +51,8 @@ ValidationWidget::~ValidationWidget()
 // Load the correct image to valide into the image Label
 void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage, photoDevice device)
 {
+    viewStyle();
+
     puzzleId = idPuzzle;
     imageId = idImage;
 
@@ -80,6 +82,11 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage, photoDevic
 // Ask if an other photo is needed and emit the signal if the user confirm it
 void ValidationWidget::valid()
 {
+
+    validButton->setStyleSheet(greenButtonFontStyle +
+                               " " + greenCheckedButtonBackgroundStyle +
+                               "height: 50px;");
+
     QMessageBox continueMessageBox;
     continueMessageBox.setText("Allez-vous prendre une photographe supplémentaire ?");
     continueMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
@@ -121,6 +128,10 @@ void ValidationWidget::valid()
 // Delete the photo and emit the signal for a new photo
 void ValidationWidget::cancel()
 {
+    cancelButton->setStyleSheet(greenCheckedButtonBackgroundStyle +
+                                "background-color: #E54D96; border: 2px solid #6569C4; "
+                                "height: 50px;");
+
     QFile imageFile(imagePath);
     imageFile.remove();
     emit newPhoto();
@@ -145,14 +156,14 @@ void ValidationWidget::viewStyle()
     widgetLayout->setAlignment(titleLabel,Qt::AlignHCenter);
 
     validButton->setText("Valider");
-    validButton->setStyleSheet("font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
-                               "background-color: #78C29B; border: 2px solid #6569C4; "
+    validButton->setStyleSheet(greenButtonFontStyle +
+                               " " + greenButtonBackgroundStyle +
                                "height: 50px;");
     widgetLayout->setAlignment(validButton,Qt::AlignHCenter);
 
 
     cancelButton->setText("Refuser");
-    cancelButton->setStyleSheet("font: bold \"Montserrat\"; font-size: 28px; color: #2C2E71; "
+    cancelButton->setStyleSheet(greenButtonFontStyle +
                                             "background-color: #E54D96; border: 2px solid #6569C4; "
                                             "height: 50px;");
     widgetLayout->setAlignment(cancelButton,Qt::AlignHCenter);
@@ -162,4 +173,6 @@ void ValidationWidget::viewStyle()
 
     logoLayout->setAlignment(Qt::AlignTop);
     logoLayout->setSpacing(50);
+
+    delay(100);
 }

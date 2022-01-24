@@ -1,8 +1,7 @@
 #ifndef RESULTWIDGET_H
 #define RESULTWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
+#include "common.h"
 
 
 class ResultWidget : public QWidget

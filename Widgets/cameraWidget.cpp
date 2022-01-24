@@ -116,7 +116,10 @@ void CameraWidget::webcamView(QCameraInfo cameraInfo)
 // Give the Master Widget the ability to start and stop the webcam
 void CameraWidget::start()
 {
+    photoButton->setStyleSheet(greenButtonBackgroundStyle);
     webcam->start();
+
+    photoButton->setEnabled(true);
 }
 void CameraWidget::stop()
 {
@@ -142,6 +145,10 @@ void CameraWidget::prepare(int id, QCameraInfo cameraInfo)
 // Take the photo
 void CameraWidget::takePhoto()
 {
+    photoButton->setEnabled(false);
+
+    photoButton->setStyleSheet(greenCheckedButtonBackgroundStyle);
+
     ++lastImageId;
     webcam->searchAndLock();
     QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";

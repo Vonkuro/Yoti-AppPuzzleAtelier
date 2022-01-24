@@ -77,6 +77,7 @@ Devices ChoiceScannerWidget::findScanners()
 // Emit the signal scannerSetUp loaded with the name of the scanner and the id of the puzzle
 void ChoiceScannerWidget::scannerChosen()
 {
+    choiceButton->setStyleSheet(greenCheckedButtonBackgroundStyle);
     QString scannerName = choiceCombobox->currentData().toString();
     emit scannerSetUp(Id,scannerName);
 }
