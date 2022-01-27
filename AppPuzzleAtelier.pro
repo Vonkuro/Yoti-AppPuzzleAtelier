@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-TARGET = AppPuzzle
+TARGET = AppPuzzleAtelier
 TEMPLATE = subdirs
 
 # The following define makes your compiler emit warnings if you use

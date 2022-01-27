@@ -275,12 +275,12 @@ void MasterWidget::connectTheApplication()
     connect(scannerWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
 
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
-    connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(goToWaitting(int)));
+    connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(goToSavePuzzle()));
 
-    connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
-    connect(waittingWidget, SIGNAL(puzzleNotSolved()), this, SLOT(goToResult()));
+    //connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
+    //connect(waittingWidget, SIGNAL(puzzleNotSolved()), this, SLOT(goToResult()));
 
-    connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
+    //connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
 }
 
 // Manage details of the view

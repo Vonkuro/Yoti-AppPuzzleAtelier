@@ -1,2 +1,3 @@
-/envLocal*
+envLocal.cpp
 
+envLocal.h

@@ -4,7 +4,7 @@ EnvLocal::EnvLocal()
 {
 // Init of attributs
     dataDriver = "QMYSQL";
-    dataName = "dataPuzzle";
+    dataName = "dataPuzzleAtelier";
     dataUser = "yoti";
     dataPassword = "§Arcane2Wonder§";
     dataHost = "localhost";
