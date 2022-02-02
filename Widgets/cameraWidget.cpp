@@ -127,9 +127,11 @@ void CameraWidget::stop()
 }
 
 // Prepare the directory to store the images
-void CameraWidget::prepare(int id, QCameraInfo cameraInfo)
+void CameraWidget::prepare(int id, QCameraInfo cameraInfo, bool forBoxPhoto)
 {
     puzzleId = id;
+    boxPhoto = forBoxPhoto;
+
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
 
@@ -149,16 +151,31 @@ void CameraWidget::takePhoto()
 
     photoButton->setStyleSheet(greenCheckedButtonBackgroundStyle);
 
-    ++lastImageId;
-    webcam->searchAndLock();
-    QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
-    webcamImageCapture->capture(imagePath);
-    webcam->unlock();
+    if (boxPhoto)
+    {
+        webcam->searchAndLock();
+        QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/Cover/box.jpg";
+        webcamImageCapture->capture(imagePath);
+        webcam->unlock();
 
-    stop();
+        stop();
 
-    delay(1000);
+        delay(1000);
 
-    emit photoTaken(puzzleId, lastImageId);
+        emit coverTaken(puzzleId);
+    }else{
+        ++lastImageId;
+        webcam->searchAndLock();
+        QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
+        webcamImageCapture->capture(imagePath);
+        webcam->unlock();
+
+        stop();
+
+        delay(1000);
+
+        emit photoTaken(puzzleId, lastImageId);
+    }
+
 }
 

@@ -74,7 +74,7 @@ void MasterWidget::goToWebcam(int id, QCameraInfo cameraInfo)
 {
     masterStackedWidget->setCurrentWidget(cameraWidget);
 
-    cameraWidget->prepare(id, cameraInfo);
+    cameraWidget->prepare(id, cameraInfo, false);
 
     cameraInfoMemory = cameraInfo;
 
