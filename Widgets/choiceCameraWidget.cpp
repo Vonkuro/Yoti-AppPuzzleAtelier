@@ -46,6 +46,8 @@ void ChoiceCameraWidget::searchCamera(int id)
         QVariant cameraInfoIndex(i);
         choiceCombobox->addItem(cameraList[i].description(),cameraInfoIndex);
     }
+
+    choiceButton->setStyleSheet(greenButtonBackgroundStyle);
 }
 
 // Emit the signal cameraSetUp loaded with the selected cameraInfo and the id of the puzzle

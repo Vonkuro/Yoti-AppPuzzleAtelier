@@ -45,6 +45,7 @@ private:
     photoDevice chosenDevice;
     QCameraInfo cameraInfoMemory;
     QString deviceNameMemory;
+    bool boxCoverNotTaken;
 // Methods
     void connectTheApplication();
     void viewStyle();

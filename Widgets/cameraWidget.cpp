@@ -134,7 +134,10 @@ void CameraWidget::prepare(int id, QCameraInfo cameraInfo, bool forBoxPhoto)
 
     pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
-
+    if (forBoxPhoto)
+    {
+        newDir("../" + pathImageDirectory + "/Cover");
+    }
     if (! cameraConfigured)
     {
         webcamView(cameraInfo);

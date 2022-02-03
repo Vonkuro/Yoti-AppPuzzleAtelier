@@ -74,11 +74,16 @@ void MasterWidget::goToWebcam(int id, QCameraInfo cameraInfo)
 {
     masterStackedWidget->setCurrentWidget(cameraWidget);
 
-    cameraWidget->prepare(id, cameraInfo, false);
+    cameraWidget->prepare(id, cameraInfo, boxCoverNotTaken);
 
     cameraInfoMemory = cameraInfo;
 
     cameraWidget->start();
+
+    if (boxCoverNotTaken)
+    {
+        boxCoverNotTaken = false;
+    }
 }
 
 // Display the camera widget
@@ -112,6 +117,7 @@ void MasterWidget::goToScanner()
 // Display the save puzzle widget
 void MasterWidget::goToSavePuzzle()
 {
+    boxCoverNotTaken = true;
     savePuzzleWidget->prepare();
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
 }
@@ -229,13 +235,9 @@ void MasterWidget::choiceImageAcquisition(int id)
     if(choice == 0)
     {
         chosenDevice = Webcam;
-        if (cameraInfoMemory.isNull())
-        {
-            goToChoiceCamera(id);
-        } else
-        {
-            goToWebcam(id, cameraInfoMemory);
-        }
+
+        goToChoiceCamera(id);
+
 
     }
     // choice is scanner
@@ -266,7 +268,9 @@ void MasterWidget::connectTheApplication()
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::archive);
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
-    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(choiceImageAcquisition(int)));
+    connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToChoiceCamera(int)));
+
+    connect(cameraWidget, SIGNAL(coverTaken(int)), this, SLOT(choiceImageAcquisition(int)));
 
     connect(choiceCameraWidget, SIGNAL(cameraSetUp(int, QCameraInfo)) , this, SLOT(goToWebcam(int,QCameraInfo)));
     connect(cameraWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
