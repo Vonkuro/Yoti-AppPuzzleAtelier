@@ -17,9 +17,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp \
     masterProcess.cpp \
     loader.cpp \
-    envLocal.cpp
+    envLocal.cpp \
+    solver.cpp
 
 HEADERS += \
     masterProcess.h \
     loader.h \
-    envLocal.h
+    envLocal.h \
+    solver.h
