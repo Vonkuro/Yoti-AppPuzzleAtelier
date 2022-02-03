@@ -2,11 +2,9 @@
 
 Loader::Loader(QObject *parent) : QObject(parent)
 {
+    puzzles = QMap<int, QString>();
 }
 
-// trouver les id des puzzles non handled
-// preparer le path vers le dossier image
-// preparer le path vers la cover
 
 void Loader::getNotHandled()
 {
@@ -33,6 +31,8 @@ void Loader::getNotHandled()
         }
 
         database.close();
+        emit puzzlesFound(puzzles);
     }
+
 
 }

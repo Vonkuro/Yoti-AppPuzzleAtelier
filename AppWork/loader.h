@@ -14,6 +14,7 @@ public:
     explicit Loader(QObject *parent = nullptr);
 
 signals:
+    void puzzlesFound(QMap<int, QString> puzzleMap);
 
 public slots:
 
