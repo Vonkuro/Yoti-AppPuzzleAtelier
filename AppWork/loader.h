@@ -2,6 +2,10 @@
 #define LOADER_H
 
 #include <QObject>
+#include <QMap>
+#include <QVariant>
+#include <QDebug>
+#include "envLocal.h"
 
 class Loader : public QObject
 {
@@ -12,6 +16,13 @@ public:
 signals:
 
 public slots:
+
+private:
+
+    EnvLocal dataWrapper;
+    QMap<int, QString> puzzles;
+
+    void getNotHandled();
 };
 
 #endif // LOADER_H
