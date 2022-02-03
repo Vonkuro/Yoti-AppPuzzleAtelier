@@ -23,6 +23,8 @@ void Loader::getNotHandled()
             return;
         }
 
+        puzzles = QMap<int, QString>();
+
         while(idNothandle.next())
         {
             int id = idNothandle.value("id").toInt();
@@ -31,7 +33,7 @@ void Loader::getNotHandled()
         }
 
         database.close();
-        emit puzzlesFound(puzzles);
+        emit puzzlesFound();
     }
 
 

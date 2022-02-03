@@ -12,9 +12,10 @@ class Loader : public QObject
     Q_OBJECT
 public:
     explicit Loader(QObject *parent = nullptr);
+    void getNotHandled();
 
 signals:
-    void puzzlesFound(QMap<int, QString> puzzleMap);
+    void puzzlesFound();
 
 public slots:
 
@@ -23,7 +24,6 @@ private:
     EnvLocal dataWrapper;
     QMap<int, QString> puzzles;
 
-    void getNotHandled();
 };
 
 #endif // LOADER_H
