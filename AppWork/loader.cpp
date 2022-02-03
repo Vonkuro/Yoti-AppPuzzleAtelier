@@ -41,5 +41,17 @@ void Loader::getNotHandled()
 
 void Loader::puzzleHandled(int puzzleId)
 {
-    puzzles.remove(id);
+    puzzles.remove(puzzleId);
+}
+
+QMap<int, QString> Loader::getPuzzle()
+{
+    QMap<int, QString> nextPuzzle;
+    if ( puzzles.isEmpty() )
+    {
+        return nextPuzzle;
+    }
+    int key = puzzles.firstKey();
+    nextPuzzle[key] = puzzles[key];
+    return nextPuzzle;
 }

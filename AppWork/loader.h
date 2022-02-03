@@ -13,6 +13,7 @@ class Loader : public QObject
 public:
     explicit Loader(QObject *parent = nullptr);
     void getNotHandled();
+    QMap<int, QString> getPuzzle();
 
 signals:
     void puzzlesFound();
