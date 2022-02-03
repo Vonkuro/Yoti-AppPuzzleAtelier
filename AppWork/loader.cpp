@@ -38,3 +38,8 @@ void Loader::getNotHandled()
 
 
 }
+
+void Loader::puzzleHandled(int puzzleId)
+{
+    puzzles.remove(id);
+}

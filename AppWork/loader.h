@@ -18,6 +18,7 @@ signals:
     void puzzlesFound();
 
 public slots:
+    void puzzleHandled(int puzzleId);
 
 private:
 
