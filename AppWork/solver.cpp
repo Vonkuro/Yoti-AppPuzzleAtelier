@@ -5,12 +5,14 @@ Solver::Solver(QObject *parent) : QObject(parent)
     commandHead = "Yoti-PuzzleSolver ";
 }
 
-void Solver::solvePuzzle(QMap<int, QString> puzzle)
+void Solver::solvePuzzle(std::tuple<int, QString> puzzle)
 {
-    QString command = commandHead + puzzle.;
+    QString command = commandHead + std::get<1>(puzzle);
+
 }
 
-std::string Solver::execute(const std::string& command) {
+std::string Solver::execute(QString commandString) {
+    std::string command = commandString.toStdString();
     system((command + " > temp.txt").c_str());
 
     std::ifstream ifs("temp.txt");

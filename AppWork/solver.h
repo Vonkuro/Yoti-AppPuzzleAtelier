@@ -2,6 +2,9 @@
 #define SOLVER_H
 
 #include <QObject>
+#include <fstream>
+#include <iostream>
+#include <QMap>
 
 class Solver : public QObject
 {
@@ -13,11 +16,11 @@ signals:
     void puzzleSolved(int puzzleId);
 
 public slots:
-    void solvePuzzle(QMap<int, QString> puzzle);
+    void solvePuzzle(std::tuple<int, QString> puzzle);
 
 private:
     QString commandHead;
-    std::string execute(const std::string& command);
+    std::string execute(QString command);
 };
 
 #endif // SOLVER_H
