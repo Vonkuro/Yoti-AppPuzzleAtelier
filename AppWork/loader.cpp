@@ -27,9 +27,11 @@ void Loader::getNotHandled()
 
         while(idNothandle.next())
         {
+            QString home = QDir::homePath();
+
             int id = idNothandle.value("id").toInt();
-            puzzles[id] = "../Images/Puzzle-" + QString::number(id) + "/";
-            QString retour = puzzles[id];
+
+            puzzles[id] = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(id) + "/";
         }
 
         database.close();

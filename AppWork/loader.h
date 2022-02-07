@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QMap>
 #include <QVariant>
+#include <QDir>
 #include <QDebug>
 #include "envLocal.h"
 
