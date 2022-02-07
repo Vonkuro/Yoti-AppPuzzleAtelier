@@ -3,12 +3,12 @@
 MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
 {
     dataWrapper.setDatabase();
-    loader = new Loader;
+    puzzleHandler = new PuzzleHandler;
     solver = new Solver;
 
-    loader->getNotHandled();
+    puzzleHandler->getNotHandled();
 
-    std::tuple<int, QString> test = loader->getPuzzle();
+    std::tuple<int, QString> test = puzzleHandler->getPuzzle();
     qDebug() << std::get<1>(test);
 
     qDebug() << solver->solvePuzzle(test);
@@ -17,7 +17,7 @@ MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
 
 MasterProcess::~MasterProcess()
 {
-    delete loader;
+    delete puzzleHandler;
     delete solver;
     dataWrapper.removeDatabase();
 }

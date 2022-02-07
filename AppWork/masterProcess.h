@@ -2,7 +2,7 @@
 #define MASTERPROCESS_H
 
 #include <QObject>
-#include "loader.h"
+#include "puzzleHandler.h"
 #include "envLocal.h"
 #include "solver.h"
 
@@ -18,7 +18,7 @@ signals:
 public slots:
 
 private:
-    Loader* loader;
+    PuzzleHandler* puzzleHandler;
     Solver* solver;
     EnvLocal dataWrapper;
 };

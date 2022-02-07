@@ -8,11 +8,11 @@
 #include <QDebug>
 #include "envLocal.h"
 
-class Loader : public QObject
+class PuzzleHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit Loader(QObject *parent = nullptr);
+    explicit PuzzleHandler(QObject *parent = nullptr);
     void getNotHandled();
     std::tuple<int, QString> getPuzzle();
 

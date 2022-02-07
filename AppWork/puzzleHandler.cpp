@@ -1,12 +1,12 @@
-#include "loader.h"
+#include "puzzleHandler.h"
 
-Loader::Loader(QObject *parent) : QObject(parent)
+PuzzleHandler::PuzzleHandler(QObject *parent) : QObject(parent)
 {
     puzzles = QMap<int, QString>();
 }
 
 
-void Loader::getNotHandled()
+void PuzzleHandler::getNotHandled()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
 
@@ -41,12 +41,12 @@ void Loader::getNotHandled()
 
 }
 
-void Loader::puzzleHandled(int puzzleId)
+void PuzzleHandler::puzzleHandled(int puzzleId)
 {
     puzzles.remove(puzzleId);
 }
 
-std::tuple<int, QString> Loader::getPuzzle()
+std::tuple<int, QString> PuzzleHandler::getPuzzle()
 {
     if ( puzzles.isEmpty() )
     {
