@@ -5,9 +5,11 @@ Solver::Solver(QObject *parent) : QObject(parent)
     commandHead = "Yoti-PuzzleSolver ";
 }
 
-void Solver::solvePuzzle(std::tuple<int, QString> puzzle)
+QString Solver::solvePuzzle(std::tuple<int, QString> puzzle)
 {
     QString command = commandHead + std::get<1>(puzzle);
+    QString result = QString::fromStdString (execute(command));
+    return result;
 
 }
 

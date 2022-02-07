@@ -16,7 +16,7 @@ signals:
     void puzzleSolved(int puzzleId);
 
 public slots:
-    void solvePuzzle(std::tuple<int, QString> puzzle);
+    QString solvePuzzle(std::tuple<int, QString> puzzle);
 
 private:
     QString commandHead;
