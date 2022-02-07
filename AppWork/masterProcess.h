@@ -4,6 +4,7 @@
 #include <QObject>
 #include "loader.h"
 #include "envLocal.h"
+#include "solver.h"
 
 class MasterProcess : public QObject
 {
@@ -18,6 +19,7 @@ public slots:
 
 private:
     Loader* loader;
+    Solver* solver;
     EnvLocal dataWrapper;
 };
 

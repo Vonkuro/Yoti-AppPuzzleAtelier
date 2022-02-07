@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QMap>
 #include <QVariant>
+#include <QDir>
 #include <QDebug>
 #include "envLocal.h"
 
@@ -13,7 +14,7 @@ class Loader : public QObject
 public:
     explicit Loader(QObject *parent = nullptr);
     void getNotHandled();
-    QMap<int, QString> getPuzzle();
+    std::tuple<int, QString> getPuzzle();
 
 signals:
     void puzzlesFound();

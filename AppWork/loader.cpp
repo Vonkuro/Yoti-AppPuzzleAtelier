@@ -27,9 +27,11 @@ void Loader::getNotHandled()
 
         while(idNothandle.next())
         {
+            QString home = QDir::homePath();
+
             int id = idNothandle.value("id").toInt();
-            puzzles[id] = "../Images/Puzzle-" + QString::number(id) + "/";
-            QString retour = puzzles[id];
+
+            puzzles[id] = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(id) + "/";
         }
 
         database.close();
@@ -44,14 +46,12 @@ void Loader::puzzleHandled(int puzzleId)
     puzzles.remove(puzzleId);
 }
 
-QMap<int, QString> Loader::getPuzzle()
+std::tuple<int, QString> Loader::getPuzzle()
 {
-    QMap<int, QString> nextPuzzle;
     if ( puzzles.isEmpty() )
     {
-        return nextPuzzle;
+        return std::tuple<int, QString> {-1,""};
     }
-    int key = puzzles.firstKey();
-    nextPuzzle[key] = puzzles[key];
-    return nextPuzzle;
+
+    return std::tuple<int, QString> {puzzles.firstKey(),puzzles.first()};
 }
