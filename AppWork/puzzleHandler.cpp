@@ -116,7 +116,7 @@ void PuzzleHandler::saveresult(int piecesNumber, bool completed)
     if (database.open())
     {
         QSqlQuery handled(database);
-
+        handled.prepare("UPDATE Puzzle SET pieces_number = ? , completed = ? , handled = TRUE,  WHERE id = ?;");
 
 
         database.close();
