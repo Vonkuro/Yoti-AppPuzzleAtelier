@@ -48,22 +48,79 @@ void PuzzleHandler::puzzleHandled(int puzzleId)
     puzzles.remove(puzzleId);
 }
 
-std::tuple<int, QString> PuzzleHandler::getPuzzle()
+
+
+QString PuzzleHandler::solvePuzzle()
 {
-    if ( puzzles.isEmpty() )
+    if (puzzles.empty())
     {
-        return std::tuple<int, QString> {-1,""};
+        return "";
+    }
+    QString command = commandHead + puzzles.first();
+    QString result = QString::fromStdString (execute(command));
+
+    result = result.simplified();
+
+    if (result.contains("Nombre")){
+        QStringList resultSplited = result.split(":");
+
+        int piecesNumber = findPiecesNumber(resultSplited);
+        bool completed = findIfCompleted(resultSplited);
+        saveresult(piecesNumber, completed);
     }
 
-    return std::tuple<int, QString> {puzzles.firstKey(),puzzles.first()};
-}
-
-QString PuzzleHandler::solvePuzzle(std::tuple<int, QString> puzzle)
-{
-    QString command = commandHead + std::get<1>(puzzle);
-    QString result = QString::fromStdString (execute(command));
     return result;
 
+}
+
+// Extract the number of pieces from the splited output
+int PuzzleHandler::findPiecesNumber(QStringList solverSplited)
+{
+    QString piecesNumberString = solverSplited[1];
+
+    int indexEnd = piecesNumberString.indexOf("Nombre");
+    indexEnd -= 2;
+
+    piecesNumberString = piecesNumberString.mid(1,indexEnd);
+
+    int piecesNumber = piecesNumberString.toInt();
+
+    return piecesNumber;
+}
+
+// Extract the information of if the puzzle is complet or not
+bool PuzzleHandler::findIfCompleted(QStringList solverSplited)
+{
+    QString completedString = solverSplited[2];
+    if (completedString.contains("incomplet"))
+    {
+        return false;
+    }
+    else if (completedString.contains("complet"))
+    {
+        return true;
+    } else
+    {
+        return false;
+    }
+}
+
+void PuzzleHandler::saveresult(int piecesNumber, bool completed)
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+
+    qDebug() << piecesNumber;
+    qDebug() << completed;
+
+
+    if (database.open())
+    {
+        QSqlQuery handled(database);
+
+
+
+        database.close();
+    }
 }
 
 std::string PuzzleHandler::execute(QString commandString) {

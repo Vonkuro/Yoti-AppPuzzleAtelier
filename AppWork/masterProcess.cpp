@@ -7,10 +7,7 @@ MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
 
     puzzleHandler->getNotHandled();
 
-    std::tuple<int, QString> test = puzzleHandler->getPuzzle();
-    qDebug() << std::get<1>(test);
-
-    qDebug() << puzzleHandler->solvePuzzle(test);
+    qDebug() << puzzleHandler->solvePuzzle();
 
 }
 

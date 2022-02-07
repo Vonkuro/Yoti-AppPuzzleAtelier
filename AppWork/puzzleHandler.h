@@ -17,7 +17,6 @@ class PuzzleHandler : public QObject
 public:
     explicit PuzzleHandler(QObject *parent = nullptr);
     void getNotHandled();
-    std::tuple<int, QString> getPuzzle();
 
 signals:
     void puzzlesFound();
@@ -25,7 +24,8 @@ signals:
 
 public slots:
     void puzzleHandled(int puzzleId);
-    QString solvePuzzle(std::tuple<int, QString> puzzle);
+    QString solvePuzzle();
+    void saveresult(int piecesNumber, bool completed);
 
 private:
 
@@ -33,6 +33,9 @@ private:
 
     QMap<int, QString> puzzles;
     QString commandHead;
+
+    int findPiecesNumber(QStringList solverSplited);
+    bool findIfCompleted(QStringList solverSplited);
 
     std::string execute(QString command);
 
