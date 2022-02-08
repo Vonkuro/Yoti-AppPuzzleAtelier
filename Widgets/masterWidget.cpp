@@ -261,6 +261,23 @@ void MasterWidget::archive()
     manager->tarOldImageFolder();
 }
 
+void MasterWidget::end(int id)
+{
+    QSqlDatabase database = datawrapper.getDatabase();
+
+    if ( database.open())
+    {
+        QSqlQuery needToHandle(database);
+        needToHandle.prepare("UPDATE Puzzle SET handled = FALSE WHERE id = ?;");
+        needToHandle.bindValue(0,id);
+        needToHandle.exec();
+
+        database.close();
+    }
+
+    goToSavePuzzle();
+}
+
 // Connects the widget "end" signal the changing display slots
 // Connects the backgrounds process to their signals
 void MasterWidget::connectTheApplication()
@@ -279,7 +296,7 @@ void MasterWidget::connectTheApplication()
     connect(scannerWidget, SIGNAL(photoTaken(int,int)), this, SLOT(goToValidation(int, int)));
 
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
-    connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(goToSavePuzzle()));
+    connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(end(int)));
 
     //connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
     //connect(waittingWidget, SIGNAL(puzzleNotSolved()), this, SLOT(goToResult()));

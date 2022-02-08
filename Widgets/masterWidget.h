@@ -69,6 +69,7 @@ public slots:
     void goToWaitting(int id);
     void goToResult(int numberPieces, bool completed);
     void goToResult();
+    void end(int id);
 // Slots mangers of background process
     void archive();
 

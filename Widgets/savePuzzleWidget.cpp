@@ -236,11 +236,11 @@ void SavePuzzleWidget::save()
         QSqlQuery newPuzzleSql(database);
         if (descriptionTextEdit->toPlainText().size() == 0)
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, archived, completed, handled) VALUES (?, FALSE, FALSE, FALSE);");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, archived, completed) VALUES (?, FALSE, FALSE);");
             newPuzzleSql.bindValue(0, barcode);
         } else
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description, archived, completed, handled) VALUES (?, ?, FALSE, FALSE, FALSE);");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description, archived, completed) VALUES (?, ?, FALSE, FALSE);");
             newPuzzleSql.bindValue(0, barcode);
             newPuzzleSql.bindValue(1, descriptionTextEdit->toPlainText() );
         }
