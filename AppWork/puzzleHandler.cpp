@@ -43,26 +43,103 @@ void PuzzleHandler::getNotHandled()
 
 }
 
-void PuzzleHandler::puzzleHandled(int puzzleId)
-{
-    puzzles.remove(puzzleId);
-}
 
-std::tuple<int, QString> PuzzleHandler::getPuzzle()
+
+
+void PuzzleHandler::solvePuzzle()
 {
-    if ( puzzles.isEmpty() )
+    if (puzzles.empty())
     {
-        return std::tuple<int, QString> {-1,""};
+        emit allPuzzleSolved();
+    }
+    QString command = commandHead + puzzles.first();
+    QString result = QString::fromStdString (execute(command));
+
+    result = result.simplified();
+
+    if (result.contains("Nombre")){
+        QStringList resultSplited = result.split(":");
+
+        int piecesNumber = findPiecesNumber(resultSplited);
+        bool completed = findIfCompleted(resultSplited);
+        saveWithResult(piecesNumber, completed);
+    } else
+    {
+        saveWithoutResult();
     }
 
-    return std::tuple<int, QString> {puzzles.firstKey(),puzzles.first()};
+    emit puzzleSolved();
+
 }
 
-QString PuzzleHandler::solvePuzzle(std::tuple<int, QString> puzzle)
+// Extract the number of pieces from the splited output
+int PuzzleHandler::findPiecesNumber(QStringList solverSplited)
 {
-    QString command = commandHead + std::get<1>(puzzle);
-    QString result = QString::fromStdString (execute(command));
-    return result;
+    QString piecesNumberString = solverSplited[1];
+
+    int indexEnd = piecesNumberString.indexOf("Nombre");
+    indexEnd -= 2;
+
+    piecesNumberString = piecesNumberString.mid(1,indexEnd);
+
+    int piecesNumber = piecesNumberString.toInt();
+
+    return piecesNumber;
+}
+
+// Extract the information of if the puzzle is complet or not
+bool PuzzleHandler::findIfCompleted(QStringList solverSplited)
+{
+    QString completedString = solverSplited[2];
+    if (completedString.contains("incomplet"))
+    {
+        return false;
+    }
+    else if (completedString.contains("complet"))
+    {
+        return true;
+    } else
+    {
+        return false;
+    }
+}
+
+void PuzzleHandler::saveWithResult(int piecesNumber, bool completed)
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+
+    if (database.open())
+    {
+        QSqlQuery handled(database);
+        handled.prepare("UPDATE Puzzle SET pieces_number = ? , completed = ? , handled = TRUE, unsolvable = FALSE WHERE id = ?;");
+        handled.bindValue(0, piecesNumber);
+        handled.bindValue(1, completed);
+        handled.bindValue(2, puzzles.firstKey());
+
+        handled.exec();
+
+        puzzles.remove(puzzles.firstKey());
+
+        database.close();
+    }
+}
+
+void PuzzleHandler::saveWithoutResult()
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+
+    if (database.open())
+    {
+        QSqlQuery notHandled(database);
+        notHandled.prepare("UPDATE Puzzle SET handled = TRUE, unsolvable = TRUE WHERE id = ?;");
+        notHandled.bindValue(0, puzzles.firstKey());
+
+        notHandled.exec();
+
+        puzzles.remove(puzzles.firstKey());
+
+        database.close();
+    }
 
 }
 
@@ -77,4 +154,19 @@ std::string PuzzleHandler::execute(QString commandString) {
         perror("Error deleting temporary file");
     }
     return ret;
+}
+
+bool PuzzleHandler::databaseReady()
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+
+    if (database.open())
+    {
+        database.close();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
