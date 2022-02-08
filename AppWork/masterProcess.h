@@ -21,6 +21,7 @@ private:
     EnvLocal dataWrapper;
 
     void test();
+    void link();
 };
 
 #endif // MASTERPROCESS_H

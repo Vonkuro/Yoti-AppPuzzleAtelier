@@ -51,6 +51,7 @@ void PuzzleHandler::solvePuzzle()
     if (puzzles.empty())
     {
         emit allPuzzleSolved();
+        return;
     }
     QString command = commandHead + puzzles.first();
     QString result = QString::fromStdString (execute(command));

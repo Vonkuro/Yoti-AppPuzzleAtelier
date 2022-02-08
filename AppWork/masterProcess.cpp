@@ -4,7 +4,10 @@ MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
 {
     dataWrapper.setDatabase();
     puzzleHandler = new PuzzleHandler;
-    //test();
+    link();
+
+
+    test();
 }
 
 MasterProcess::~MasterProcess()
@@ -18,7 +21,12 @@ void MasterProcess::test()
 
     puzzleHandler->getNotHandled();
 
-    puzzleHandler->solvePuzzle();
+}
 
-    puzzleHandler->solvePuzzle();
+void MasterProcess::link()
+{
+    //connect( , puzzleHandler, &PuzzleHandler::getNotHandled);
+    connect(puzzleHandler, &PuzzleHandler::puzzlesFound, puzzleHandler, &PuzzleHandler::solvePuzzle);
+    connect(puzzleHandler, &PuzzleHandler::puzzleSolved, puzzleHandler, &PuzzleHandler::solvePuzzle);
+    //connect(puzzleHandler, &PuzzleHandler::allPuzzleSolved, );
 }
