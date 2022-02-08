@@ -26,7 +26,7 @@ MasterProcess::~MasterProcess()
 void MasterProcess::test()
 {
 
-    if (verifyDatabaseAvailable() )
+    if ( verifyDatabaseAvailable() )
     {
         checkHour->start();
     } else
