@@ -56,7 +56,9 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage, photoDevic
     puzzleId = idPuzzle;
     imageId = idImage;
 
-    imagePath = qApp->applicationDirPath() + "/../" + "Images/Puzzle-" + QString::number(puzzleId);
+    QString home = QDir::homePath();
+
+    imagePath = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(puzzleId);
     imagePath = imagePath + "/image-" + QString::number(imageId) + ".jpg";
 
     QString imageSize;
