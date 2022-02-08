@@ -25,7 +25,8 @@ signals:
 public slots:
     void puzzleHandled(int puzzleId);
     QString solvePuzzle();
-    void saveresult(int piecesNumber, bool completed);
+    void saveWithResult(int piecesNumber, bool completed);
+    void saveWithoutResult();
 
 private:
 

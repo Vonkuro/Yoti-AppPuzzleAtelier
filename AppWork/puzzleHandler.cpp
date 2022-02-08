@@ -66,7 +66,10 @@ QString PuzzleHandler::solvePuzzle()
 
         int piecesNumber = findPiecesNumber(resultSplited);
         bool completed = findIfCompleted(resultSplited);
-        saveresult(piecesNumber, completed);
+        saveWithResult(piecesNumber, completed);
+    } else
+    {
+        saveWithoutResult();
     }
 
     return result;
@@ -105,7 +108,7 @@ bool PuzzleHandler::findIfCompleted(QStringList solverSplited)
     }
 }
 
-void PuzzleHandler::saveresult(int piecesNumber, bool completed)
+void PuzzleHandler::saveWithResult(int piecesNumber, bool completed)
 {
     QSqlDatabase database = dataWrapper.getDatabase();
 
@@ -116,11 +119,36 @@ void PuzzleHandler::saveresult(int piecesNumber, bool completed)
     if (database.open())
     {
         QSqlQuery handled(database);
-        handled.prepare("UPDATE Puzzle SET pieces_number = ? , completed = ? , handled = TRUE,  WHERE id = ?;");
+        handled.prepare("UPDATE Puzzle SET pieces_number = ? , completed = ? , handled = TRUE, unsolvable = FALSE WHERE id = ?;");
+        handled.bindValue(0, piecesNumber);
+        handled.bindValue(1, completed);
+        handled.bindValue(2, puzzles.firstKey());
 
+        handled.exec();
+
+        puzzles.remove(puzzles.firstKey());
 
         database.close();
     }
+}
+
+void PuzzleHandler::saveWithoutResult()
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+
+    if (database.open())
+    {
+        QSqlQuery notHandled(database);
+        notHandled.prepare("UPDATE Puzzle SET handled = TRUE, unsolvable = TRUE WHERE id = ?;");
+        notHandled.bindValue(0, puzzles.firstKey());
+
+        notHandled.exec();
+
+        puzzles.remove(puzzles.firstKey());
+
+        database.close();
+    }
+
 }
 
 std::string PuzzleHandler::execute(QString commandString) {

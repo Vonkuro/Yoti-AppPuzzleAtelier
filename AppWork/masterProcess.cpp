@@ -9,6 +9,7 @@ MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
 
     qDebug() << puzzleHandler->solvePuzzle();
 
+    qDebug() << puzzleHandler->solvePuzzle();
 }
 
 MasterProcess::~MasterProcess()
