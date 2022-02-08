@@ -2,6 +2,8 @@
 #define MASTERPROCESS_H
 
 #include <QObject>
+#include <QTimer>
+#include <QTime>
 #include "puzzleHandler.h"
 #include "envLocal.h"
 
@@ -13,12 +15,18 @@ public:
     ~MasterProcess();
 
 signals:
+    void timeToWork();
 
 public slots:
+    void verifyTime();
 
 private:
     PuzzleHandler* puzzleHandler;
     EnvLocal dataWrapper;
+
+    QTimer *checkHour;
+    QTime workHourStartInterval;
+    QTime workHourEndInterval;
 
     void test();
     void link();
