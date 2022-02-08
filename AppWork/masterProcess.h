@@ -1,6 +1,7 @@
 #ifndef MASTERPROCESS_H
 #define MASTERPROCESS_H
 
+#include <QCoreApplication>
 #include <QObject>
 #include <QTimer>
 #include <QTime>

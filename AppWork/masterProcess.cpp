@@ -5,9 +5,9 @@ MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
     dataWrapper.setDatabase();
     puzzleHandler = new PuzzleHandler;
     checkHour = new QTimer;
-    checkHour->setInterval(60000); // 3540000 = 59 minutes
-    workHourStartInterval = QTime(11,40); // 18h00
-    workHourEndInterval = QTime(11,45); // 19h00
+    checkHour->setInterval(3540000); // 3540000 = 59 minutes
+    workHourStartInterval = QTime(18,0); // 18h00
+    workHourEndInterval = QTime(19,0); // 19h00
 
     link();
 
@@ -25,8 +25,16 @@ MasterProcess::~MasterProcess()
 
 void MasterProcess::test()
 {
+    QSqlDatabase database = dataWrapper.getDatabase();
 
-    checkHour->start();
+    if (database.open())
+    {
+        database.close();
+        checkHour->start();
+    } else
+    {
+        QCoreApplication::quit();
+    }
 
 }
 
