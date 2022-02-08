@@ -43,18 +43,14 @@ void PuzzleHandler::getNotHandled()
 
 }
 
-void PuzzleHandler::puzzleHandled(int puzzleId)
-{
-    puzzles.remove(puzzleId);
-}
 
 
 
-QString PuzzleHandler::solvePuzzle()
+void PuzzleHandler::solvePuzzle()
 {
     if (puzzles.empty())
     {
-        return "";
+        emit allPuzzleSolved();
     }
     QString command = commandHead + puzzles.first();
     QString result = QString::fromStdString (execute(command));
@@ -72,7 +68,7 @@ QString PuzzleHandler::solvePuzzle()
         saveWithoutResult();
     }
 
-    return result;
+    emit puzzleSolved();
 
 }
 
@@ -111,10 +107,6 @@ bool PuzzleHandler::findIfCompleted(QStringList solverSplited)
 void PuzzleHandler::saveWithResult(int piecesNumber, bool completed)
 {
     QSqlDatabase database = dataWrapper.getDatabase();
-
-    qDebug() << piecesNumber;
-    qDebug() << completed;
-
 
     if (database.open())
     {
@@ -162,4 +154,19 @@ std::string PuzzleHandler::execute(QString commandString) {
         perror("Error deleting temporary file");
     }
     return ret;
+}
+
+bool PuzzleHandler::databaseReady()
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+
+    if (database.open())
+    {
+        database.close();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
