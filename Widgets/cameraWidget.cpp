@@ -132,11 +132,12 @@ void CameraWidget::prepare(int id, QCameraInfo cameraInfo, bool forBoxPhoto)
     puzzleId = id;
     boxPhoto = forBoxPhoto;
 
-    pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
-    newDir("../" + pathImageDirectory);
+    QString home = QDir::homePath();
+    pathImageDirectory = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(puzzleId);
+    newDir(pathImageDirectory);
     if (forBoxPhoto)
     {
-        newDir("../" + pathImageDirectory + "/Cover");
+        newDir(pathImageDirectory + "/Cover");
     }
     if (! cameraConfigured)
     {
@@ -157,7 +158,7 @@ void CameraWidget::takePhoto()
     if (boxPhoto)
     {
         webcam->searchAndLock();
-        QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/Cover/box.jpg";
+        QString imagePath = pathImageDirectory + "/Cover/box.jpg";
         webcamImageCapture->capture(imagePath);
         webcam->unlock();
 
@@ -169,7 +170,7 @@ void CameraWidget::takePhoto()
     }else{
         ++lastImageId;
         webcam->searchAndLock();
-        QString imagePath = qApp->applicationDirPath() + "/../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
+        QString imagePath = pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
         webcamImageCapture->capture(imagePath);
         webcam->unlock();
 
