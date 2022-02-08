@@ -50,7 +50,9 @@ void ScannerWidget::prepare(int id, QString deviceName)
 
     lastImageId = 0;
     puzzleId = id;
-    pathImageDirectory = "Images/Puzzle-" + QString::number(puzzleId);
+
+    QString home = QDir::homePath();
+    pathImageDirectory = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(puzzleId);
     newDir("../" + pathImageDirectory);
     scannerName = deviceName;
 }
@@ -72,7 +74,7 @@ void ScannerWidget::scanPuzzle()
     delay(100);
 
     lastImageId += 1;
-    QString imagePathQString = "../" + pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
+    QString imagePathQString = pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
 
     QString commandQString = "scanimage -d " + scannerName + " --mode Color --resolution 300 --format=jpeg > " + imagePathQString;
     std::string commandString = commandQString.toStdString();
