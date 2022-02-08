@@ -19,6 +19,8 @@ public slots:
 private:
     PuzzleHandler* puzzleHandler;
     EnvLocal dataWrapper;
+
+    void test();
 };
 
 #endif // MASTERPROCESS_H
