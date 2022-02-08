@@ -31,7 +31,7 @@ private:
 
     void test();
     void link();
-    bool verifydatabaseAvailable();
+    bool verifyDatabaseAvailable();
 };
 
 #endif // MASTERPROCESS_H

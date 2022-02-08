@@ -25,11 +25,9 @@ MasterProcess::~MasterProcess()
 
 void MasterProcess::test()
 {
-    QSqlDatabase database = dataWrapper.getDatabase();
 
-    if (database.open())
+    if (verifyDatabaseAvailable() )
     {
-        database.close();
         checkHour->start();
     } else
     {
@@ -38,7 +36,18 @@ void MasterProcess::test()
 
 }
 
+bool MasterProcess::verifyDatabaseAvailable()
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
 
+    if (database.open())
+    {
+        database.close();
+        return true;
+    }
+    return false;
+
+}
 
 void MasterProcess::verifyTime()
 {
@@ -46,7 +55,13 @@ void MasterProcess::verifyTime()
 
     if (now >= workHourStartInterval && now < workHourEndInterval)
     {
-        emit timeToWork();
+
+        if (verifyDatabaseAvailable())
+        {
+            emit timeToWork();
+        } else {
+            QCoreApplication::quit();
+        }
     } else
     {
         checkHour->start();
