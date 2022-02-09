@@ -15,26 +15,27 @@ public:
 
 signals:
     void noResult();
+    void resultHandled();
 
-public slots:
+public slots:  
+    void finished();
+    void removeResult(int idPuzzle);
 
 private:
     QVBoxLayout* widgetLayout;
     QVBoxLayout* scrollLayout;
 
-    QWidget* scrollContainer;
 
     QLabel* logoLabel;
     QScrollArea* scrollArea;
     QPushButton* finishButton;
 
     EnvLocal dataWrapper;
-    QList<OneResultWidget*> resultList; // maybe with pointers
+    QList<OneResultWidget*> resultList;
 
     void showResults();
-
     void deleteResults();
-
+    void markShown(int idPuzzle);
 };
 
 #endif // RESULTATELIERWIDGET_H

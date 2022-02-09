@@ -45,6 +45,7 @@ void OneResultWidget::init(int idPuzzle, QString description)
     pathCover = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(idPuzzle) + "/Cover/box.jpg";
 
     shortDescription = description;
+    puzzleId = idPuzzle;
 }
 
 OneResultWidget::~OneResultWidget()
@@ -74,6 +75,7 @@ void OneResultWidget::viewStyleCommon(int barcode)
     shortDescriptionButton->setText("Description Rapide");
 
     checkedButton->setText("Ranger");
+    connect(checkedButton,&QPushButton::clicked,this,&OneResultWidget::check);
 
 }
 
@@ -102,4 +104,9 @@ void OneResultWidget::viewStyleUnsolved()
 
     piecesLabel->setText("Yoti App Puzzle est désolé...");
     piecesLabel->setProperty("cssClass","subtitle");
+}
+
+void OneResultWidget::check()
+{
+    emit checked(puzzleId);
 }

@@ -5,7 +5,6 @@ resultAtelierWidget::resultAtelierWidget(QWidget *parent) : QWidget(parent)
     widgetLayout = new QVBoxLayout;
     scrollLayout = new QVBoxLayout;
 
-    scrollContainer = new QWidget;
 
     logoLabel = new QLabel;
     scrollArea = new QScrollArea;
@@ -23,6 +22,8 @@ resultAtelierWidget::resultAtelierWidget(QWidget *parent) : QWidget(parent)
     dataWrapper.setDatabase();
 
     showResults();
+
+    connect(finishButton, &QPushButton::clicked, this, &resultAtelierWidget::finished);
 }
 
 resultAtelierWidget::~resultAtelierWidget()
@@ -31,7 +32,6 @@ resultAtelierWidget::~resultAtelierWidget()
     delete finishButton;
     delete logoLabel;
     delete scrollLayout;
-    delete scrollContainer;
     delete scrollArea;
     delete widgetLayout;
 }
@@ -77,7 +77,9 @@ void resultAtelierWidget::showResults()
 
         while (resultIterator.hasNext())
         {
-            scrollLayout->addWidget(resultIterator.next());
+            OneResultWidget* result = resultIterator.next();
+            scrollLayout->addWidget(result);
+            connect(result, SIGNAL(checked(int)) ,this,SLOT(removeResult(int)));
         }
 
         database.close();
@@ -93,4 +95,37 @@ void resultAtelierWidget::deleteResults()
         delete resultIterator.next();
     }
     resultList = QList<OneResultWidget*>();
+}
+
+void resultAtelierWidget::finished()
+{
+    emit resultHandled();
+}
+
+void resultAtelierWidget::removeResult(int idPuzzle)
+{
+    for (int i=0; i < resultList.size(); i++)
+    {
+        if (resultList[i]->puzzleId == idPuzzle)
+        {
+            delete resultList[i];
+            resultList.removeAt(i);
+        }
+    }
+    markShown(idPuzzle);
+}
+
+void resultAtelierWidget::markShown(int idPuzzle)
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+    if (database.open())
+    {
+        QSqlQuery mark(database);
+
+        mark.prepare("UPDATE Puzzle SET shown = TRUE WHERE id = ?;");
+        mark.bindValue(0,idPuzzle);
+        mark.exec();
+
+        database.close();
+    }
 }

@@ -11,10 +11,12 @@ public:
      OneResultWidget(int idPuzzle, int barcode, QString description, int pieces, bool completed, QWidget *parent = nullptr);
      OneResultWidget(int idPuzzle, int barcode, QString description, QWidget *parent = nullptr);
     ~OneResultWidget();
+     int puzzleId;
 
 signals:
-
+     void checked(int idPuzzle);
 public slots:
+     void check();
 
 private :
     QHBoxLayout* widgetLayout;
