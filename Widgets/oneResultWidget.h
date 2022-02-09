@@ -17,6 +17,7 @@ signals:
      void checked(int idPuzzle);
 public slots:
      void check();
+     void displayDescription();
 
 private :
     QHBoxLayout* widgetLayout;
@@ -37,7 +38,6 @@ private :
     void viewStyleCommon(int barcode);
     void viewStyleSolved(int pieces, bool completed);
     void viewStyleUnsolved();
-
 };
 
 #endif // ONERESULTWIDGET_H

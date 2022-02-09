@@ -73,6 +73,7 @@ void OneResultWidget::viewStyleCommon(int barcode)
     barcodeLabel->setProperty("cssClass","subtitle");
 
     shortDescriptionButton->setText("Description Rapide");
+    connect(shortDescriptionButton, &QPushButton::clicked, this, &OneResultWidget::displayDescription);
 
     checkedButton->setText("Ranger");
     connect(checkedButton,&QPushButton::clicked,this,&OneResultWidget::check);
@@ -112,4 +113,11 @@ void OneResultWidget::viewStyleUnsolved()
 void OneResultWidget::check()
 {
     emit checked(puzzleId);
+}
+
+void OneResultWidget::displayDescription()
+{
+    QMessageBox descriptionMessageBox;
+    descriptionMessageBox.setText(shortDescription);
+    descriptionMessageBox.exec();
 }
