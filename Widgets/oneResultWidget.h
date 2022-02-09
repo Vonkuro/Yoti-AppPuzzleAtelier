@@ -8,8 +8,8 @@ class OneResultWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OneResultWidget(QWidget *parent = nullptr, int idPuzzle, int barcode, int pieces, bool completed);
-    explicit OneResultWidget(QWidget *parent = nullptr, int idPuzzle, int barcode);
+     OneResultWidget(int idPuzzle, int barcode, int pieces, bool completed, QWidget *parent = nullptr);
+     OneResultWidget(int idPuzzle, int barcode, QWidget *parent = nullptr);
     ~OneResultWidget();
 
 signals:
@@ -31,6 +31,9 @@ private :
     QString pathCover;
 
     void init(int idPuzzle);
+    void viewStyleCommon(int barcode);
+    void viewStyleSolved(int pieces, bool completed);
+    void viewStyleUnsolved();
 
 };
 
