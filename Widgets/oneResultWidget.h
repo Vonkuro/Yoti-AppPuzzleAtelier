@@ -8,8 +8,8 @@ class OneResultWidget : public QWidget
 {
     Q_OBJECT
 public:
-     OneResultWidget(int idPuzzle, int barcode, int pieces, bool completed, QWidget *parent = nullptr);
-     OneResultWidget(int idPuzzle, int barcode, QWidget *parent = nullptr);
+     OneResultWidget(int idPuzzle, int barcode, QString description, int pieces, bool completed, QWidget *parent = nullptr);
+     OneResultWidget(int idPuzzle, int barcode, QString description, QWidget *parent = nullptr);
     ~OneResultWidget();
 
 signals:
@@ -29,8 +29,9 @@ private :
     QPushButton* checkedButton;
 
     QString pathCover;
+    QString shortDescription;
 
-    void init(int idPuzzle);
+    void init(int idPuzzle, QString description);
     void viewStyleCommon(int barcode);
     void viewStyleSolved(int pieces, bool completed);
     void viewStyleUnsolved();

@@ -14,6 +14,7 @@ public:
     ~resultAtelierWidget();
 
 signals:
+    void noResult();
 
 public slots:
 
@@ -27,7 +28,7 @@ private:
     QScrollArea* scrollArea;
 
     EnvLocal dataWrapper;
-    QList<OneResultWidget> resultList; // maybe with pointers
+    QList<OneResultWidget*> resultList; // maybe with pointers
 
     void showResults();
 

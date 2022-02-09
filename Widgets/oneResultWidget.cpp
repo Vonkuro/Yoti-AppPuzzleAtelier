@@ -1,20 +1,20 @@
 #include "oneResultWidget.h"
 
-OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QWidget *parent ) : QWidget(parent)
+OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description, QWidget *parent ) : QWidget(parent)
 {
-    init(idPuzzle);
+    init(idPuzzle, description);
     viewStyleCommon(barcode);
     viewStyleUnsolved();
 
 }
-OneResultWidget::OneResultWidget( int idPuzzle, int barcode, int pieces, bool completed, QWidget *parent) : QWidget(parent)
+OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description, int pieces, bool completed, QWidget *parent) : QWidget(parent)
 {
-    init(idPuzzle);
+    init(idPuzzle, description);
     viewStyleCommon(barcode);
     viewStyleSolved(pieces, completed);
 
 }
-void OneResultWidget::init(int idPuzzle)
+void OneResultWidget::init(int idPuzzle, QString description)
 {
     widgetLayout = new QHBoxLayout;
     informationLayout = new QVBoxLayout;
@@ -43,6 +43,8 @@ void OneResultWidget::init(int idPuzzle)
 
     QString home = QDir::homePath();
     pathCover = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(idPuzzle) + "/Cover/box.jpg";
+
+    shortDescription = description;
 }
 
 OneResultWidget::~OneResultWidget()
