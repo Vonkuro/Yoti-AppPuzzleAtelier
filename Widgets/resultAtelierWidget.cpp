@@ -9,15 +9,16 @@ resultAtelierWidget::resultAtelierWidget(QWidget *parent) : QWidget(parent)
 
     logoLabel = new QLabel;
     scrollArea = new QScrollArea;
+    finishButton = new QPushButton;
 
     resultList = QList<OneResultWidget*>();
 
     this->setLayout(widgetLayout);
     widgetLayout->addWidget(logoLabel);
     widgetLayout->addWidget(scrollArea);
+    widgetLayout->addWidget(finishButton);
 
-    scrollArea->setWidget(scrollContainer);
-    scrollContainer->setLayout(scrollLayout);
+    scrollArea->setLayout(scrollLayout);
 
     dataWrapper.setDatabase();
 
@@ -26,6 +27,8 @@ resultAtelierWidget::resultAtelierWidget(QWidget *parent) : QWidget(parent)
 
 resultAtelierWidget::~resultAtelierWidget()
 {
+    deleteResults();
+    delete finishButton;
     delete logoLabel;
     delete scrollLayout;
     delete scrollContainer;
@@ -36,11 +39,8 @@ resultAtelierWidget::~resultAtelierWidget()
 void resultAtelierWidget::showResults()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
-    qDebug() << "i started looking";
     if (database.open())
     {
-
-        qDebug() << "the database open";
         QSqlQuery unshownPuzzle(database);
 
         unshownPuzzle.prepare("SELECT * FROM Puzzle WHERE shown = FALSE;");
@@ -55,13 +55,11 @@ void resultAtelierWidget::showResults()
 
         while(unshownPuzzle.next())
         {
-
-            qDebug() << "i saw a puzzle";
             int barcode = unshownPuzzle.value("barcode").toInt();
             int idPuzzle = unshownPuzzle.value("id").toInt();
 
             QString description = unshownPuzzle.value("short_description").toString();
-            if (unshownPuzzle.isNull("completed"))
+            if (unshownPuzzle.value("unsolvable").toBool())
             {
                 OneResultWidget* newResult = new OneResultWidget(idPuzzle, barcode, description);
                 resultList.append(newResult);
@@ -79,7 +77,6 @@ void resultAtelierWidget::showResults()
 
         while (resultIterator.hasNext())
         {
-            qDebug() << "I have a widget to show";
             scrollLayout->addWidget(resultIterator.next());
         }
 
@@ -87,3 +84,13 @@ void resultAtelierWidget::showResults()
     }
 }
 
+void resultAtelierWidget::deleteResults()
+{
+    QListIterator<OneResultWidget*> resultIterator(resultList);
+
+    while (resultIterator.hasNext())
+    {
+        delete resultIterator.next();
+    }
+    resultList = QList<OneResultWidget*>();
+}

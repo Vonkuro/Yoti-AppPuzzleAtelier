@@ -26,11 +26,14 @@ private:
 
     QLabel* logoLabel;
     QScrollArea* scrollArea;
+    QPushButton* finishButton;
 
     EnvLocal dataWrapper;
     QList<OneResultWidget*> resultList; // maybe with pointers
 
     void showResults();
+
+    void deleteResults();
 
 };
 
