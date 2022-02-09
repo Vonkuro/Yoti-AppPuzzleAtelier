@@ -3,6 +3,9 @@
 MasterWidget::MasterWidget(QWidget *parent) :
     QWidget(parent)
 {
+
+    datawrapper.setDatabase();
+
 // Setup minimal view
     masterLayout = new QHBoxLayout;
     masterStackedWidget = new QStackedWidget;
@@ -19,6 +22,7 @@ MasterWidget::MasterWidget(QWidget *parent) :
     validationWidget = new ValidationWidget;
     waittingWidget = new WaittingWidget;
     resultWidget = new ResultWidget;
+    resultAtelierWidget = new ResultAtelierWidget;
 // Linking the Widget to the stack
     masterStackedWidget->addWidget(homepageWidget);
     masterStackedWidget->addWidget(savePuzzleWidget);
@@ -29,10 +33,10 @@ MasterWidget::MasterWidget(QWidget *parent) :
     masterStackedWidget->addWidget(validationWidget);
     masterStackedWidget->addWidget(waittingWidget);
     masterStackedWidget->addWidget(resultWidget);
+    masterStackedWidget->addWidget(resultAtelierWidget);
 
 // Linking the Application together
     manager = new folderManager;
-    datawrapper.setDatabase();
     connectTheApplication();
 
 // View Style
@@ -179,6 +183,17 @@ void MasterWidget::goToResult()
     masterStackedWidget->setCurrentWidget(resultWidget);
 }
 
+void MasterWidget::goToResultAtelier()
+{
+    if (resultAtelierWidget->isThereResult())
+    {
+        masterStackedWidget->setCurrentWidget(resultAtelierWidget);
+    } else
+    {
+        goToSavePuzzle();
+    }
+}
+
 // Return a page keyword that describe the widget displayed on screen
 MasterWidget::pages MasterWidget::getLoadedPage()
 {
@@ -284,7 +299,10 @@ void MasterWidget::connectTheApplication()
 {
     // these testing connect will be almost good to go for the full application
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::archive);
-    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToSavePuzzle);
+    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToResultAtelier);
+
+    connect(resultAtelierWidget, &ResultAtelierWidget::resultHandled, this, &MasterWidget::goToSavePuzzle);
+
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToChoiceCamera(int)));
 
     connect(cameraWidget, SIGNAL(coverTaken(int)), this, SLOT(choiceImageAcquisition(int)));

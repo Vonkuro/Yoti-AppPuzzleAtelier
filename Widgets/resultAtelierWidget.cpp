@@ -1,10 +1,11 @@
 #include "resultAtelierWidget.h"
 
-resultAtelierWidget::resultAtelierWidget(QWidget *parent) : QWidget(parent)
+ResultAtelierWidget::ResultAtelierWidget(QWidget *parent) : QWidget(parent)
 {
     widgetLayout = new QVBoxLayout;
     scrollLayout = new QVBoxLayout;
 
+    containerWidget = new QWidget;
 
     logoLabel = new QLabel;
     scrollArea = new QScrollArea;
@@ -17,26 +18,30 @@ resultAtelierWidget::resultAtelierWidget(QWidget *parent) : QWidget(parent)
     widgetLayout->addWidget(scrollArea);
     widgetLayout->addWidget(finishButton);
 
-    scrollArea->setLayout(scrollLayout);
 
-    dataWrapper.setDatabase();
+    scrollArea->setWidget(containerWidget);
+    scrollArea->setWidgetResizable(true);
+    containerWidget->setLayout(scrollLayout);
 
     showResults();
 
-    connect(finishButton, &QPushButton::clicked, this, &resultAtelierWidget::finished);
+    viewStyle();
+
+    connect(finishButton, &QPushButton::clicked, this, &ResultAtelierWidget::finished);
 }
 
-resultAtelierWidget::~resultAtelierWidget()
+ResultAtelierWidget::~ResultAtelierWidget()
 {
     deleteResults();
     delete finishButton;
     delete logoLabel;
     delete scrollLayout;
+    delete containerWidget;
     delete scrollArea;
     delete widgetLayout;
 }
 
-void resultAtelierWidget::showResults()
+void ResultAtelierWidget::showResults()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
     if (database.open())
@@ -46,13 +51,12 @@ void resultAtelierWidget::showResults()
         unshownPuzzle.prepare("SELECT * FROM Puzzle WHERE shown = FALSE;");
 
         unshownPuzzle.exec();
-
-        if ( unshownPuzzle.size() == -1)
+        if ( unshownPuzzle.size() == 0)
         {
-            emit noResult();
+            thereIsResult = false;
             return;
         }
-
+        thereIsResult = true;
         while(unshownPuzzle.next())
         {
             int barcode = unshownPuzzle.value("barcode").toInt();
@@ -86,7 +90,7 @@ void resultAtelierWidget::showResults()
     }
 }
 
-void resultAtelierWidget::deleteResults()
+void ResultAtelierWidget::deleteResults()
 {
     QListIterator<OneResultWidget*> resultIterator(resultList);
 
@@ -97,12 +101,12 @@ void resultAtelierWidget::deleteResults()
     resultList = QList<OneResultWidget*>();
 }
 
-void resultAtelierWidget::finished()
+void ResultAtelierWidget::finished()
 {
     emit resultHandled();
 }
 
-void resultAtelierWidget::removeResult(int idPuzzle)
+void ResultAtelierWidget::removeResult(int idPuzzle)
 {
     for (int i=0; i < resultList.size(); i++)
     {
@@ -115,7 +119,7 @@ void resultAtelierWidget::removeResult(int idPuzzle)
     markShown(idPuzzle);
 }
 
-void resultAtelierWidget::markShown(int idPuzzle)
+void ResultAtelierWidget::markShown(int idPuzzle)
 {
     QSqlDatabase database = dataWrapper.getDatabase();
     if (database.open())
@@ -128,4 +132,19 @@ void resultAtelierWidget::markShown(int idPuzzle)
 
         database.close();
     }
+}
+
+bool ResultAtelierWidget::isThereResult()
+{
+    return thereIsResult;
+}
+
+// Manage details of the view
+void ResultAtelierWidget::viewStyle()
+{
+    QPixmap logo(":/viewRessource/logoYoti");
+    logoLabel->setProperty("cssClass","logo");
+    logoLabel->setScaledContents(true);
+    logoLabel->setPixmap(logo);
+    widgetLayout->setAlignment(logoLabel,Qt::AlignHCenter);
 }

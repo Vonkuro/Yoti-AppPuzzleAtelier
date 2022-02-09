@@ -14,6 +14,7 @@
 #include "folderManager.h"
 #include "waittingWidget.h"
 #include "resultWidget.h"
+#include "resultAtelierWidget.h"
 
 class MasterWidget : public QWidget
 {
@@ -41,6 +42,7 @@ private:
     ValidationWidget* validationWidget;
     WaittingWidget* waittingWidget;
     ResultWidget* resultWidget;
+    ResultAtelierWidget* resultAtelierWidget;
 // Attributs
     photoDevice chosenDevice;
     QCameraInfo cameraInfoMemory;
@@ -69,6 +71,7 @@ public slots:
     void goToWaitting(int id);
     void goToResult(int numberPieces, bool completed);
     void goToResult();
+    void goToResultAtelier();
     void end(int id);
 // Slots mangers of background process
     void archive();

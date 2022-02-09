@@ -66,7 +66,7 @@ void OneResultWidget::viewStyleCommon(int barcode)
     QPixmap cover(pathCover);
     coverLabel->setPixmap(cover);
     coverLabel->setScaledContents(true);
-    coverLabel->setStyleSheet(" max-width: 312; max-height: 234px  ");
+    coverLabel->setStyleSheet(" max-width: 312; min-width: 312; max-height: 234px; min-height: 234px  ");
 
     QString barcodeString = "Code barre : " + QString::number(barcode);
     barcodeLabel->setText(barcodeString);
@@ -77,6 +77,9 @@ void OneResultWidget::viewStyleCommon(int barcode)
     checkedButton->setText("Ranger");
     connect(checkedButton,&QPushButton::clicked,this,&OneResultWidget::check);
 
+    QSize widgetSize(1200,240);
+    this->setMaximumSize(widgetSize);
+    this->setMinimumSize(widgetSize);
 }
 
 void OneResultWidget::viewStyleSolved(int pieces, bool completed)

@@ -6,15 +6,15 @@
 #include "oneResultWidget.h"
 #include "envLocal.h"
 
-class resultAtelierWidget : public QWidget
+class ResultAtelierWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit resultAtelierWidget(QWidget *parent = nullptr);
-    ~resultAtelierWidget();
+    explicit ResultAtelierWidget(QWidget *parent = nullptr);
+    ~ResultAtelierWidget();
+    bool isThereResult();
 
 signals:
-    void noResult();
     void resultHandled();
 
 public slots:  
@@ -25,6 +25,7 @@ private:
     QVBoxLayout* widgetLayout;
     QVBoxLayout* scrollLayout;
 
+    QWidget* containerWidget;
 
     QLabel* logoLabel;
     QScrollArea* scrollArea;
@@ -32,10 +33,12 @@ private:
 
     EnvLocal dataWrapper;
     QList<OneResultWidget*> resultList;
+    bool thereIsResult;
 
     void showResults();
     void deleteResults();
     void markShown(int idPuzzle);
+    void viewStyle();
 };
 
 #endif // RESULTATELIERWIDGET_H
