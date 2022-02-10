@@ -32,6 +32,7 @@ private:
     void test();
     void link();
     bool verifyDatabaseAvailable();
+    void logMessage(QString message);
 };
 
 #endif // MASTERPROCESS_H
