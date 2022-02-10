@@ -44,6 +44,8 @@ MasterWidget::MasterWidget(QWidget *parent) :
 // Init empty attribut
     deviceNameMemory = QString();
     cameraInfoMemory = QCameraInfo();
+
+    nightDeamon();
 }
 
 // The end of the line for the pointers
@@ -274,6 +276,25 @@ void MasterWidget::choiceImageAcquisition(int id)
 void MasterWidget::archive()
 {
     manager->tarOldImageFolder();
+}
+
+bool MasterWidget::nightDeamonNotOn()
+{
+    QString commandString = "pgrep Yoti-AppPuzzled";
+    std::string command = commandString.toStdString();
+    QString result = QString::fromStdString( execute(command) );
+
+    return (result.size() == 0);
+}
+
+void MasterWidget::nightDeamon()
+{
+    if ( nightDeamonNotOn() )
+    {
+        QString commandString = "../AppWork/Yoti-AppPuzzled &";
+        std::string command = commandString.toStdString();
+        system(command.c_str());
+    }
 }
 
 void MasterWidget::end(int id)

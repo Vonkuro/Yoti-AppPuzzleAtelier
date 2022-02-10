@@ -75,6 +75,8 @@ public slots:
     void end(int id);
 // Slots mangers of background process
     void archive();
+    bool nightDeamonNotOn();
+    void nightDeamon();
 
 
 };
