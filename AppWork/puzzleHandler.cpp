@@ -174,3 +174,127 @@ bool PuzzleHandler::databaseReady()
     }
 }
 
+void PuzzleHandler::tarOldImageFolder()
+{
+    // Map the Images directory
+
+    QString home = QDir::homePath();
+    QString directoryPath = home + "/Yoti-AppPuzzle/Images";
+    QDir images(directoryPath);
+    QStringList puzzleList = images.entryList();
+    int lastId = findPuzzleNumber(puzzleList, false);
+
+    // Prepare the tar archive command
+    QString exclusion = checkForExclusion(lastId);
+
+    QDateTime date = QDateTime::currentDateTime();
+    QString dateString = date.toString("dd_MM_yyyy-hh_mm_ss");
+
+    QString commandQString = "tar -Jcvf " + home + "/Yoti-AppPuzzle/Archive/Images-" + dateString +".tar.xz" + exclusion + " " + directoryPath;
+
+    // Convert the command to const char* in order to transmit it to bash terminal
+    std::string commandString = commandQString.toStdString();
+    const char* command = commandString.c_str();
+    system(command);
+
+    // Delete most of the archived Puzzle directory
+    markPuzzleArchived();
+    deleteOldImageFolder(puzzleList);
+
+}
+
+QString PuzzleHandler::checkForExclusion(int lastId)
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+
+    if ( database.open() )
+    {
+        exluded = QList<int>();
+        QString exclusion = QString();
+        QString exclusionPartOne = QString(" --exclude=\"Puzzle-");
+
+
+        QSqlQuery newPuzzleSql(database);
+        newPuzzleSql.prepare("SELECT id FROM Puzzle WHERE shown = TRUE ORDER By id DESC LIMIT 1;");
+        newPuzzleSql.exec();
+        newPuzzleSql.next();
+
+        int idLastShown = newPuzzleSql.value("id").toInt();
+
+        newPuzzleSql.prepare("SELECT id FROM Puzzle WHERE shown = FALSE AND id < ?;");
+        newPuzzleSql.bindValue(0,idLastShown);
+
+        while (newPuzzleSql.next()) {
+            int idPuzzle = newPuzzleSql.value("id").toInt();
+            exclusion = exclusion + exclusionPartOne + QString::number(idPuzzle) + "\"";
+            exluded.append(idPuzzle);
+        }
+
+        for(int i = lastId; i > idLastShown; i--)
+        {
+            exluded.append(i);
+            qDebug() << i;
+            exclusion = exclusion + exclusionPartOne + QString::number(i) + "\"";
+        }
+
+        database.close();
+        return exclusion;
+    }
+    return QString();
+}
+
+int PuzzleHandler::findPuzzleNumber(QStringList puzzleList, bool first) // test needed
+{
+    int number = 0;
+    foreach (QString puzzle, puzzleList) {
+        int numberSize = puzzle.size() - 7;
+        int numberNew = puzzle.right(numberSize).toInt();
+        if (first)
+        {
+            if (number > numberNew)
+            {
+                number = numberNew;
+            }
+        }
+        else
+        {
+            if (number < numberNew)
+            {
+                number = numberNew;
+            }
+        }
+    }
+    return number;
+}
+
+void PuzzleHandler::markPuzzleArchived()
+{
+    QSqlDatabase database = dataWrapper.getDatabase();
+
+    if ( database.open() )
+    {
+        QSqlQuery markQuerry(database);
+        markQuerry.prepare("UPDATE Puzzle SET archived = TRUE WHERE shown = TRUE;");
+        markQuerry.exec();
+        database.close();
+    }
+
+}
+
+void PuzzleHandler::deleteOldImageFolder(QStringList puzzleList)
+{
+    foreach (QString puzzle, puzzleList) {
+        int numberSize = puzzle.size() - 7;
+        int number = puzzle.right(numberSize).toInt();
+        if ( exluded.indexOf(number) == -1 && puzzle != "." && puzzle != "..")
+        {
+            QString home = QDir::homePath();
+            QString directoryPath = home + "/Yoti-AppPuzzle/Images";
+            QString puzzlePath = directoryPath + "/" + puzzle + "/";
+            QDir puzzleFolder(puzzlePath);
+
+            puzzleFolder.removeRecursively();
+
+        }
+    }
+}

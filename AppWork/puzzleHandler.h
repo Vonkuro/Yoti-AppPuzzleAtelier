@@ -8,6 +8,8 @@
 #include <QMap>
 #include <QVariant>
 #include <QDir>
+#include <QDateTime>
+#include <QList>
 #include <QDebug>
 #include "envLocal.h"
 
@@ -26,6 +28,7 @@ signals:
 public slots:
     void getNotHandled();
     void solvePuzzle();
+    void tarOldImageFolder();
 
 private:
     EnvLocal dataWrapper;
@@ -35,12 +38,18 @@ private:
 
     int findPiecesNumber(QStringList solverSplited);
     bool findIfCompleted(QStringList solverSplited);
+    QList<int> exluded;
 
     void saveWithResult(int piecesNumber, bool completed);
     void saveWithoutResult();
 
     std::string execute(QString command);
 
+
+    QString checkForExclusion(int lastId);
+    void markPuzzleArchived();
+    void deleteOldImageFolder(QStringList puzzleList);
+    int findPuzzleNumber(QStringList puzzleList, bool first);
 };
 
 #endif // LOADER_H
