@@ -58,6 +58,8 @@ void MasterProcess::verifyTime()
 
         if (verifyDatabaseAvailable())
         {
+            numberPuzzle = 0;
+            numberFail = 0;
             emit timeToWork();
         } else {
             QCoreApplication::quit();
@@ -72,8 +74,11 @@ void MasterProcess::link()
 {
     connect(checkHour, &QTimer::timeout , this, &MasterProcess::verifyTime);
     connect(this, &MasterProcess::timeToWork, puzzleHandler, &PuzzleHandler::getNotHandled);
+    connect(puzzleHandler, &PuzzleHandler::puzzlesFound, this, &MasterProcess::logCycleStart);
     connect(puzzleHandler, &PuzzleHandler::puzzlesFound, puzzleHandler, &PuzzleHandler::solvePuzzle);
-    connect(puzzleHandler, &PuzzleHandler::puzzleSolved, puzzleHandler, &PuzzleHandler::solvePuzzle);
+    connect(puzzleHandler, SIGNAL(puzzleSolved(bool)), this, SLOT(logPuzzle(bool)) );
+    connect(puzzleHandler, SIGNAL(puzzleSolved(bool)), puzzleHandler, SLOT(solvePuzzle()));
+    connect(puzzleHandler, SIGNAL(allPuzzleSolved()) , this, SLOT(logCycleEnd()));
     connect(puzzleHandler, SIGNAL(allPuzzleSolved()) , checkHour, SLOT(start()));
 }
 
@@ -93,7 +98,7 @@ void MasterProcess::logCycleEnd()
     if (numberPuzzle != 0)
     {
         int percent = 100 * ( numberFail / numberPuzzle );
-        QString messageFailPerCent = "cela correcpond à " + percent + " % d'ereurs";
+        QString messageFailPerCent = "cela correcpond à " + QString::number( percent ) + " % d'ereurs";
         logMessage(messageFailPerCent);
     }
 
@@ -104,7 +109,7 @@ void MasterProcess::logCycleEnd()
 void MasterProcess::logPuzzle(bool solved)
 {
     numberPuzzle += 1;
-    if ( solved )
+    if ( ! solved )
     {
         numberFail += 1;
     }

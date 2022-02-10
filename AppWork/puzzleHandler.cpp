@@ -58,7 +58,9 @@ void PuzzleHandler::solvePuzzle()
 
     result = result.simplified();
 
+    bool solved = false;
     if (result.contains("Nombre")){
+        solved = true;
         QStringList resultSplited = result.split(":");
 
         int piecesNumber = findPiecesNumber(resultSplited);
@@ -69,7 +71,7 @@ void PuzzleHandler::solvePuzzle()
         saveWithoutResult();
     }
 
-    emit puzzleSolved();
+    emit puzzleSolved(solved);
 
 }
 

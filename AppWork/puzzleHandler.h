@@ -20,7 +20,7 @@ public:
 
 signals:
     void puzzlesFound();
-    void puzzleSolved();
+    void puzzleSolved(bool solved);
     void allPuzzleSolved();
 
 public slots:
