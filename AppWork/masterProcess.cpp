@@ -77,6 +77,39 @@ void MasterProcess::link()
     connect(puzzleHandler, SIGNAL(allPuzzleSolved()) , checkHour, SLOT(start()));
 }
 
+
+void MasterProcess::logCycleStart()
+{
+    QString message = "debut d'un cycle de travail";
+    logMessage(message);
+}
+
+void MasterProcess::logCycleEnd()
+{
+    QString messageNumber = "il y a eu " + QString::number( numberPuzzle ) + " puzzles verifies";
+    logMessage(messageNumber);
+    QString messageFail = "il y a eu " + QString::number( numberFail ) + " erreurs";
+    logMessage(messageFail);
+    if (numberPuzzle != 0)
+    {
+        int percent = 100 * ( numberFail / numberPuzzle );
+        QString messageFailPerCent = "cela correcpond à " + percent + " % d'ereurs";
+        logMessage(messageFailPerCent);
+    }
+
+    QString messageEnd = "fin d'un cycle de travail";
+    logMessage(messageEnd);
+}
+
+void MasterProcess::logPuzzle(bool solved)
+{
+    numberPuzzle += 1;
+    if ( solved )
+    {
+        numberFail += 1;
+    }
+}
+
 void MasterProcess::logMessage(QString message) {
 
     QString home = QDir::homePath();

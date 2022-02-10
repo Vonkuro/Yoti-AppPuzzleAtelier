@@ -171,3 +171,4 @@ bool PuzzleHandler::databaseReady()
         return false;
     }
 }
+
