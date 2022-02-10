@@ -45,6 +45,10 @@ void OneResultWidget::init(int idPuzzle, QString description)
     pathCover = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(idPuzzle) + "/Cover/box.jpg";
 
     shortDescription = description;
+    if (description.isEmpty())
+    {
+        shortDescription = "Aucune description n'a été donnée.";
+    }
     puzzleId = idPuzzle;
 }
 
@@ -129,5 +133,9 @@ void OneResultWidget::displayDescription()
 {
     QMessageBox descriptionMessageBox;
     descriptionMessageBox.setText(shortDescription);
+    descriptionMessageBox.setStyleSheet("QLabel {font: \"Montserrat\"; color: #2C2E71}"
+                                        "QMessageBox {background-color: white}"
+                                        "QPushButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
+                                        " " +greenButtonBackgroundStyle +" min-width : 100}");
     descriptionMessageBox.exec();
 }

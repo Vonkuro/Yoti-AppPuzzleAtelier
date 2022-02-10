@@ -111,15 +111,48 @@ void ResultAtelierWidget::finished()
 
 void ResultAtelierWidget::removeResult(int idPuzzle)
 {
-    for (int i=0; i < resultList.size(); i++)
+    QMessageBox verifyCheckedMessageBox;
+    verifyCheckedMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
+    verifyCheckedMessageBox.addButton(tr("Non"), QMessageBox::NoRole);
+
+    QList<QAbstractButton *> buttons = verifyCheckedMessageBox.buttons();
+    for (QAbstractButton * button : buttons)
     {
-        if (resultList[i]->puzzleId == idPuzzle)
+        QPushButton* buttonPush = dynamic_cast<QPushButton*>(button);
+
+        if ( buttonPush->text() == "Oui")
         {
-            delete resultList[i];
-            resultList.removeAt(i);
+            buttonPush->setObjectName("yesButton");
+        } else if (buttonPush->text() == "Non")
+        {
+            buttonPush->setObjectName("noButton");
         }
     }
-    markShown(idPuzzle);
+
+    verifyCheckedMessageBox.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
+                                           "QMessageBox {background-color: white}"
+                                           "#yesButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
+                                           " " +greenButtonBackgroundStyle +"}"
+                                           "#noButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
+                                           "background-color: #E54D96; border: 2px solid #6569C4;}");
+
+    verifyCheckedMessageBox.setText("Avez-vous ranger le Puzzle ?");
+
+    int returnMessageBox = verifyCheckedMessageBox.exec();
+
+    if (returnMessageBox == 0)
+    {
+        for (int i=0; i < resultList.size(); i++)
+        {
+            if (resultList[i]->puzzleId == idPuzzle)
+            {
+                delete resultList[i];
+                resultList.removeAt(i);
+            }
+        }
+        markShown(idPuzzle);
+    }
+
 }
 
 void ResultAtelierWidget::markShown(int idPuzzle)
