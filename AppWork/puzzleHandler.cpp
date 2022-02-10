@@ -232,8 +232,9 @@ QString PuzzleHandler::checkForExclusion(int lastId)
 
         for(int i = lastId; i > idLastShown; i--)
         {
-            exluded.append(lastId);
-            exclusion = exclusion + exclusionPartOne + QString::number(lastId) + "\"";
+            exluded.append(i);
+            qDebug() << i;
+            exclusion = exclusion + exclusionPartOne + QString::number(i) + "\"";
         }
 
         database.close();

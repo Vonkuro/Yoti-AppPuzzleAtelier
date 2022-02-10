@@ -28,6 +28,7 @@ signals:
 public slots:
     void getNotHandled();
     void solvePuzzle();
+    void tarOldImageFolder();
 
 private:
     EnvLocal dataWrapper;
@@ -44,11 +45,11 @@ private:
 
     std::string execute(QString command);
 
-    void tarOldImageFolder();
-    void checkForExclusion(int lastId);
+
+    QString checkForExclusion(int lastId);
     void markPuzzleArchived();
     void deleteOldImageFolder(QStringList puzzleList);
-    void findPuzzleNumber(QStringList puzzleList, bool first);
+    int findPuzzleNumber(QStringList puzzleList, bool first);
 };
 
 #endif // LOADER_H

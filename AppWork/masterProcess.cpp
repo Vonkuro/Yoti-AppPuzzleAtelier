@@ -8,6 +8,8 @@ MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
     checkHour->setInterval(3540000); // 3540000 = 59 minutes
     workHourStartInterval = QTime(15,0); // 15h00
     workHourEndInterval = QTime(16,0); // 16h00
+    archiveHourStartInterval = QTime(14,0); // 14h00
+    archiveHourEndInterval = QTime(15,0); // 15h00
 
     link();
 
@@ -64,7 +66,12 @@ void MasterProcess::verifyTime()
         } else {
             QCoreApplication::quit();
         }
-    } else
+    }
+    else if (now >= archiveHourStartInterval && now < archiveHourEndInterval)
+    {
+        emit timeToArchive();
+    }
+    else
     {
         checkHour->start();
     }
@@ -73,6 +80,7 @@ void MasterProcess::verifyTime()
 void MasterProcess::link()
 {
     connect(checkHour, &QTimer::timeout , this, &MasterProcess::verifyTime);
+    connect(this, &MasterProcess::timeToArchive, puzzleHandler, &PuzzleHandler::tarOldImageFolder);
     connect(this, &MasterProcess::timeToWork, puzzleHandler, &PuzzleHandler::getNotHandled);
     connect(puzzleHandler, &PuzzleHandler::puzzlesFound, this, &MasterProcess::logCycleStart);
     connect(puzzleHandler, &PuzzleHandler::puzzlesFound, puzzleHandler, &PuzzleHandler::solvePuzzle);

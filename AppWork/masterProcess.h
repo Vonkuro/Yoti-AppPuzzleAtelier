@@ -17,6 +17,7 @@ public:
 
 signals:
     void timeToWork();
+    void timeToArchive();
 
 public slots:
     void verifyTime();
@@ -31,6 +32,8 @@ private:
     QTimer *checkHour;
     QTime workHourStartInterval;
     QTime workHourEndInterval;
+    QTime archiveHourStartInterval;
+    QTime archiveHourEndInterval;
 
     int numberPuzzle;
     int numberFail;
