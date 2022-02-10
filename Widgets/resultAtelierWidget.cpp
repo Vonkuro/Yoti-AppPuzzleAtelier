@@ -160,7 +160,10 @@ void ResultAtelierWidget::viewStyle()
     widgetLayout->setAlignment(finishButton, Qt::AlignHCenter);
 
     containerWidget->setObjectName("greenBackground");
-    containerWidget->setStyleSheet("#greenBackground {background-color: #B0F2B6;  border: 2px solid #6569C4;}");
+    containerWidget->setStyleSheet("#greenBackground {background-color: #B0F2B6;}");
+
+    scrollArea->setObjectName("blueBorder");
+    scrollArea->setStyleSheet("#blueBorder {border: 2px solid #6569C4;}");
 
     widgetLayout->setAlignment(Qt::AlignTop);
     widgetLayout->setSpacing(25);
