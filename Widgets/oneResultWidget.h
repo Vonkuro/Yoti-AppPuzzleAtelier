@@ -1,8 +1,7 @@
 #ifndef ONERESULTWIDGET_H
 #define ONERESULTWIDGET_H
 
-#include <QWidget>
-#include <QtWidgets>
+#include "common.h"
 
 class OneResultWidget : public QWidget
 {

@@ -66,19 +66,25 @@ void OneResultWidget::viewStyleCommon(int barcode)
     QPixmap cover(pathCover);
     coverLabel->setPixmap(cover);
     coverLabel->setScaledContents(true);
-    coverLabel->setStyleSheet(" max-width: 312; min-width: 312; max-height: 234px; min-height: 234px  ");
+    coverLabel->setStyleSheet(" max-width: 312; min-width: 312; max-height: 234px; min-height: 234px; border: 2px solid #6569C4; ");
 
     QString barcodeString = "Code barre : " + QString::number(barcode);
     barcodeLabel->setText(barcodeString);
     barcodeLabel->setProperty("cssClass","subtitle");
+    informationLayout->setAlignment(barcodeLabel,Qt::AlignHCenter);
 
     shortDescriptionButton->setText("Description Rapide");
+    shortDescriptionButton->setStyleSheet(greenButtonFontStyle + greenButtonBackgroundStyle);
     connect(shortDescriptionButton, &QPushButton::clicked, this, &OneResultWidget::displayDescription);
 
     checkedButton->setText("Ranger");
+    checkedButton->setStyleSheet(greenButtonFontStyle + greenButtonBackgroundStyle);
     connect(checkedButton,&QPushButton::clicked,this,&OneResultWidget::check);
 
-    QSize widgetSize(1200,240);
+    informationLayout->setAlignment(Qt::AlignBottom);
+    informationLayout->setSpacing(40);
+
+    QSize widgetSize(1200,256);
     this->setMaximumSize(widgetSize);
     this->setMinimumSize(widgetSize);
 }
@@ -95,19 +101,23 @@ void OneResultWidget::viewStyleSolved(int pieces, bool completed)
     }
     completedLabel->setText(completedString);
     completedLabel->setProperty("cssClass","subtitle");
+    informationLayout->setAlignment(completedLabel,Qt::AlignHCenter);
 
     QString piecesString = "Le Puzzle contient " + QString::number(pieces) + " Pièces";
     piecesLabel->setText(piecesString);
     piecesLabel->setProperty("cssClass","subtitle");
+    informationLayout->setAlignment(piecesLabel,Qt::AlignHCenter);
 }
 
 void OneResultWidget::viewStyleUnsolved()
 {
     completedLabel->setText("Yoti App Puzzle n'est pas capable de résoudre ce Puzzle...");
     completedLabel->setProperty("cssClass","subtitle");
+    informationLayout->setAlignment(completedLabel,Qt::AlignHCenter);
 
     piecesLabel->setText("Yoti App Puzzle est désolé...");
     piecesLabel->setProperty("cssClass","subtitle");
+    informationLayout->setAlignment(piecesLabel,Qt::AlignHCenter);
 }
 
 void OneResultWidget::check()

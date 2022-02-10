@@ -28,6 +28,7 @@ private:
     QWidget* containerWidget;
 
     QLabel* logoLabel;
+    QLabel* titleLabel;
     QScrollArea* scrollArea;
     QPushButton* finishButton;
 

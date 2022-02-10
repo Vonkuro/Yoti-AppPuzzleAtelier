@@ -8,6 +8,7 @@ ResultAtelierWidget::ResultAtelierWidget(QWidget *parent) : QWidget(parent)
     containerWidget = new QWidget;
 
     logoLabel = new QLabel;
+    titleLabel = new QLabel;
     scrollArea = new QScrollArea;
     finishButton = new QPushButton;
 
@@ -15,6 +16,7 @@ ResultAtelierWidget::ResultAtelierWidget(QWidget *parent) : QWidget(parent)
 
     this->setLayout(widgetLayout);
     widgetLayout->addWidget(logoLabel);
+    widgetLayout->addWidget(titleLabel);
     widgetLayout->addWidget(scrollArea);
     widgetLayout->addWidget(finishButton);
 
@@ -34,6 +36,7 @@ ResultAtelierWidget::~ResultAtelierWidget()
 {
     deleteResults();
     delete finishButton;
+    delete titleLabel;
     delete logoLabel;
     delete scrollLayout;
     delete containerWidget;
@@ -147,4 +150,19 @@ void ResultAtelierWidget::viewStyle()
     logoLabel->setScaledContents(true);
     logoLabel->setPixmap(logo);
     widgetLayout->setAlignment(logoLabel,Qt::AlignHCenter);
+
+    titleLabel->setText("Résultats de la veille");
+    titleLabel->setProperty("cssClass","title");
+    widgetLayout->setAlignment(titleLabel,Qt::AlignHCenter);
+
+    finishButton->setText("Enregistrer de nouveaux puzzles");
+    finishButton->setProperty("cssClass","greenButton");
+    widgetLayout->setAlignment(finishButton, Qt::AlignHCenter);
+
+    containerWidget->setObjectName("greenBackground");
+    containerWidget->setStyleSheet("#greenBackground {background-color: #B0F2B6;  border: 2px solid #6569C4;}");
+
+    widgetLayout->setAlignment(Qt::AlignTop);
+    widgetLayout->setSpacing(25);
+
 }
