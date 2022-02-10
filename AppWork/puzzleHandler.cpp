@@ -112,7 +112,7 @@ void PuzzleHandler::saveWithResult(int piecesNumber, bool completed)
     if (database.open())
     {
         QSqlQuery handled(database);
-        handled.prepare("UPDATE Puzzle SET pieces_number = ? , completed = ? , handled = TRUE, unsolvable = FALSE WHERE id = ?;");
+        handled.prepare("UPDATE Puzzle SET pieces_number = ? , completed = ? , handled = TRUE, unsolvable = FALSE , shown = FALSE WHERE id = ?;");
         handled.bindValue(0, piecesNumber);
         handled.bindValue(1, completed);
         handled.bindValue(2, puzzles.firstKey());
@@ -132,7 +132,7 @@ void PuzzleHandler::saveWithoutResult()
     if (database.open())
     {
         QSqlQuery notHandled(database);
-        notHandled.prepare("UPDATE Puzzle SET handled = TRUE, unsolvable = TRUE WHERE id = ?;");
+        notHandled.prepare("UPDATE Puzzle SET handled = TRUE, unsolvable = TRUE, shown = FALSE WHERE id = ?;");
         notHandled.bindValue(0, puzzles.firstKey());
 
         notHandled.exec();

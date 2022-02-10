@@ -82,7 +82,7 @@ void SavePuzzleWidget::form()
      backgroundWidget->setMinimumSize(802,320);
      backgroundWidget->setMaximumHeight(320);
      backgroundWidget->setObjectName("greenBackground");
-     backgroundWidget->setStyleSheet("#greenBackground {background-color: #B0F2B6;  border: 2px solid #6569C4;"
+     backgroundWidget->setStyleSheet("#greenBackground {background-color: #B0F2B6; border: 2px solid #6569C4;"
                                      "max-width: 800px; width: 800px;}"
                                      "");
 

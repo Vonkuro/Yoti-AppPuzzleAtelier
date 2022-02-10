@@ -6,8 +6,8 @@ MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
     puzzleHandler = new PuzzleHandler;
     checkHour = new QTimer;
     checkHour->setInterval(3540000); // 3540000 = 59 minutes
-    workHourStartInterval = QTime(18,0); // 18h00
-    workHourEndInterval = QTime(19,0); // 19h00
+    workHourStartInterval = QTime(15,0); // 15h00
+    workHourEndInterval = QTime(16,0); // 16h00
 
     link();
 
