@@ -20,6 +20,9 @@ signals:
 
 public slots:
     void verifyTime();
+    void logCycleStart();
+    void logCycleEnd();
+    void logPuzzle(bool solved);
 
 private:
     PuzzleHandler* puzzleHandler;
@@ -29,9 +32,13 @@ private:
     QTime workHourStartInterval;
     QTime workHourEndInterval;
 
+    int numberPuzzle;
+    int numberFail;
+
     void test();
     void link();
     bool verifyDatabaseAvailable();
+    void logMessage(QString message);
 };
 
 #endif // MASTERPROCESS_H

@@ -58,6 +58,8 @@ void MasterProcess::verifyTime()
 
         if (verifyDatabaseAvailable())
         {
+            numberPuzzle = 0;
+            numberFail = 0;
             emit timeToWork();
         } else {
             QCoreApplication::quit();
@@ -72,7 +74,59 @@ void MasterProcess::link()
 {
     connect(checkHour, &QTimer::timeout , this, &MasterProcess::verifyTime);
     connect(this, &MasterProcess::timeToWork, puzzleHandler, &PuzzleHandler::getNotHandled);
+    connect(puzzleHandler, &PuzzleHandler::puzzlesFound, this, &MasterProcess::logCycleStart);
     connect(puzzleHandler, &PuzzleHandler::puzzlesFound, puzzleHandler, &PuzzleHandler::solvePuzzle);
-    connect(puzzleHandler, &PuzzleHandler::puzzleSolved, puzzleHandler, &PuzzleHandler::solvePuzzle);
+    connect(puzzleHandler, SIGNAL(puzzleSolved(bool)), this, SLOT(logPuzzle(bool)) );
+    connect(puzzleHandler, SIGNAL(puzzleSolved(bool)), puzzleHandler, SLOT(solvePuzzle()));
+    connect(puzzleHandler, SIGNAL(allPuzzleSolved()) , this, SLOT(logCycleEnd()));
     connect(puzzleHandler, SIGNAL(allPuzzleSolved()) , checkHour, SLOT(start()));
+}
+
+
+void MasterProcess::logCycleStart()
+{
+    QString message = "debut d'un cycle de travail";
+    logMessage(message);
+}
+
+void MasterProcess::logCycleEnd()
+{
+    QString messageNumber = "il y a eu " + QString::number( numberPuzzle ) + " puzzles verifies";
+    logMessage(messageNumber);
+    QString messageFail = "il y a eu " + QString::number( numberFail ) + " erreurs";
+    logMessage(messageFail);
+    if (numberPuzzle != 0)
+    {
+        int percent = 100 * ( numberFail / numberPuzzle );
+        QString messageFailPerCent = "cela correcpond à " + QString::number( percent ) + " % d'ereurs";
+        logMessage(messageFailPerCent);
+    }
+
+    QString messageEnd = "fin d'un cycle de travail";
+    logMessage(messageEnd);
+}
+
+void MasterProcess::logPuzzle(bool solved)
+{
+    numberPuzzle += 1;
+    if ( ! solved )
+    {
+        numberFail += 1;
+    }
+}
+
+void MasterProcess::logMessage(QString message) {
+
+    QString home = QDir::homePath();
+    QString filename = home + "/Yoti-AppPuzzle/log.txt";
+
+    QDateTime date = QDateTime::currentDateTime();
+    QString formattedTime = date.toString("dd/MM/yyyy-hh:mm:ss");
+    formattedTime += "  ";
+
+    QFile file(filename);
+    if (file.open(QIODevice::ReadWrite | QIODevice::Append)) {
+        QTextStream stream(&file);
+        stream << formattedTime << message << endl;
+    }
 }
