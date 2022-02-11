@@ -20,8 +20,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
     choiceScannerWidget = new ChoiceScannerWidget;
     scannerWidget = new ScannerWidget;
     validationWidget = new ValidationWidget;
-    waittingWidget = new WaittingWidget;
-    resultWidget = new ResultWidget;
     resultAtelierWidget = new ResultAtelierWidget;
 // Linking the Widget to the stack
     masterStackedWidget->addWidget(homepageWidget);
@@ -31,8 +29,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
     masterStackedWidget->addWidget(choiceScannerWidget);
     masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
-    masterStackedWidget->addWidget(waittingWidget);
-    masterStackedWidget->addWidget(resultWidget);
     masterStackedWidget->addWidget(resultAtelierWidget);
 
 // Linking the Application together
@@ -58,8 +54,6 @@ MasterWidget::~MasterWidget()
     delete choiceScannerWidget;
     delete scannerWidget;
     delete validationWidget;
-    delete waittingWidget;
-    delete resultWidget;
     delete manager;   
     delete masterStackedWidget;
     delete masterLayout;
@@ -160,29 +154,6 @@ void MasterWidget::goToChoiceScanner(int id)
 {
     choiceScannerWidget->searchScanner(id);
     masterStackedWidget->setCurrentWidget(choiceScannerWidget);
-}
-
-// Display the waitting widget
-void MasterWidget::goToWaitting(int id)
-{
-    masterStackedWidget->setCurrentWidget(waittingWidget);
-    waittingWidget->solverProcessStart(id);
-}
-
-// Display the resultult widget
-// Used when the puzzle is solved
-void MasterWidget::goToResult(int numberPieces, bool completed)
-{
-    resultWidget->display(numberPieces, completed);
-    masterStackedWidget->setCurrentWidget(resultWidget);
-}
-
-// Display the resultult widget
-// Used when the puzzle is not solved
-void MasterWidget::goToResult()
-{
-    resultWidget->display();
-    masterStackedWidget->setCurrentWidget(resultWidget);
 }
 
 void MasterWidget::goToResultAtelier()
@@ -337,10 +308,6 @@ void MasterWidget::connectTheApplication()
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
     connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(end(int)));
 
-    //connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
-    //connect(waittingWidget, SIGNAL(puzzleNotSolved()), this, SLOT(goToResult()));
-
-    //connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
 }
 
 // Manage details of the view

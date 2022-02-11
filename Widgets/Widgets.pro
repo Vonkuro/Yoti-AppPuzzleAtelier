@@ -39,8 +39,6 @@ SOURCES += \
         common.cpp \
         choiceCameraWidget.cpp \
         choiceScannerWidget.cpp \
-        waittingWidget.cpp \
-        resultWidget.cpp \
     resultAtelierWidget.cpp \
     oneResultWidget.cpp
 
@@ -57,8 +55,6 @@ HEADERS += \
         common.h \
         choiceCameraWidget.h \
         choiceScannerWidget.h \
-        waittingWidget.h \
-        resultWidget.h \
     resultAtelierWidget.h \
     oneResultWidget.h
 

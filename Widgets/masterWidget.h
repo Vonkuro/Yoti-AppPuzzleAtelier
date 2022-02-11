@@ -12,8 +12,6 @@
 #include "choiceScannerWidget.h"
 #include "scannerWidget.h"
 #include "folderManager.h"
-#include "waittingWidget.h"
-#include "resultWidget.h"
 #include "resultAtelierWidget.h"
 
 class MasterWidget : public QWidget
@@ -40,8 +38,6 @@ private:
     ChoiceScannerWidget* choiceScannerWidget;
     ScannerWidget* scannerWidget;
     ValidationWidget* validationWidget;
-    WaittingWidget* waittingWidget;
-    ResultWidget* resultWidget;
     ResultAtelierWidget* resultAtelierWidget;
 // Attributs
     photoDevice chosenDevice;
@@ -68,9 +64,6 @@ public slots:
     void goToValidation(int idPuzzle, int idImage);
     void goToChoiceCamera(int id);
     void goToChoiceScanner(int id);
-    void goToWaitting(int id);
-    void goToResult(int numberPieces, bool completed);
-    void goToResult();
     void goToResultAtelier();
     void end(int id);
 // Slots mangers of background process
