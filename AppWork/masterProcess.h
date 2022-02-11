@@ -15,21 +15,24 @@ public:
     explicit MasterProcess(QObject *parent = nullptr);
     ~MasterProcess();
 
+// Manage the time
 signals:
     void timeToWork();
     void timeToArchive();
-
 public slots:
     void verifyTime();
+// Manage the logs
     void logCycleStart();
     void logCycleEnd();
     void logPuzzle(bool solved);
 
 private:
+// Objects that work
     PuzzleHandler* puzzleHandler;
     EnvLocal dataWrapper;
 
     QTimer *checkHour;
+// Attributs
     QTime workHourStartInterval;
     QTime workHourEndInterval;
     QTime archiveHourStartInterval;
@@ -38,6 +41,7 @@ private:
     int numberPuzzle;
     int numberFail;
 
+// Methods
     void test();
     void link();
     bool verifyDatabaseAvailable();

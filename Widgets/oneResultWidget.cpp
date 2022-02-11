@@ -1,5 +1,6 @@
 #include "oneResultWidget.h"
 
+// Construct a result that failled
 OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description, QWidget *parent ) : QWidget(parent)
 {
     init(idPuzzle, description);
@@ -7,6 +8,8 @@ OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description
     viewStyleUnsolved();
 
 }
+
+// Construct a result that was solved
 OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description, int pieces, bool completed, QWidget *parent) : QWidget(parent)
 {
     init(idPuzzle, description);
@@ -14,8 +17,11 @@ OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description
     viewStyleSolved(pieces, completed);
 
 }
+
+// Initialize the widget
 void OneResultWidget::init(int idPuzzle, QString description)
 {
+    // Init of view object
     widgetLayout = new QHBoxLayout;
     informationLayout = new QVBoxLayout;
     buttonsLayout = new QHBoxLayout;
@@ -28,6 +34,7 @@ void OneResultWidget::init(int idPuzzle, QString description)
     shortDescriptionButton = new QPushButton;
     checkedButton = new QPushButton;
 
+     // Linking the view objects
     this->setLayout(widgetLayout);
     widgetLayout->addWidget(coverLabel);
     widgetLayout->insertLayout(1,informationLayout);
@@ -40,7 +47,7 @@ void OneResultWidget::init(int idPuzzle, QString description)
     buttonsLayout->addWidget(shortDescriptionButton);
     buttonsLayout->addWidget(checkedButton);
 
-
+    // Init of attributs
     QString home = QDir::homePath();
     pathCover = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(idPuzzle) + "/Cover/box.jpg";
 
@@ -52,6 +59,7 @@ void OneResultWidget::init(int idPuzzle, QString description)
     puzzleId = idPuzzle;
 }
 
+// The end of the line for pointer
 OneResultWidget::~OneResultWidget()
 {
     delete coverLabel;
@@ -65,6 +73,7 @@ OneResultWidget::~OneResultWidget()
     delete widgetLayout;
 }
 
+// Style common of the solved and failled result
 void OneResultWidget::viewStyleCommon(int barcode)
 {
     QPixmap cover(pathCover);
@@ -93,6 +102,7 @@ void OneResultWidget::viewStyleCommon(int barcode)
     this->setMinimumSize(widgetSize);
 }
 
+// Style of the solved result
 void OneResultWidget::viewStyleSolved(int pieces, bool completed)
 {
     QString completedString = "Le Puzzle est ";
@@ -113,6 +123,7 @@ void OneResultWidget::viewStyleSolved(int pieces, bool completed)
     informationLayout->setAlignment(piecesLabel,Qt::AlignHCenter);
 }
 
+// Style of the failled result
 void OneResultWidget::viewStyleUnsolved()
 {
     completedLabel->setText("Yoti App Puzzle n'est pas capable de résoudre ce Puzzle...");
@@ -124,11 +135,13 @@ void OneResultWidget::viewStyleUnsolved()
     informationLayout->setAlignment(piecesLabel,Qt::AlignHCenter);
 }
 
+// Signal that the resulut has been checked
 void OneResultWidget::check()
 {
     emit checked(puzzleId);
 }
 
+// Display the description of the puzzle in a message box
 void OneResultWidget::displayDescription()
 {
     QMessageBox descriptionMessageBox;

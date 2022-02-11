@@ -2,12 +2,13 @@
 
 PuzzleHandler::PuzzleHandler(QObject *parent) : QObject(parent)
 {
+    // Init of the attributs
     puzzles = QMap<int, QString>();
 
     commandHead = "Yoti-PuzzleSolver ";
 }
 
-
+// Find the puzzle that have yet to be worked on
 void PuzzleHandler::getNotHandled()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -43,9 +44,7 @@ void PuzzleHandler::getNotHandled()
 
 }
 
-
-
-
+// Solve a puzzle
 void PuzzleHandler::solvePuzzle()
 {
     if (puzzles.empty())
@@ -72,7 +71,6 @@ void PuzzleHandler::solvePuzzle()
     }
 
     emit puzzleSolved(solved);
-
 }
 
 // Extract the number of pieces from the splited output
@@ -107,6 +105,7 @@ bool PuzzleHandler::findIfCompleted(QStringList solverSplited)
     }
 }
 
+// Save to the database a result soved
 void PuzzleHandler::saveWithResult(int piecesNumber, bool completed)
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -127,6 +126,7 @@ void PuzzleHandler::saveWithResult(int piecesNumber, bool completed)
     }
 }
 
+// Save to the database a result failed
 void PuzzleHandler::saveWithoutResult()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -146,6 +146,7 @@ void PuzzleHandler::saveWithoutResult()
 
 }
 
+// Execute a command and return it's result
 std::string PuzzleHandler::execute(QString commandString) {
     std::string command = commandString.toStdString();
     system((command + " > temp.txt").c_str());
@@ -159,6 +160,7 @@ std::string PuzzleHandler::execute(QString commandString) {
     return ret;
 }
 
+// check if the database is ready
 bool PuzzleHandler::databaseReady()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -174,6 +176,7 @@ bool PuzzleHandler::databaseReady()
     }
 }
 
+// Archive the folder of images that have already being handled and shown
 void PuzzleHandler::tarOldImageFolder()
 {
     // Map the Images directory
@@ -203,6 +206,7 @@ void PuzzleHandler::tarOldImageFolder()
 
 }
 
+// Make a QString with the tar flag to exclude the folder that don't need to be archived
 QString PuzzleHandler::checkForExclusion(int lastId)
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -243,6 +247,7 @@ QString PuzzleHandler::checkForExclusion(int lastId)
     return QString();
 }
 
+// Find first or last puzzle id int the puzzle list
 int PuzzleHandler::findPuzzleNumber(QStringList puzzleList, bool first) // test needed
 {
     int number = 0;
@@ -267,6 +272,7 @@ int PuzzleHandler::findPuzzleNumber(QStringList puzzleList, bool first) // test 
     return number;
 }
 
+// Mark as archived the puzzles that were archived
 void PuzzleHandler::markPuzzleArchived()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -281,6 +287,7 @@ void PuzzleHandler::markPuzzleArchived()
 
 }
 
+// Delete the folder that were archived
 void PuzzleHandler::deleteOldImageFolder(QStringList puzzleList)
 {
     foreach (QString puzzle, puzzleList) {

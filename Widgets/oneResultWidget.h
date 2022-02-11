@@ -10,8 +10,10 @@ public:
      OneResultWidget(int idPuzzle, int barcode, QString description, int pieces, bool completed, QWidget *parent = nullptr);
      OneResultWidget(int idPuzzle, int barcode, QString description, QWidget *parent = nullptr);
     ~OneResultWidget();
+// Propriety
      int puzzleId;
 
+// Checking the result
 signals:
      void checked(int idPuzzle);
 public slots:
@@ -19,6 +21,7 @@ public slots:
      void displayDescription();
 
 private :
+// Object managers of view
     QHBoxLayout* widgetLayout;
     QVBoxLayout* informationLayout;
     QHBoxLayout* buttonsLayout;
@@ -30,9 +33,11 @@ private :
     QPushButton* shortDescriptionButton;
     QPushButton* checkedButton;
 
+// Attributs
     QString pathCover;
     QString shortDescription;
 
+// Methods
     void init(int idPuzzle, QString description);
     void viewStyleCommon(int barcode);
     void viewStyleSolved(int pieces, bool completed);

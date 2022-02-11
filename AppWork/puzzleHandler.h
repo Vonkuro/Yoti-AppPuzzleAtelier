@@ -18,34 +18,34 @@ class PuzzleHandler : public QObject
     Q_OBJECT
 public:
     explicit PuzzleHandler(QObject *parent = nullptr);
+// Manage Database
     bool databaseReady();
 
+// Tools for the master process
 signals:
     void puzzlesFound();
     void puzzleSolved(bool solved);
     void allPuzzleSolved();
-
 public slots:
     void getNotHandled();
     void solvePuzzle();
     void tarOldImageFolder();
 
 private:
+// Database
     EnvLocal dataWrapper;
 
+// Attributs
     QMap<int, QString> puzzles;
     QString commandHead;
-
-    int findPiecesNumber(QStringList solverSplited);
-    bool findIfCompleted(QStringList solverSplited);
     QList<int> exluded;
 
+// Methods
+    int findPiecesNumber(QStringList solverSplited);
+    bool findIfCompleted(QStringList solverSplited);
     void saveWithResult(int piecesNumber, bool completed);
     void saveWithoutResult();
-
     std::string execute(QString command);
-
-
     QString checkForExclusion(int lastId);
     void markPuzzleArchived();
     void deleteOldImageFolder(QStringList puzzleList);

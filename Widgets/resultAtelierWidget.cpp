@@ -2,6 +2,7 @@
 
 ResultAtelierWidget::ResultAtelierWidget(QWidget *parent) : QWidget(parent)
 {
+    // Init of view objects
     widgetLayout = new QVBoxLayout;
     scrollLayout = new QVBoxLayout;
 
@@ -12,8 +13,10 @@ ResultAtelierWidget::ResultAtelierWidget(QWidget *parent) : QWidget(parent)
     scrollArea = new QScrollArea;
     finishButton = new QPushButton;
 
+    // Init of Attributs
     resultList = QList<OneResultWidget*>();
 
+    // Linking of view objects
     this->setLayout(widgetLayout);
     widgetLayout->addWidget(logoLabel);
     widgetLayout->addWidget(titleLabel);
@@ -25,13 +28,17 @@ ResultAtelierWidget::ResultAtelierWidget(QWidget *parent) : QWidget(parent)
     scrollArea->setWidgetResizable(true);
     containerWidget->setLayout(scrollLayout);
 
+    // Init of Results
     showResults();
 
+    // Style
     viewStyle();
 
+    // Connect to the application
     connect(finishButton, &QPushButton::clicked, this, &ResultAtelierWidget::finished);
 }
 
+// The end of the line for the pointers
 ResultAtelierWidget::~ResultAtelierWidget()
 {
     deleteResults();
@@ -44,6 +51,7 @@ ResultAtelierWidget::~ResultAtelierWidget()
     delete widgetLayout;
 }
 
+// Display the result that have yet to be checked by the user
 void ResultAtelierWidget::showResults()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -93,6 +101,7 @@ void ResultAtelierWidget::showResults()
     }
 }
 
+// Delete the results widgets
 void ResultAtelierWidget::deleteResults()
 {
     QListIterator<OneResultWidget*> resultIterator(resultList);
@@ -104,11 +113,13 @@ void ResultAtelierWidget::deleteResults()
     resultList = QList<OneResultWidget*>();
 }
 
+// Signal the user has finish to check
 void ResultAtelierWidget::finished()
 {
     emit resultHandled();
 }
 
+// Verify the user really checked a result before removing them from the list
 void ResultAtelierWidget::removeResult(int idPuzzle)
 {
     QMessageBox verifyCheckedMessageBox;
@@ -155,6 +166,7 @@ void ResultAtelierWidget::removeResult(int idPuzzle)
 
 }
 
+// Mark a puzzle as already shown
 void ResultAtelierWidget::markShown(int idPuzzle)
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -170,6 +182,7 @@ void ResultAtelierWidget::markShown(int idPuzzle)
     }
 }
 
+// Get the attribut  bool thereIsResult
 bool ResultAtelierWidget::isThereResult()
 {
     return thereIsResult;

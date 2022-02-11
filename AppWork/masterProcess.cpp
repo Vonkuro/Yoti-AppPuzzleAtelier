@@ -2,21 +2,26 @@
 
 MasterProcess::MasterProcess(QObject *parent) : QObject(parent)
 {
+    // Init of work objects
     dataWrapper.setDatabase();
     puzzleHandler = new PuzzleHandler;
     checkHour = new QTimer;
+
+    // Init of the attribut
     checkHour->setInterval(3540000); // 3540000 = 59 minutes
     workHourStartInterval = QTime(15,0); // 15h00
     workHourEndInterval = QTime(16,0); // 16h00
     archiveHourStartInterval = QTime(14,0); // 14h00
     archiveHourEndInterval = QTime(15,0); // 15h00
 
+    // Connect the process together
     link();
 
-
+    // Make sure the database is available
     test();
 }
 
+// The end of the line for the pointer
 MasterProcess::~MasterProcess()
 {
     checkHour->stop();
@@ -25,6 +30,7 @@ MasterProcess::~MasterProcess()
     dataWrapper.removeDatabase();
 }
 
+// Test if the database is available and quit if not
 void MasterProcess::test()
 {
 
@@ -38,6 +44,7 @@ void MasterProcess::test()
 
 }
 
+// Test if the database is available
 bool MasterProcess::verifyDatabaseAvailable()
 {
     QSqlDatabase database = dataWrapper.getDatabase();
@@ -51,6 +58,7 @@ bool MasterProcess::verifyDatabaseAvailable()
 
 }
 
+// Verify what the current time and signal to work or archive when needed
 void MasterProcess::verifyTime()
 {
     QTime now = QTime::currentTime();
@@ -77,6 +85,7 @@ void MasterProcess::verifyTime()
     }
 }
 
+// Connect the process together
 void MasterProcess::link()
 {
     connect(checkHour, &QTimer::timeout , this, &MasterProcess::verifyTime);
@@ -90,13 +99,16 @@ void MasterProcess::link()
     connect(puzzleHandler, SIGNAL(allPuzzleSolved()) , checkHour, SLOT(start()));
 }
 
-
+// Log that a work cycle started
 void MasterProcess::logCycleStart()
 {
     QString message = "debut d'un cycle de travail";
     logMessage(message);
 }
 
+// Log that a work cycle ended
+// Log the number of Puzzles that were worked on
+// Log the number of fails
 void MasterProcess::logCycleEnd()
 {
     QString messageNumber = "il y a eu " + QString::number( numberPuzzle ) + " puzzles verifies";
@@ -114,6 +126,7 @@ void MasterProcess::logCycleEnd()
     logMessage(messageEnd);
 }
 
+// Count up a puzzle that was worked on for latter log
 void MasterProcess::logPuzzle(bool solved)
 {
     numberPuzzle += 1;
@@ -123,6 +136,7 @@ void MasterProcess::logPuzzle(bool solved)
     }
 }
 
+// Log a message in the file log.txt
 void MasterProcess::logMessage(QString message) {
 
     QString home = QDir::homePath();

@@ -20,8 +20,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
     choiceScannerWidget = new ChoiceScannerWidget;
     scannerWidget = new ScannerWidget;
     validationWidget = new ValidationWidget;
-    waittingWidget = new WaittingWidget;
-    resultWidget = new ResultWidget;
     resultAtelierWidget = new ResultAtelierWidget;
 // Linking the Widget to the stack
     masterStackedWidget->addWidget(homepageWidget);
@@ -31,12 +29,9 @@ MasterWidget::MasterWidget(QWidget *parent) :
     masterStackedWidget->addWidget(choiceScannerWidget);
     masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
-    masterStackedWidget->addWidget(waittingWidget);
-    masterStackedWidget->addWidget(resultWidget);
     masterStackedWidget->addWidget(resultAtelierWidget);
 
 // Linking the Application together
-    manager = new folderManager;
     connectTheApplication();
 
 // View Style
@@ -58,9 +53,6 @@ MasterWidget::~MasterWidget()
     delete choiceScannerWidget;
     delete scannerWidget;
     delete validationWidget;
-    delete waittingWidget;
-    delete resultWidget;
-    delete manager;   
     delete masterStackedWidget;
     delete masterLayout;
 
@@ -162,29 +154,6 @@ void MasterWidget::goToChoiceScanner(int id)
     masterStackedWidget->setCurrentWidget(choiceScannerWidget);
 }
 
-// Display the waitting widget
-void MasterWidget::goToWaitting(int id)
-{
-    masterStackedWidget->setCurrentWidget(waittingWidget);
-    waittingWidget->solverProcessStart(id);
-}
-
-// Display the resultult widget
-// Used when the puzzle is solved
-void MasterWidget::goToResult(int numberPieces, bool completed)
-{
-    resultWidget->display(numberPieces, completed);
-    masterStackedWidget->setCurrentWidget(resultWidget);
-}
-
-// Display the resultult widget
-// Used when the puzzle is not solved
-void MasterWidget::goToResult()
-{
-    resultWidget->display();
-    masterStackedWidget->setCurrentWidget(resultWidget);
-}
-
 void MasterWidget::goToResultAtelier()
 {
     if (resultAtelierWidget->isThereResult())
@@ -272,12 +241,8 @@ void MasterWidget::choiceImageAcquisition(int id)
     }
 }
 
-// Launch the archive process
-void MasterWidget::archive()
-{
-    manager->tarOldImageFolder();
-}
-
+// Find if the bakcground process is not running
+// Return true if it isn't
 bool MasterWidget::nightDeamonNotOn()
 {
     QString commandString = "pgrep Yoti-AppPuzzled";
@@ -287,6 +252,7 @@ bool MasterWidget::nightDeamonNotOn()
     return (result.size() == 0);
 }
 
+// Run the background process if needed
 void MasterWidget::nightDeamon()
 {
     if ( nightDeamonNotOn() )
@@ -297,6 +263,8 @@ void MasterWidget::nightDeamon()
     }
 }
 
+// Update the database, the Puzzle is handled = false instead of handled = null
+// Go to the Save Puzzle Widget
 void MasterWidget::end(int id)
 {
     QSqlDatabase database = datawrapper.getDatabase();
@@ -319,7 +287,6 @@ void MasterWidget::end(int id)
 void MasterWidget::connectTheApplication()
 {
     // these testing connect will be almost good to go for the full application
-    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::archive);
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToResultAtelier);
 
     connect(resultAtelierWidget, &ResultAtelierWidget::resultHandled, this, &MasterWidget::goToSavePuzzle);
@@ -337,10 +304,6 @@ void MasterWidget::connectTheApplication()
     connect(validationWidget, SIGNAL(newPhoto()), this, SLOT(goToPhotoDevice()));
     connect(validationWidget, SIGNAL(allIsValidated(int)), this, SLOT(end(int)));
 
-    //connect(waittingWidget, SIGNAL(puzzleSolved(int,bool)), this, SLOT(goToResult(int,bool)));
-    //connect(waittingWidget, SIGNAL(puzzleNotSolved()), this, SLOT(goToResult()));
-
-    //connect(resultWidget, &ResultWidget::restart, this, &MasterWidget::goToSavePuzzle);
 }
 
 // Manage details of the view

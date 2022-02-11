@@ -35,12 +35,9 @@ SOURCES += \
         validationWidget.cpp \
         homepageWidget.cpp \
         notes.cpp \
-        folderManager.cpp \
         common.cpp \
         choiceCameraWidget.cpp \
         choiceScannerWidget.cpp \
-        waittingWidget.cpp \
-        resultWidget.cpp \
     resultAtelierWidget.cpp \
     oneResultWidget.cpp
 
@@ -53,12 +50,9 @@ HEADERS += \
         envLocal.h \
         validationWidget.h \
         homepageWidget.h \
-        folderManager.h \
         common.h \
         choiceCameraWidget.h \
         choiceScannerWidget.h \
-        waittingWidget.h \
-        resultWidget.h \
     resultAtelierWidget.h \
     oneResultWidget.h
 
