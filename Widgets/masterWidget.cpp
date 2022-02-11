@@ -241,6 +241,8 @@ void MasterWidget::choiceImageAcquisition(int id)
     }
 }
 
+// Find if the bakcground process is not running
+// Return true if it isn't
 bool MasterWidget::nightDeamonNotOn()
 {
     QString commandString = "pgrep Yoti-AppPuzzled";
@@ -250,6 +252,7 @@ bool MasterWidget::nightDeamonNotOn()
     return (result.size() == 0);
 }
 
+// Run the background process if needed
 void MasterWidget::nightDeamon()
 {
     if ( nightDeamonNotOn() )
@@ -260,6 +263,8 @@ void MasterWidget::nightDeamon()
     }
 }
 
+// Update the database, the Puzzle is handled = false instead of handled = null
+// Go to the Save Puzzle Widget
 void MasterWidget::end(int id)
 {
     QSqlDatabase database = datawrapper.getDatabase();
