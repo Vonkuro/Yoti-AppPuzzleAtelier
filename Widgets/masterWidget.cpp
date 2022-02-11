@@ -32,7 +32,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
     masterStackedWidget->addWidget(resultAtelierWidget);
 
 // Linking the Application together
-    manager = new folderManager;
     connectTheApplication();
 
 // View Style
@@ -54,7 +53,6 @@ MasterWidget::~MasterWidget()
     delete choiceScannerWidget;
     delete scannerWidget;
     delete validationWidget;
-    delete manager;   
     delete masterStackedWidget;
     delete masterLayout;
 
@@ -243,12 +241,6 @@ void MasterWidget::choiceImageAcquisition(int id)
     }
 }
 
-// Launch the archive process
-void MasterWidget::archive()
-{
-    manager->tarOldImageFolder();
-}
-
 bool MasterWidget::nightDeamonNotOn()
 {
     QString commandString = "pgrep Yoti-AppPuzzled";
@@ -290,7 +282,6 @@ void MasterWidget::end(int id)
 void MasterWidget::connectTheApplication()
 {
     // these testing connect will be almost good to go for the full application
-    connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::archive);
     connect(homepageWidget, &HomepageWidget::startApp, this, &MasterWidget::goToResultAtelier);
 
     connect(resultAtelierWidget, &ResultAtelierWidget::resultHandled, this, &MasterWidget::goToSavePuzzle);

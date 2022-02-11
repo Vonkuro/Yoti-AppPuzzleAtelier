@@ -11,7 +11,6 @@
 #include "validationWidget.h"
 #include "choiceScannerWidget.h"
 #include "scannerWidget.h"
-#include "folderManager.h"
 #include "resultAtelierWidget.h"
 
 class MasterWidget : public QWidget
@@ -47,8 +46,6 @@ private:
 // Methods
     void connectTheApplication();
     void viewStyle();
-// Objects tools
-    folderManager* manager;
 // Database
     EnvLocal datawrapper;
 
@@ -67,7 +64,6 @@ public slots:
     void goToResultAtelier();
     void end(int id);
 // Slots mangers of background process
-    void archive();
     bool nightDeamonNotOn();
     void nightDeamon();
 
