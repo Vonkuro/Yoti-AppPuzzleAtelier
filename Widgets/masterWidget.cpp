@@ -30,7 +30,6 @@ MasterWidget::MasterWidget(QWidget *parent) :
     masterStackedWidget->addWidget(scannerWidget);
     masterStackedWidget->addWidget(validationWidget);
     masterStackedWidget->addWidget(resultAtelierWidget);
-
 // Linking the Application together
     connectTheApplication();
 
