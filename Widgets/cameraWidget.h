@@ -22,7 +22,6 @@ public:
 signals:
     void photoTaken(int idPuzzle, int idImage);
     void coverTaken(int idPuzzle);
-
 private slots:
     void takePhoto();
 

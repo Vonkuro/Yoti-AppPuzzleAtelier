@@ -35,7 +35,6 @@ SOURCES += \
         validationWidget.cpp \
         homepageWidget.cpp \
         notes.cpp \
-        folderManager.cpp \
         common.cpp \
         choiceCameraWidget.cpp \
         choiceScannerWidget.cpp \
@@ -51,7 +50,6 @@ HEADERS += \
         envLocal.h \
         validationWidget.h \
         homepageWidget.h \
-        folderManager.h \
         common.h \
         choiceCameraWidget.h \
         choiceScannerWidget.h \
