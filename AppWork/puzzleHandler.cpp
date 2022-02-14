@@ -3,9 +3,10 @@
 PuzzleHandler::PuzzleHandler(QObject *parent) : QObject(parent)
 {
     // Init of the attributs
-    puzzles = QMap<int, QString>();
+    puzzles = QMap<int, puzzleInformation>();
 
-    commandHead = "Yoti-PuzzleSolver ";
+    commandHeadTotal = "Yoti-PuzzleSolver ";
+    commandHeadQuick = "Yoti-PuzzleCompter ";
 }
 
 // Find the puzzle that have yet to be worked on
@@ -17,8 +18,9 @@ void PuzzleHandler::getNotHandled()
     {
 
         QSqlQuery idNothandle(database);
+        QSqlQuery barcodeKnown(database);
 
-        idNothandle.prepare("select id from Puzzle where handled = FALSE ;");
+        idNothandle.prepare("select id, barcode from Puzzle where handled = FALSE ;");
         idNothandle.exec();
 
         if ( idNothandle.size() == -1)
@@ -26,16 +28,35 @@ void PuzzleHandler::getNotHandled()
             return;
         }
 
-        puzzles = QMap<int, QString>();
+        puzzles = QMap<int, puzzleInformation>();
 
         while(idNothandle.next())
         {
             QString home = QDir::homePath();
 
             int id = idNothandle.value("id").toInt();
+            int barcode = idNothandle.value("barcode").toInt();
 
-            puzzles[id] = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(id) + "/";
+            puzzles[id].path = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(id) + "/";
+
+            if ( barcode != 0)
+            {
+                barcodeKnown.prepare("select pieces_number from Puzzle where barcode = ? and completed = TRUE LIMIT 1;");
+                barcodeKnown.bindValue(0,barcode);
+                barcodeKnown.exec();
+                if (barcodeKnown.size() == 1)
+                {
+                    barcodeKnown.next();
+                    puzzles[id].known =  true;
+                    puzzles[id].piecesNumber = barcodeKnown.value("pieces_number").toInt();
+                } else
+                {
+                    puzzles[id].known = false;
+                    puzzles[id].piecesNumber = 0;
+                }
+            }
         }
+
 
         database.close();
         emit puzzlesFound();
@@ -52,7 +73,23 @@ void PuzzleHandler::solvePuzzle()
         emit allPuzzleSolved();
         return;
     }
-    QString command = commandHead + puzzles.first();
+
+    if ( puzzles.first().known)
+    {
+        solvePuzzleQuick();
+    } else
+    {
+        solvePuzzleTotal();
+    }
+
+
+
+
+}
+
+void PuzzleHandler::solvePuzzleTotal()
+{
+    QString command = commandHeadTotal + puzzles.first().path;
     QString result = QString::fromStdString (execute(command));
 
     result = result.simplified();
@@ -69,7 +106,27 @@ void PuzzleHandler::solvePuzzle()
     {
         saveWithoutResult();
     }
+    emit puzzleSolved(solved);
+}
 
+void PuzzleHandler::solvePuzzleQuick()
+{
+    QString command = commandHeadQuick + puzzles.first().path;
+    QString result = QString::fromStdString (execute(command));
+
+    int resultNumber = result.toInt();
+
+    bool solved = false;
+
+    if (resultNumber != 0)
+    {
+        solved = true;
+        bool completed = resultNumber == puzzles.first().piecesNumber;
+        saveWithResult(resultNumber, completed);
+    } else
+    {
+        saveWithoutResult();
+    }
     emit puzzleSolved(solved);
 }
 

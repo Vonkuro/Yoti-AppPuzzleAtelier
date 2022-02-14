@@ -34,10 +34,17 @@ public slots:
 private:
 // Database
     EnvLocal dataWrapper;
-
+// Structures
+    struct puzzleInformation
+    {
+        QString path;
+        bool known;
+        int piecesNumber;
+    };
 // Attributs
-    QMap<int, QString> puzzles;
-    QString commandHead;
+    QMap<int, puzzleInformation> puzzles;
+    QString commandHeadTotal;
+    QString commandHeadQuick;
     QList<int> exluded;
 
 // Methods
@@ -50,6 +57,8 @@ private:
     void markPuzzleArchived();
     void deleteOldImageFolder(QStringList puzzleList);
     int findPuzzleNumber(QStringList puzzleList, bool first);
+    void solvePuzzleTotal();
+    void solvePuzzleQuick();
 };
 
 #endif // LOADER_H

@@ -70,7 +70,7 @@ void ResultAtelierWidget::showResults()
         thereIsResult = true;
         while(unshownPuzzle.next())
         {
-            int barcode = unshownPuzzle.value("barcode").toInt();
+            qlonglong barcode = unshownPuzzle.value("barcode").toLongLong();
             int idPuzzle = unshownPuzzle.value("id").toInt();
 
             QString description = unshownPuzzle.value("short_description").toString();

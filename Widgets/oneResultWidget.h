@@ -7,8 +7,8 @@ class OneResultWidget : public QWidget
 {
     Q_OBJECT
 public:
-     OneResultWidget(int idPuzzle, int barcode, QString description, int pieces, bool completed, QWidget *parent = nullptr);
-     OneResultWidget(int idPuzzle, int barcode, QString description, QWidget *parent = nullptr);
+     OneResultWidget(int idPuzzle, qlonglong barcode, QString description, int pieces, bool completed, QWidget *parent = nullptr);
+     OneResultWidget(int idPuzzle, qlonglong barcode, QString description, QWidget *parent = nullptr);
     ~OneResultWidget();
 // Propriety
      int puzzleId;
@@ -39,7 +39,7 @@ private :
 
 // Methods
     void init(int idPuzzle, QString description);
-    void viewStyleCommon(int barcode);
+    void viewStyleCommon(qlonglong barcode);
     void viewStyleSolved(int pieces, bool completed);
     void viewStyleUnsolved();
 };
