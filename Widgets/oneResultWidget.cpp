@@ -1,7 +1,7 @@
 #include "oneResultWidget.h"
 
 // Construct a result that failled
-OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description, QWidget *parent ) : QWidget(parent)
+OneResultWidget::OneResultWidget( int idPuzzle, qlonglong barcode, QString description, QWidget *parent ) : QWidget(parent)
 {
     init(idPuzzle, description);
     viewStyleCommon(barcode);
@@ -10,7 +10,7 @@ OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description
 }
 
 // Construct a result that was solved
-OneResultWidget::OneResultWidget( int idPuzzle, int barcode, QString description, int pieces, bool completed, QWidget *parent) : QWidget(parent)
+OneResultWidget::OneResultWidget( int idPuzzle, qlonglong barcode, QString description, int pieces, bool completed, QWidget *parent) : QWidget(parent)
 {
     init(idPuzzle, description);
     viewStyleCommon(barcode);
@@ -74,7 +74,7 @@ OneResultWidget::~OneResultWidget()
 }
 
 // Style common of the solved and failled result
-void OneResultWidget::viewStyleCommon(int barcode)
+void OneResultWidget::viewStyleCommon(qlonglong barcode)
 {
     QPixmap cover(pathCover);
     coverLabel->setPixmap(cover);

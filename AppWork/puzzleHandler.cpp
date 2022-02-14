@@ -116,8 +116,11 @@ void PuzzleHandler::solvePuzzleQuick()
 
     int resultNumber = result.toInt();
 
+    bool solved = false;
+
     if (resultNumber != 0)
     {
+        solved = true;
         bool completed = resultNumber == puzzles.first().piecesNumber;
         saveWithResult(resultNumber, completed);
     } else
