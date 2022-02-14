@@ -16,6 +16,7 @@ public:
 // Saving the Puzzle
 signals:
     void puzzleSaved(int id);
+    void puzzleContinue(int id);
 
 private slots:
     void save();
@@ -52,7 +53,7 @@ private:
 // Database
     EnvLocal dataWrapper;
 // Methods back
-
+    QMessageBox* messageBoxWithStyle();
 
 };
 

@@ -170,6 +170,7 @@ void CameraWidget::takePhoto()
     }else{
         ++lastImageId;
         webcam->searchAndLock();
+
         QString imagePath = pathImageDirectory + "/image-" + QString::number(lastImageId) + ".jpg";
         webcamImageCapture->capture(imagePath);
         webcam->unlock();
@@ -183,3 +184,7 @@ void CameraWidget::takePhoto()
 
 }
 
+void CameraWidget::idToContinue()
+{
+    lastImageId += 100;
+}
