@@ -46,6 +46,46 @@ void SavePuzzleWidget::prepare()
 {
     validationButton->setStyleSheet(greenButtonBackgroundStyle);
     validationButton->setEnabled(true);
+
+    QSqlDatabase database = dataWrapper.getDatabase();
+    if ( database.open() )
+    {
+        QSqlQuery continueSql(database);
+
+        continueSql.prepare("select id, barcode, short_description, restart_number from Puzzle where handled is NULL and id in (select MAX(id) from Puzzle);");
+        continueSql.exec();
+
+        if ( continueSql.size() == 1)
+        {
+            continueSql.next();
+
+            int id = continueSql.value("id").toInt();
+            qlonglong barcode = continueSql.value("barcode").toLongLong();
+            QString description = continueSql.value("short_description").toString();
+            int restartNumber = continueSql.value("restart_number").toInt();
+
+            QMessageBox* continueMessage = messageBoxWithStyle();
+
+            continueMessage->setText("Voulez-vous reprendre l'enregistrement du dernier Puzzle ?");
+            continueMessage->setInformativeText("Code Barre : " + QString::number(barcode) + " \n" + description);
+            int response = continueMessage->exec();
+
+
+            if (response==0)
+            {
+                restartNumber +=1;
+                continueSql.prepare("update Puzzle set restart_number = ? where id = ?;");
+                continueSql.bindValue(0, restartNumber);
+                continueSql.bindValue(1, id);
+                continueSql.exec();
+
+                emit puzzleContinue(id, restartNumber);
+            }
+            delete continueMessage;
+        }
+
+        database.close();
+    }
 }
 // Prepare the form
 void SavePuzzleWidget::form()
@@ -107,21 +147,14 @@ void SavePuzzleWidget::form()
      widgetLayout->setSpacing(50);
  }
 
-// Verify if a barcode is valid
-// There is four cases :
-// 1/ There are 13 numbers, the barcode is valid
-// 2/ There are character that aren't numbers, the barcode is not valid
-// 3/ The barcode is empty, the bare is replace by "0000000000000" if the user
-//    confirm the lack of barcode
-// 4/ There are only numbers but not 13 of them, the barcode is valid if
-//    the user confirm it is.
-bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
+QMessageBox* SavePuzzleWidget::messageBoxWithStyle()
 {
-    QMessageBox choiceBarcodeMessageBox;
-    choiceBarcodeMessageBox.addButton(tr("Oui"), QMessageBox::YesRole);
-    choiceBarcodeMessageBox.addButton(tr("Non"), QMessageBox::NoRole);
+    QMessageBox* greenMessageBox = new QMessageBox();
 
-    QList<QAbstractButton *> buttons = choiceBarcodeMessageBox.buttons();
+    greenMessageBox->addButton(tr("Oui"), QMessageBox::YesRole);
+    greenMessageBox->addButton(tr("Non"), QMessageBox::NoRole);
+
+    QList<QAbstractButton *> buttons = greenMessageBox->buttons();
     for (QAbstractButton * button : buttons)
     {
         QPushButton* buttonPush = dynamic_cast<QPushButton*>(button);
@@ -135,12 +168,27 @@ bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
         }
     }
 
-    choiceBarcodeMessageBox.setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
+    greenMessageBox->setStyleSheet( "QLabel {font: \"Montserrat\"; color: #2C2E71}"
                                            "QMessageBox {background-color: white}"
                                            "#yesButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
                                            " " +greenButtonBackgroundStyle +"}"
                                            "#noButton {font: bold \"Montserrat\"; font-size: 22px; color: #2C2E71; "
                                            "background-color: #E54D96; border: 2px solid #6569C4;}");
+    return greenMessageBox;
+}
+
+// Verify if a barcode is valid
+// There is four cases :
+// 1/ There are 13 numbers, the barcode is valid
+// 2/ There are character that aren't numbers, the barcode is not valid
+// 3/ The barcode is empty, the bare is replace by "0000000000000" if the user
+//    confirm the lack of barcode
+// 4/ There are only numbers but not 13 of them, the barcode is valid if
+//    the user confirm it is.
+bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
+{
+    QMessageBox* choiceBarcodeMessageBox = messageBoxWithStyle();
+
 
     QRegExp notNumeric;
     notNumeric.setPattern("[^0-9 .]+");
@@ -153,10 +201,12 @@ bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
 
     if (barcodeText.size() == 0)
     {
-        choiceBarcodeMessageBox.setText("Vous n'avez pas indiqué de code barre.");
-        choiceBarcodeMessageBox.setInformativeText("Le Puzzle en est-il dépourvu ?");
+        choiceBarcodeMessageBox->setText("Vous n'avez pas indiqué de code barre.");
+        choiceBarcodeMessageBox->setInformativeText("Le Puzzle en est-il dépourvu ?");
 
-        int returnMessageBox = choiceBarcodeMessageBox.exec();
+        int returnMessageBox = choiceBarcodeMessageBox->exec();
+
+        delete choiceBarcodeMessageBox;
 
         if (returnMessageBox == 0)
         {
@@ -170,10 +220,12 @@ bool SavePuzzleWidget::barcodeValid(QString barcodeText) // need unit-tests
     else if (barcodeText.size() != 13)
     {
 
-        choiceBarcodeMessageBox.setText("Le code barre indiqué ne respecte pas le standard actuel à 13 chiffres.");
-        choiceBarcodeMessageBox.setInformativeText("S'agit-il d'un code barre avec un format ancien ou rare ?");
+        choiceBarcodeMessageBox->setText("Le code barre indiqué ne respecte pas le standard actuel à 13 chiffres.");
+        choiceBarcodeMessageBox->setInformativeText("S'agit-il d'un code barre avec un format ancien ou rare ?");
 
-        int returnMessageBox = choiceBarcodeMessageBox.exec();
+        int returnMessageBox = choiceBarcodeMessageBox->exec();
+
+        delete choiceBarcodeMessageBox;
 
         if (returnMessageBox == 0)
         {
@@ -236,11 +288,11 @@ void SavePuzzleWidget::save()
         QSqlQuery newPuzzleSql(database);
         if (descriptionTextEdit->toPlainText().size() == 0)
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, archived, completed) VALUES (?, FALSE, FALSE);");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, archived, completed, restart_number) VALUES (?, FALSE, FALSE, 0);");
             newPuzzleSql.bindValue(0, barcode);
         } else
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description, archived, completed) VALUES (?, ?, FALSE, FALSE);");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description, archived, completed, restart_number) VALUES (?, ?, FALSE, FALSE, 0);");
             newPuzzleSql.bindValue(0, barcode);
             newPuzzleSql.bindValue(1, descriptionTextEdit->toPlainText() );
         }

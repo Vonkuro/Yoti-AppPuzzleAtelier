@@ -115,8 +115,8 @@ void MasterWidget::goToScanner()
 void MasterWidget::goToSavePuzzle()
 {
     boxCoverNotTaken = true;
-    savePuzzleWidget->prepare();
     masterStackedWidget->setCurrentWidget(savePuzzleWidget);
+    savePuzzleWidget->prepare();
 }
 
 // Redirect to the correct photographic device in function of chosenDevice
@@ -240,6 +240,26 @@ void MasterWidget::choiceImageAcquisition(int id)
     }
 }
 
+void MasterWidget::continueImageAcquisition(int id, int restartNumber)
+{
+    QString coverPath = QDir::homePath() + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(id) + "/Cover";
+    QDir cover(coverPath);
+    boxCoverNotTaken = ! cover.exists();
+    if (boxCoverNotTaken)
+    {
+        goToChoiceCamera(id);
+    }else
+    {
+        for (int i=0; i < restartNumber; i++)
+        {
+            cameraWidget->idToContinue();
+            scannerWidget->idToContinue();
+        }
+
+        choiceImageAcquisition(id);
+    }
+}
+
 // Find if the bakcground process is not running
 // Return true if it isn't
 bool MasterWidget::nightDeamonNotOn()
@@ -277,6 +297,8 @@ void MasterWidget::end(int id)
 
         database.close();
     }
+    cameraWidget->idReset();
+    scannerWidget->idReset();
 
     goToSavePuzzle();
 }
@@ -291,6 +313,7 @@ void MasterWidget::connectTheApplication()
     connect(resultAtelierWidget, &ResultAtelierWidget::resultHandled, this, &MasterWidget::goToSavePuzzle);
 
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToChoiceCamera(int)));
+    connect(savePuzzleWidget, SIGNAL(puzzleContinue(int, int)) , this, SLOT(continueImageAcquisition(int, int)));
 
     connect(cameraWidget, SIGNAL(coverTaken(int)), this, SLOT(choiceImageAcquisition(int)));
 
