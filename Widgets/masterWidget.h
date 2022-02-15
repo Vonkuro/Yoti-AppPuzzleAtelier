@@ -51,7 +51,7 @@ private:
 
 public slots:
 // Slots managers of which widget is on screen
-    void continueImageAcquisition(int id);
+    void continueImageAcquisition(int id, int restartNumber);
     void choiceImageAcquisition(int id);
     void goToWebcam(int id, QCameraInfo cameraInfo);
     void goToWebcam();

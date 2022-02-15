@@ -240,7 +240,7 @@ void MasterWidget::choiceImageAcquisition(int id)
     }
 }
 
-void MasterWidget::continueImageAcquisition(int id)
+void MasterWidget::continueImageAcquisition(int id, int restartNumber)
 {
     QString coverPath = QDir::homePath() + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(id) + "/Cover";
     QDir cover(coverPath);
@@ -250,6 +250,12 @@ void MasterWidget::continueImageAcquisition(int id)
         goToChoiceCamera(id);
     }else
     {
+        for (int i=0; i < restartNumber; i++)
+        {
+            cameraWidget->idToContinue();
+            scannerWidget->idToContinue();
+        }
+
         choiceImageAcquisition(id);
     }
 }
@@ -291,6 +297,8 @@ void MasterWidget::end(int id)
 
         database.close();
     }
+    cameraWidget->idReset();
+    scannerWidget->idReset();
 
     goToSavePuzzle();
 }
@@ -305,9 +313,7 @@ void MasterWidget::connectTheApplication()
     connect(resultAtelierWidget, &ResultAtelierWidget::resultHandled, this, &MasterWidget::goToSavePuzzle);
 
     connect(savePuzzleWidget, SIGNAL(puzzleSaved(int)) , this, SLOT(goToChoiceCamera(int)));
-    connect(savePuzzleWidget, SIGNAL(puzzleContinue(int)) , cameraWidget, SLOT(idToContinue()));
-    connect(savePuzzleWidget, SIGNAL(puzzleContinue(int)) , scannerWidget, SLOT(idToContinue()));
-    connect(savePuzzleWidget, SIGNAL(puzzleContinue(int)) , this, SLOT(continueImageAcquisition(int)));
+    connect(savePuzzleWidget, SIGNAL(puzzleContinue(int, int)) , this, SLOT(continueImageAcquisition(int, int)));
 
     connect(cameraWidget, SIGNAL(coverTaken(int)), this, SLOT(choiceImageAcquisition(int)));
 

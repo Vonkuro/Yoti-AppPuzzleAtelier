@@ -19,6 +19,7 @@ public slots:
     void start();
     void stop();
     void idToContinue();
+    void idReset();
 
 // Taking the photo
 signals:

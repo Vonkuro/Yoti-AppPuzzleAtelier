@@ -52,27 +52,36 @@ void SavePuzzleWidget::prepare()
     {
         QSqlQuery continueSql(database);
 
-        continueSql.prepare("select id, barcode, short_description from Puzzle where handled is NULL and id in (select MAX(id) from Puzzle);");
+        continueSql.prepare("select id, barcode, short_description, restart_number from Puzzle where handled is NULL and id in (select MAX(id) from Puzzle);");
         continueSql.exec();
 
         if ( continueSql.size() == 1)
         {
             continueSql.next();
+
             int id = continueSql.value("id").toInt();
             qlonglong barcode = continueSql.value("barcode").toLongLong();
             QString description = continueSql.value("short_description").toString();
+            int restartNumber = continueSql.value("restart_number").toInt();
 
             QMessageBox* continueMessage = messageBoxWithStyle();
 
-            continueMessage->setText("Un Puzzle fut partiellement enregistré, voullez-vous continuer sont enregistrement ?");
+            continueMessage->setText("Voulez-vous reprendre l'enregistrement du dernier Puzzle ?");
             continueMessage->setInformativeText("Code Barre : " + QString::number(barcode) + " \n" + description);
             int response = continueMessage->exec();
 
-            delete continueMessage;
+
             if (response==0)
             {
-                emit puzzleContinue(id);
+                restartNumber +=1;
+                continueSql.prepare("update Puzzle set restart_number = ? where id = ?;");
+                continueSql.bindValue(0, restartNumber);
+                continueSql.bindValue(1, id);
+                continueSql.exec();
+
+                emit puzzleContinue(id, restartNumber);
             }
+            delete continueMessage;
         }
 
         database.close();
@@ -279,11 +288,11 @@ void SavePuzzleWidget::save()
         QSqlQuery newPuzzleSql(database);
         if (descriptionTextEdit->toPlainText().size() == 0)
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, archived, completed) VALUES (?, FALSE, FALSE);");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, archived, completed, restart_number) VALUES (?, FALSE, FALSE, 0);");
             newPuzzleSql.bindValue(0, barcode);
         } else
         {
-            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description, archived, completed) VALUES (?, ?, FALSE, FALSE);");
+            newPuzzleSql.prepare("INSERT INTO Puzzle (barcode, short_description, archived, completed, restart_number) VALUES (?, ?, FALSE, FALSE, 0);");
             newPuzzleSql.bindValue(0, barcode);
             newPuzzleSql.bindValue(1, descriptionTextEdit->toPlainText() );
         }

@@ -27,6 +27,8 @@ ScannerWidget::ScannerWidget()
 
 // Style my widget !
     viewStyle();
+
+    lastImageId = 0;
 }
 
 // The end of the line for the pointers
@@ -48,7 +50,6 @@ void ScannerWidget::prepare(int id, QString deviceName)
     scanButton->setStyleSheet(greenButtonBackgroundStyle);
     scanButton->setEnabled(true);
 
-    lastImageId = 0;
     puzzleId = id;
 
     QString home = QDir::homePath();
@@ -123,4 +124,9 @@ void ScannerWidget::viewStyle()
 void ScannerWidget::idToContinue()
 {
     lastImageId += 100;
+}
+
+void ScannerWidget::idReset()
+{
+    lastImageId = 0;
 }

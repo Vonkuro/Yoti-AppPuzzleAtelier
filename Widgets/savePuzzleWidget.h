@@ -16,7 +16,7 @@ public:
 // Saving the Puzzle
 signals:
     void puzzleSaved(int id);
-    void puzzleContinue(int id);
+    void puzzleContinue(int id, int restartNumber);
 
 private slots:
     void save();

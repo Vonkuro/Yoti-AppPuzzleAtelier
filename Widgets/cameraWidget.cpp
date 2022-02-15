@@ -188,3 +188,8 @@ void CameraWidget::idToContinue()
 {
     lastImageId += 100;
 }
+
+void CameraWidget::idReset()
+{
+    lastImageId = 0;
+}
