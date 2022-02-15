@@ -58,7 +58,7 @@ void ValidationWidget::validateImageWebcam(int idPuzzle, int idImage, photoDevic
 
     QString home = QDir::homePath();
 
-    imagePath = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(puzzleId);
+    imagePath = home + "/Yoti-AppPuzzleAtelier/Images/Puzzle-" + QString::number(puzzleId);
     imagePath = imagePath + "/image-" + QString::number(imageId) + ".jpg";
 
     QString imageSize;
@@ -153,21 +153,21 @@ void ValidationWidget::viewStyle()
     imageLabel->setScaledContents(true);
 
     titleLabel->setProperty("cssClass","title");
-    titleLabel->setText("L'Image est-elle\nValide ?");
+    titleLabel->setText("L'Image est-\nelle Valide ?");
     titleLabel->setStyleSheet("text-align: center");
     widgetLayout->setAlignment(titleLabel,Qt::AlignHCenter);
 
     validButton->setText("Valider");
     validButton->setStyleSheet(greenButtonFontStyle +
                                " " + greenButtonBackgroundStyle +
-                               "height: 50px;");
+                               "height: 50px; width: 110px");
     widgetLayout->setAlignment(validButton,Qt::AlignHCenter);
 
 
     cancelButton->setText("Refuser");
     cancelButton->setStyleSheet(greenButtonFontStyle +
                                             "background-color: #E54D96; border: 2px solid #6569C4; "
-                                            "height: 50px;");
+                                            "height: 50px; width: 110px ");
     widgetLayout->setAlignment(cancelButton,Qt::AlignHCenter);
 
     choiceLayout->setAlignment(Qt::AlignCenter);

@@ -133,7 +133,7 @@ void CameraWidget::prepare(int id, QCameraInfo cameraInfo, bool forBoxPhoto)
     boxPhoto = forBoxPhoto;
 
     QString home = QDir::homePath();
-    pathImageDirectory = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(puzzleId);
+    pathImageDirectory = home + "/Yoti-AppPuzzleAtelier/Images/Puzzle-" + QString::number(puzzleId);
     newDir(pathImageDirectory);
     if (forBoxPhoto)
     {

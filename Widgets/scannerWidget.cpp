@@ -53,7 +53,7 @@ void ScannerWidget::prepare(int id, QString deviceName)
     puzzleId = id;
 
     QString home = QDir::homePath();
-    pathImageDirectory = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(puzzleId);
+    pathImageDirectory = home + "/Yoti-AppPuzzleAtelier/Images/Puzzle-" + QString::number(puzzleId);
     newDir( pathImageDirectory);
     scannerName = deviceName;
 }

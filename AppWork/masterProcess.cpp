@@ -140,7 +140,7 @@ void MasterProcess::logPuzzle(bool solved)
 void MasterProcess::logMessage(QString message) {
 
     QString home = QDir::homePath();
-    QString filename = home + "/Yoti-AppPuzzle/log.txt";
+    QString filename = home + "/Yoti-AppPuzzleAtelier/log.txt";
 
     QDateTime date = QDateTime::currentDateTime();
     QString formattedTime = date.toString("dd/MM/yyyy-hh:mm:ss");

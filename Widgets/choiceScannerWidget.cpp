@@ -54,7 +54,17 @@ Devices ChoiceScannerWidget::findScanners()
 {
     QString scanimageOutput = QString::fromStdString(execute("scanimage -L"));
     scanimageOutput = scanimageOutput.simplified();
-    QStringList deviceListOutput = scanimageOutput.split("`");
+
+    //QString testMessage = "device `hpaio:/usb/Photosmart_Plus_B210_series?serial=CN16N321K605J9' is a Hewlett-Packard Photosmart_Plus_B210_series all-in-one device `hpaio:ect hp:/usb/Photosmart_Plus_B210_series?serial=CN16N321K605J9 \"HP Photosmart Plus B210 series\" \"HP Photosmart Plus B210 series USB CN16N321K605J9 HPLIP\" \"MFG:HP' is a Hewlett-Packard Photosmart_Plus_B210_series all-in-one";
+
+    Devices deviceList = listScanners(scanimageOutput);
+
+    return deviceList;
+}
+
+Devices ChoiceScannerWidget::listScanners(QString rawList)
+{
+    QStringList deviceListOutput = rawList.split("`");
 
     Devices deviceList;
 
@@ -62,13 +72,27 @@ Devices ChoiceScannerWidget::findScanners()
     {
         if (substring.contains("'"))
         {
-            QString deviceName = substring.split("'")[0];
+            QString deviceNames = substring.split("'")[0];
+            QStringList names = deviceNames.split(" ");
+            QString deviceName;
+
+            for ( QString name : names)
+            {
+                if (name.contains("/usb/"))
+                {
+                     deviceName = name;
+                     qDebug() << deviceName;
+                }
+            }
 
             QString deviceDescription = substring.split("'")[1];
             deviceDescription = deviceDescription.mid(5);
             deviceDescription = deviceDescription.remove(" device ");
 
-            deviceList.insert(deviceDescription,deviceName);
+            if (! deviceList.contains(deviceDescription))
+            {
+                deviceList.insert(deviceDescription,deviceName);
+            }
         }
     }
     return deviceList;

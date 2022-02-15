@@ -3,7 +3,7 @@ QT += core gui multimedia multimediawidgets sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TEMPLATE = app
-TARGET = Yoti-AppPuzzle
+TARGET = Yoti-AppPuzzleAtelier
 
 SOURCES += \
         main.cpp \

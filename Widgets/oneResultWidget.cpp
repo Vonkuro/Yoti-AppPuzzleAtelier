@@ -49,7 +49,7 @@ void OneResultWidget::init(int idPuzzle, QString description)
 
     // Init of attributs
     QString home = QDir::homePath();
-    pathCover = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(idPuzzle) + "/Cover/box.jpg";
+    pathCover = home + "/Yoti-AppPuzzleAtelier/Images/Puzzle-" + QString::number(idPuzzle) + "/Cover/box.jpg";
 
     shortDescription = description;
     if (description.isEmpty())

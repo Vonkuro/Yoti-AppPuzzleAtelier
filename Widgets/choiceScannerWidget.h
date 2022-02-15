@@ -25,6 +25,7 @@ public slots:
     void scannerChosen();
 private:
     Devices findScanners();
+    Devices listScanners(QString rawList);
 
 // Object managers of view
     QVBoxLayout* widgetLayout;

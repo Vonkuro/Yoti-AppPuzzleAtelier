@@ -37,7 +37,7 @@ void PuzzleHandler::getNotHandled()
             int id = idNothandle.value("id").toInt();
             int barcode = idNothandle.value("barcode").toInt();
 
-            puzzles[id].path = home + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(id) + "/";
+            puzzles[id].path = home + "/Yoti-AppPuzzleAtelier/Images/Puzzle-" + QString::number(id) + "/";
 
             if ( barcode != 0)
             {
@@ -239,7 +239,7 @@ void PuzzleHandler::tarOldImageFolder()
     // Map the Images directory
 
     QString home = QDir::homePath();
-    QString directoryPath = home + "/Yoti-AppPuzzle/Images";
+    QString directoryPath = home + "/Yoti-AppPuzzleAtelier/Images";
     QDir images(directoryPath);
     QStringList puzzleList = images.entryList();
     int lastId = findPuzzleNumber(puzzleList, false);
@@ -250,7 +250,7 @@ void PuzzleHandler::tarOldImageFolder()
     QDateTime date = QDateTime::currentDateTime();
     QString dateString = date.toString("dd_MM_yyyy-hh_mm_ss");
 
-    QString commandQString = "tar -Jcvf " + home + "/Yoti-AppPuzzle/Archive/Images-" + dateString +".tar.xz" + exclusion + " " + directoryPath;
+    QString commandQString = "tar -Jcvf " + home + "/Yoti-AppPuzzleAtelier/Archive/Images-" + dateString +".tar.xz" + exclusion + " " + directoryPath;
 
     // Convert the command to const char* in order to transmit it to bash terminal
     std::string commandString = commandQString.toStdString();
@@ -353,7 +353,7 @@ void PuzzleHandler::deleteOldImageFolder(QStringList puzzleList)
         if ( exluded.indexOf(number) == -1 && puzzle != "." && puzzle != "..")
         {
             QString home = QDir::homePath();
-            QString directoryPath = home + "/Yoti-AppPuzzle/Images";
+            QString directoryPath = home + "/Yoti-AppPuzzleAtelier/Images";
             QString puzzlePath = directoryPath + "/" + puzzle + "/";
             QDir puzzleFolder(puzzlePath);
 

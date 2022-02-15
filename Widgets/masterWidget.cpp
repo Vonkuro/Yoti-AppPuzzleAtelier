@@ -242,7 +242,7 @@ void MasterWidget::choiceImageAcquisition(int id)
 
 void MasterWidget::continueImageAcquisition(int id, int restartNumber)
 {
-    QString coverPath = QDir::homePath() + "/Yoti-AppPuzzle/Images/Puzzle-" + QString::number(id) + "/Cover";
+    QString coverPath = QDir::homePath() + "/Yoti-AppPuzzleAtelier/Images/Puzzle-" + QString::number(id) + "/Cover";
     QDir cover(coverPath);
     boxCoverNotTaken = ! cover.exists();
     if (boxCoverNotTaken)
@@ -264,7 +264,7 @@ void MasterWidget::continueImageAcquisition(int id, int restartNumber)
 // Return true if it isn't
 bool MasterWidget::nightDeamonNotOn()
 {
-    QString commandString = "pgrep Yoti-AppPuzzled";
+    QString commandString = "pgrep Yoti-AppPuzzleAtelierd";
     std::string command = commandString.toStdString();
     QString result = QString::fromStdString( execute(command) );
 
@@ -276,7 +276,7 @@ void MasterWidget::nightDeamon()
 {
     if ( nightDeamonNotOn() )
     {
-        QString commandString = "../AppWork/Yoti-AppPuzzled &";
+        QString commandString = "Yoti-AppPuzzleAtelierd &";
         std::string command = commandString.toStdString();
         system(command.c_str());
     }
