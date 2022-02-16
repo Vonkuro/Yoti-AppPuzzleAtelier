@@ -264,7 +264,7 @@ void MasterWidget::continueImageAcquisition(int id, int restartNumber)
 // Return true if it isn't
 bool MasterWidget::nightDeamonNotOn()
 {
-    QString commandString = "pgrep Yoti-AppPuzzleAtelierd";
+    QString commandString = "pgrep AppPuzzled";
     std::string command = commandString.toStdString();
     QString result = QString::fromStdString( execute(command) );
 
@@ -276,7 +276,7 @@ void MasterWidget::nightDeamon()
 {
     if ( nightDeamonNotOn() )
     {
-        QString commandString = "Yoti-AppPuzzleAtelierd &";
+        QString commandString = "AppPuzzled &";
         std::string command = commandString.toStdString();
         system(command.c_str());
     }
