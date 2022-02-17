@@ -42,6 +42,7 @@ SavePuzzleWidget::~SavePuzzleWidget()
     delete widgetLayout;
 }
 
+// Prepare the widget for a new puzzle save and verify if an incompleted puzzle acquisition need to be restarted
 void SavePuzzleWidget::prepare()
 {
     validationButton->setStyleSheet(greenButtonBackgroundStyle);
@@ -147,6 +148,7 @@ void SavePuzzleWidget::form()
      widgetLayout->setSpacing(50);
  }
 
+// Create a messagebox with Style !
 QMessageBox* SavePuzzleWidget::messageBoxWithStyle()
 {
     QMessageBox* greenMessageBox = new QMessageBox();

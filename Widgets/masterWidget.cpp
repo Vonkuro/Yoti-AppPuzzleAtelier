@@ -240,6 +240,7 @@ void MasterWidget::choiceImageAcquisition(int id)
     }
 }
 
+// Prepare the application to restart the image acquisition of a puzzle
 void MasterWidget::continueImageAcquisition(int id, int restartNumber)
 {
     QString coverPath = QDir::homePath() + "/Yoti-AppPuzzleAtelier/Images/Puzzle-" + QString::number(id) + "/Cover";

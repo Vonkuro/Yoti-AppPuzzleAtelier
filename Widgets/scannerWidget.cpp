@@ -120,12 +120,12 @@ void ScannerWidget::viewStyle()
     widgetLayout->setSpacing(50);
 }
 
-
+// Change the scope of the image id
 void ScannerWidget::idToContinue()
 {
     lastImageId += 100;
 }
-
+// Reset the image id
 void ScannerWidget::idReset()
 {
     lastImageId = 0;

@@ -184,11 +184,13 @@ void CameraWidget::takePhoto()
 
 }
 
+// change the scope of the image id
 void CameraWidget::idToContinue()
 {
     lastImageId += 100;
 }
 
+// reset the image id
 void CameraWidget::idReset()
 {
     lastImageId = 0;
