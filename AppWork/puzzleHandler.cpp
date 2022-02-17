@@ -87,6 +87,7 @@ void PuzzleHandler::solvePuzzle()
 
 }
 
+// Solve a puzzle the long and certain mehtod
 void PuzzleHandler::solvePuzzleTotal()
 {
     QString command = commandHeadTotal + puzzles.first().path;
@@ -109,6 +110,7 @@ void PuzzleHandler::solvePuzzleTotal()
     emit puzzleSolved(solved);
 }
 
+// Solve a puzzle quicker when a complete version is already known
 void PuzzleHandler::solvePuzzleQuick()
 {
     QString command = commandHeadQuick + puzzles.first().path;
