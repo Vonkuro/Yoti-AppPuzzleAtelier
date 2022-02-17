@@ -333,7 +333,7 @@ void MasterWidget::connectTheApplication()
 void MasterWidget::viewStyle()
 {
 // Application size
-    QSize applicationSize(1260,980);
+    QSize applicationSize(1260,930);
     masterStackedWidget->setMaximumSize(applicationSize);
     masterStackedWidget->setMinimumSize(applicationSize);
 // Adding the font of Yoti to the Application
