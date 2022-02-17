@@ -62,6 +62,7 @@ Devices ChoiceScannerWidget::findScanners()
     return deviceList;
 }
 
+// Create a map of scanners devicess names from a scanimage output
 Devices ChoiceScannerWidget::listScanners(QString rawList)
 {
     QStringList deviceListOutput = rawList.split("`");
