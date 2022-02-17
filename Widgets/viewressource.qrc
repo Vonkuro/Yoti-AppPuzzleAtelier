@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/viewRessource">
+        <file alias="logoYoti">viewRessource/logoyoti PNG.png</file>
+        <file alias="Poppins-Medium">viewRessource/Poppins-Medium.ttf</file>
+        <file alias="Poppins-Bold">viewRessource/Poppins-Bold.ttf</file>
+        <file alias="Montserrat-SemiBold">viewRessource/Montserrat-SemiBold.ttf</file>
+        <file alias="Montserrat">viewRessource/Montserrat-Regular.ttf</file>
+        <file alias="waittingGif">viewRessource/Pexels_Videos_Waitting.gif</file>
+    </qresource>
+</RCC>
